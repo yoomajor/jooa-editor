@@ -1,5 +1,5 @@
 <template>
-  <div class="module" data-type="text-1" contenteditable>text 1</div>
+  <div class="module" data-mods="text-1" contenteditable>text 1</div>
 </template>
 
 <script>

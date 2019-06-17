@@ -1,14 +1,13 @@
 <template>
   <div class="moduleList">
     <ul class="list">
-      <li class="item" data-module="module-text1">
-        <div class="handler" draggable="true" @dragstart="dragStart">text1</div>
+      <li class="item">
+        <div class="handler" data-type="text-1" draggable="true">text1</div>
       </li>
-      <li class="item" data-module="module-text2">
-        <div class="handler">text2</div>
+      <li class="item">
+        <div class="handler" data-type="text-2" draggable="true">text2</div>
       </li>
     </ul>
-    <div class="stage" @dragover.prevent @drop="handleDrop">stage</div>
   </div>
 </template>
 
@@ -21,19 +20,6 @@ export default {
   name: 'ModuleList',
   components: {
     ModuleText1
-  },
-  methods: {
-    dragStart: (e) => {
-      console.log('start')
-      e.dataTransfer.setData('text/plain', '1234')
-      e.dataTransfer.effectAllowed = "copy"
-      console.log(e.dataTransfer)
-    },
-    handleDrop: (e) => {
-      e.preventDefault()
-      console.log('drop')
-      console.log(e.dataTransfer.getData('text/plain'))
-    }
   }
 }
 </script>
