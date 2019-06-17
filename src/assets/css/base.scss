@@ -1,0 +1,60 @@
+@import './vars.scss';
+
+/* base */
+html,
+body {
+	height: 100%;
+}
+body {
+	direction: ltr;
+	line-height: 1.5;
+	font-size: $f-z-default;
+	font-family: $f-f-default;
+	color: $f-color-default;
+	font-weight: $f-w-regular;
+	word-break: keep-all;
+	background: $bg-layer;
+}
+.blind {
+	position: absolute;
+	top: -9999px;
+	left: -9999px;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	text-align: left;
+	text-indent: -9999em;
+}
+.clear:after {
+	content: "";
+	clear: both;
+	display: block;
+}
+.accNav:focus {
+	display: block;
+	top: 0;
+	left: 50%;
+	width: 100px;
+	height: auto;
+	margin: 0 0 0 -50px;
+	padding: 3px 0;
+	text-align: center;
+	font-size: 11px;
+	text-indent: 0;
+	color: #fff;
+	background-color: $f-color-default;
+	z-index: 999;
+}
+
+#app {
+	height: 100%;
+}
+
+.module {
+	padding: 30px;
+	border: 2px dashed transparent;
+	&:hover {
+		border-color: #eee;
+	}
+}
