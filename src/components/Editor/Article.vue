@@ -1,12 +1,33 @@
 <template>
-  <div class="article">
-    <div class="something">이미 들어가있는 어떤것</div>
+  <div id="article" class="article">
+    <div class="mods" data-type="text-2">was existed mods block</div>
+    <div class="mods" data-type="text-1">was existed mods block2</div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Article'
+  name: 'Article',
+  data () {
+    return {
+      modsInfo: []
+    }
+  },
+  methods: {
+    modsMap: function () {
+      let modules = article.querySelectorAll('.article .mods')
+      /*
+      this.modsInfo = modules.map(x => {
+        id: x.index
+      })
+      console.log(this.modsInfo)
+      */
+     console.log(modules)
+    }
+  },
+  mounted: function () {
+    this.modsMap()
+  }
 }
 </script>
 
@@ -18,9 +39,6 @@ export default {
     max-width: 375px;
     min-height: 100px;
     background-color: #fff;
-  }
-  .something {
-    border: 1px solid transparent;
   }
 }
 </style>

@@ -3,7 +3,7 @@
     <div class="moduleList" @dragstart="dragStart">
       <ModuleList />
     </div>
-    <div class="preview" @dragover.prevent @dragenter="dragEnter">
+    <div class="preview" @dragover.prevent="dragOver" @dragenter="dragEnter" @dragleave="dragLeave">
       <Article />
       <div class="copy">
         <div class="module mods1" data-mods="text-1" contenteditable>text 1</div>
@@ -33,15 +33,13 @@ export default {
   },
   methods: {
     dragStart: function(e) {
-      //e.dataTransfer.setData('data', '1234')
-      //e.dataTransfer.effectAllowed = "copy"
       let mods = e.target
       let mods_type = mods.dataset.type
 
       this.isDragging = true
 
       clone = document.querySelector(`.copy [data-mods=${mods_type}]`).cloneNode()
-      clone.classList.add("clone")
+      clone.classList.add('clone')
       e.dataTransfer.setData('data', clone)
       
     },
@@ -51,14 +49,17 @@ export default {
         article.appendChild(clone)
       }
     },
+    dragOver: function (e) {
+      //console.log(e.pageY)
+    },
+    dragLeave: function (e) {
+      if (e.target === e.currentTarget) {
+        document.querySelector('.clone').remove()
+      }
+    },
     handleDrop: function(e) {
       e.preventDefault()
-      let isArticle = ( e.target.closest('.article') !== null ) ? true : false
-      if (isArticle){
-        console.log('is article')
-      } else {
-        console.log(document.querySelector(".clone").remove())
-      }
+      document.querySelector('.clone').classList.remove('clone')
     }
   }
 }
