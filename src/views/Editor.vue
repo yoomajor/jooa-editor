@@ -9,7 +9,6 @@
         <div class="module mods1" data-mods="text-1" contenteditable>text 1</div>
         <div class="module mods2" data-mods="text-2" contenteditable>text 2</div>
       </div>
-      
     </div>
   </div>
 </template>
