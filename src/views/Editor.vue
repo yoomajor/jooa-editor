@@ -4,7 +4,7 @@
       <ModuleList />
     </div>
     <div class="preview" @dragover.prevent="dragOver" @dragenter="dragEnter" @dragleave="dragLeave">
-      <Article />
+      <Article :dragState="this.dragState" />
       <div class="copy">
         <div class="module mods1" data-mods="text-1" contenteditable>text 1</div>
         <div class="module mods2" data-mods="text-2" contenteditable>text 2</div>
@@ -27,6 +27,7 @@ export default {
   },
   data () {
     return {
+      dragState: "",
       isDragging: false
     }
   },
@@ -36,29 +37,32 @@ export default {
       let mods_type = mods.dataset.type
 
       this.isDragging = true
-
       clone = document.querySelector(`.copy [data-mods=${mods_type}]`).cloneNode()
       clone.classList.add('clone')
       e.dataTransfer.setData('data', clone)
-      
+      this.dragState = "start"
     },
     dragEnter: function(e) {
       const article = document.querySelector('.article')
       if (this.isDragging){
         article.appendChild(clone)
       }
+      this.dragState = "enter"
     },
     dragOver: function (e) {
-      //console.log(e.pageY)
+      // console.log(e.pageY)
+      this.dragState = "over"
     },
     dragLeave: function (e) {
       if (e.target === e.currentTarget) {
         document.querySelector('.clone').remove()
       }
+      this.dragState = "leave"
     },
     handleDrop: function(e) {
       e.preventDefault()
       document.querySelector('.clone').classList.remove('clone')
+      this.dragState = "drop"
     }
   }
 }
@@ -74,7 +78,9 @@ export default {
   .preview {
     flex: 1;
     padding-left: 60px;
-    background-color: red;
+  }
+  .copy {
+    display: none;
   }
   .mods1 {
     border: 5px solid blue;
