@@ -51,10 +51,11 @@ body {
 	height: 100%;
 }
 
+.article {
+  background-color: #fff;
+}
+
 .mods {
-	padding: 30px;
-	border: 1px dashed #eee;
-	&:hover {
-		border-color: #3e3e3e;
-	}
+  position: relative;
+	padding: 8px 30px;
 }

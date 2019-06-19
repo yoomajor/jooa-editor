@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import About from './views/About.vue'
-import Editor from './views/Editor.vue'
+import Editor from './components/Editor/Editor.vue'
 
 Vue.use(Router)
 
