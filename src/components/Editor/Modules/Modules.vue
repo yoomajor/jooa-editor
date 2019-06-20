@@ -1,13 +1,13 @@
 <template>
-  <div class="mods">
-    모듈
+  <div class="modules">
+    모듈리스트
   </div>
 </template>
 
 <script>
-
+import * as Mods from './Modules'
 export default {
-  name: 'Module',
+  name: 'Modules',
   data () {
     return {
     }

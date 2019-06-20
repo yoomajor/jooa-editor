@@ -5,59 +5,61 @@
       class="moduleList"
       :list="moduleList"
       :group="{ name: 'modules', pull: 'clone', put: false }"
-      :sort="false"
-    >
+      :sort="false">
       <div
         class="item"
         v-for="(mods, index) in moduleList"
-        :key="index"
-      >
+        :key="index">
         {{ mods.name }}
       </div>
     </draggable>
     <!-- //module list -->
     <!-- article preview -->
     <div class="preview">
-      <draggable
-        class="article"
-        :list="article"
-        :animation="200"
-        group="modules"
-        handle=".handleMods .move"
-        @change="onChange"
-        @add="onAdd"
-        :move="onMove"
-      >
-        <transition-group type="transition">
+      <div class="article">
+        <draggable
+          class="modsWrap"
+          :list="article"
+          :animation="200"
+          :options="{draggable: '.mods'}"
+          group="modules"
+          handle=".handleMods .btnMove"
+          @change="onChange"
+          @add="onAdd"
+          :move="onMove">
           <div
             class="mods"
             v-for="(mods, index) in article"
             :key="index"
-             @mouseenter="onMouseEnter"
-             @mouseleave="onMouseLeave"
-             @click="onClick"
-          >
+            @mouseenter="onMouseEnter"
+            @mouseleave="onMouseLeave"
+            @click="onClick">
             <div v-html="mods.html" contenteditable="true"></div>
             <div class="handleMods">
-              <button type="button" class="move"></button>
+              <button type="button" class="btn btnMove" title="이동"></button>
+              <button type="button" class="btn btnDel" @click="onRemove(index)" title="삭제"></button>
             </div>
           </div>
-        </transition-group>
-      </draggable>
+        </draggable>
+      </div>
     </div>
     <!-- //article preview -->
+    <Modules />
   </div>
 </template>
 
 <script>
 import draggable from "vuedraggable"
+import Modules from "./Modules/Modules.vue"
+
 let moduleId = 0
 export default {
   name: 'Editor',
   display: "Clone",
   order: 2,
   components: {
-    draggable
+    draggable,
+    Modules
   },
   data () {
     return {
@@ -68,11 +70,20 @@ export default {
         { name: "img-2", html: "image here" }
       ],
       article: [
-        { name: "text-1", html: "text1 <strong>strong</strong> and something text<br>break.." },
-        { name: "text-2", html: "text2 <strong>strong</strong><br>break.." },
-        { name: "img-1", html: "<img src='https://assets3.thrillist.com/v1/image/2743357/size/gn-gift_guide_variable_c.jpg' alt='' />" },
-        { name: "img-2", html: "<img src='https://assets3.thrillist.com/v1/image/2743357/size/gn-gift_guide_variable_c.jpg' alt='' />" }
-      ]
+        { name: "a-text-1", html: "text1 <strong>strong</strong> and some text<br>break.." },
+        { name: "a-text-2", html: "text2 <strong>strong</strong><br>break<br>break<br>some <span style='color:red'>red</span> text here" },
+        { name: "a-img-1", html: "<img src='https://assets3.thrillist.com/v1/image/2743357/size/gn-gift_guide_variable_c.jpg' alt='' />" },
+        { name: "a-img-2", html: "<img src='https://assets3.thrillist.com/v1/image/2743357/size/gn-gift_guide_variable_c.jpg' alt='' />" }
+      ],
+      isEmpty: false,
+    }
+  },
+  watch: {
+    article: function (data) {
+      /*
+      this.isEmpty = data.length === 0
+      console.log(this.isEmpty)
+      */
     }
   },
   methods: {
@@ -89,19 +100,21 @@ export default {
       [...target.parentElement.children].forEach(el => el.classList.remove(classname))
       target.classList.add(classname)
     },
+    mapModule: function (type) {
+
+    },
     onChange: function (e) {
       let event = Object.keys(e)[0]
       let eventData = e[event]
+      console.log(event)
       switch (event) {
         case "added":
-          console.log('added')
           break
         case "moved":
           let target = document.querySelectorAll('.article .mods')[eventData.newIndex]
           this.addRemoveClass(target, "active")
           break
         case "removed":
-          console.log('removed')
           break
       }
     },
@@ -110,6 +123,13 @@ export default {
     },
     onMove: function (e) {
       // console.log(e)
+    },
+    onRemove: function (index) {
+      if (this.article.length <= 1) {
+        alert("최소 하나의 모듈이 있어야 합니다")
+      } else {
+        this.article.splice(index, 1)
+      }
     },
     onMouseEnter: function (e) {
       e.target.classList.add("hover")
@@ -167,8 +187,16 @@ export default {
   padding-left: 30px;
   .article {
     max-width: 375px;
-    min-height: 100px;
     background-color: #fff;
+  }
+  .noMods {
+    padding: 100px 0;
+    text-align: center;
+  }
+  .item {
+    padding: 8px 30px;
+    text-align: center;
+    @include mods-hover;
   }
   .mods {
     border: 1px dashed transparent;
@@ -178,7 +206,7 @@ export default {
     &.hover {
       .handleMods {
         display: block;
-        .move {
+        .btn {
           @include mods-hover;
         }
       }
@@ -187,7 +215,7 @@ export default {
       @include mods-active;
       .handleMods {
         display: block;
-        .move {
+        .btn {
           @include mods-active;
           background-color: #3e3e3e;
         }
@@ -200,11 +228,34 @@ export default {
     top: -1px;
     left: 100%;
     background-color: #fff;
-    .move {
+    .btn {
+      display: block;
+      position: relative;
       width: 30px;
       height: 30px;
+      background-color: #999;
+      background-position: 50% 50%;
+      background-size: 66%;
+      background-repeat: no-repeat;
+      &:before {
+        content: "";
+        position: absolute;
+        top: -1px;
+        left: 0;
+        width: 100%;
+        border-top: 1px solid #fff;
+        opacity: 0.3;
+      }
+      &:first-of-type:before {
+        display: none;
+      }
+    }
+    .btnMove {
       cursor: move;
-      background: #999 url('~@/assets/img/ico_move.png') 50% 50% / 20px no-repeat;
+      background-image: url('~@/assets/img/ico_move.png');
+    }
+    .btnDel {
+      background-image: url('~@/assets/img/ico_del.png');
     }
   }
 }
