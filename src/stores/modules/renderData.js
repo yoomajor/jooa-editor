@@ -1,11 +1,11 @@
 export default {
   namespaced: true,
   state: {
-    moduleData: []
+    renderData: []
   },
   mutations: {
-    setModuleData: function (state, data) {
-      state.moduleData = data
+    setRenderData: function (state, data) {
+      state.renderData = data
     }
   },
   actions: {

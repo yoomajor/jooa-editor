@@ -64,7 +64,24 @@ body {
 	padding: 8px 15px;
 	.module {
 		display: flex;
-		margin: 0 -8px;
+    margin: 0 -8px;
+    ol {
+      padding-left: 1.3em;
+      list-style-type: decimal;
+    }
+    ul {
+      padding-left: 1.3em;
+      list-style-type: disc;
+      ul {
+        list-style-type: circle;
+        ul {
+          list-style-type: square;
+        }
+      }
+    }
+    li {
+      list-style: inherit;
+    }
 	}
 	.column {
 		flex: 1;
@@ -89,7 +106,7 @@ body {
 	}
 	[data-mods*="img"] img {
 		width: 100%;
-	}
+  }
 }
 
 .formGroup {

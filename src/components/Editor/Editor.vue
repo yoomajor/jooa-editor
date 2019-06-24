@@ -2,13 +2,13 @@
   <div class="editor">
     <!-- module list -->
     <div class="moduleList">
-      <div class="moduleTab">
+      <div class="tabs">
         <button
           v-for="(button, index) in moduleTab"
           :key="index"
           :data-module_type="button.type"
           :class="{ active: button.type === moduleType, btn: true }"
-          @click="onTabClick">
+          @click="onTabClick($event, 'moduleType', 'module_type')">
           {{ button.label }}
         </button>
       </div>
@@ -37,15 +37,14 @@
           :options="{draggable: '.mods'}"
           group="modules"
           handle=".handleMods .btnMove"
-          @change="onChange"
-          :move="onMove">
+          @change="onChange">
           <div
             class="mods"
             v-for="(mods, index) in article"
             :key="index"
             @mouseenter="onMouseEnter"
             @mouseleave="onMouseLeave"
-            @click="onClick">
+            @click="onModuleClick($event, index)">
             <div v-html="mods.html"></div>
             <div class="handleMods">
               <button type="button" class="btn btnMove" title="이동"></button>
@@ -56,12 +55,15 @@
       </div>
     </div>
     <!-- //article preview -->
+    <SettingModule>
+    </SettingModule>
   </div>
 </template>
 
 <script>
 import draggable from "vuedraggable"
 import modules from "./Modules"
+import SettingModule from "./SettingModule.vue"
 
 const MODULE_DATA = Object.values(modules)
 
@@ -70,7 +72,8 @@ export default {
   display: "Clone",
   order: 2,
   components: {
-    draggable
+    draggable,
+    SettingModule
   },
   data () {
     return {
@@ -79,6 +82,11 @@ export default {
         {type: "function", label: "기능형"}
       ],
       moduleType: "standard",
+      settingTab: [
+        {type: "style", label: "스타일"},
+        {type: "function", label: "기능"}
+      ],
+      settingType: "style",
       moduleList: [],
       article: [],
       isEmpty: false
@@ -86,7 +94,7 @@ export default {
   },
   watch: {
     article: function (data) {
-      this.$store.commit('editormoduledata/setModuleData', this.article)
+      this.$store.commit('renderdata/setRenderData', this.article)
     },
     moduleType: function (type) {
       this.moduleList = MODULE_DATA.filter(mods => {
@@ -110,12 +118,17 @@ export default {
         }
       })
     },
+    // GET api data
     getData: function () {
       this.$http({
         method: 'GET',
         url: '/article'
-      }).then((res) => {
+      }).then((res) => { // data mapping
         this.article = res.data.module
+      }).then( () => { // article + module setting init
+        let target = document.querySelectorAll('.article .mods')[0]
+        this.addRemoveClass(target, "active")
+        this.setModuleData(0)
       }).catch((ex) => {
         console.error('error:', ex)
       })
@@ -133,21 +146,12 @@ export default {
     onChange: function (e) {
       let event = Object.keys(e)[0]
       let eventData = e[event]
-      switch (event) {
-        case "added":
-          // this.onAdd(eventData.newIndex, eventData.element.name)
-          break
-        case "moved":
-          let target = document.querySelectorAll('.article .mods')[eventData.newIndex]
-          this.addRemoveClass(target, "active")
-          break
-        case "removed":
-          break
+      let target = document.querySelectorAll('.article .mods')[eventData.newIndex]
+      // added or moved
+      if (event !== "removed") {
+        this.addRemoveClass(target, "active")
+        this.setModuleData(eventData.newIndex)
       }
-    },
-    onAdd: function (index, moduleName) {
-    },
-    onMove: function (e) {
     },
     onRemove: function (index) {
       if (this.article.length <= 1) {
@@ -162,19 +166,22 @@ export default {
     onMouseLeave: function (e) {
       e.target.classList.remove("hover")
     },
-    onClick: function (e) {
+    onModuleClick: function (e, index) {
       let target = e.currentTarget
       this.addRemoveClass(target, "active")
+      this.setModuleData(index)
     },
-    onTabClick: function (e) {
-      let type = e.target.dataset.module_type
-      this.moduleType = type
+    onTabClick: function (e, dataType, targetType) {
+      let type = e.target.dataset[targetType]
+      this[dataType] = type
+    },
+    setModuleData: function (index) {
+      this.$store.commit('moduledata/moduleData', this.article[index])
     }
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "@/assets/css/editor.scss";
 </style>
-
