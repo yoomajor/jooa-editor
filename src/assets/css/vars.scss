@@ -1,35 +1,22 @@
 /* valiable */
-$f-f-default: 'Noto Sans KR', 'sans-serif';
+$f-f-default: 'Noto Sans KR', 'Noto Sans', 'sans-serif';
 $f-z-default: 14px;
 $f-w-light: 300;
 $f-w-regular: 400;
-$f-w-medium: 500;
 $f-w-bold: 700;
-$f-color-default: #313546;
-$color-primary: #135188;
-$color-secondary: #11365f;
-$color-thirdary: #288dc8;
-$color-support: #0c2340;
-$color-minor: #313546;
-$color-note: #858f98;
-$bg-default: #fff;
-$bg-layer: #f5f6f7;
-$bg-colorbg: #edf2f5;
+$f-color-default: #3e3e3e;
+$color-primary: #4d566d;
+$color-black: #1e1e1e;
+$color-dgrey: #656565;
+$color-grey: #999;
+$color-lgrey: #d0d0d0;
+$color-lgrey2: #efefef;
+$color-white: #fff;
+$bg-default: #f5f6f7;
 
 /* mixin */
-@mixin bg-ui-default {
-	color: #fff;
-	background-color: #5d6a76;
-}
-@mixin bg-ui-invalid {
-	color: #fff;
-	background-color: #cfd8df;
-}
-@mixin bg-txt-default {
-	color: #fff;
-	background-color: #313546;
-}
-@mixin bg-txt-invalid {
-	color: #fff;
-	background-color: #858f98;
+@mixin input {
+	width: 100%;
+	border: 1px solid $color-lgrey;
+	background-color: $color-white;
 }

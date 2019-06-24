@@ -13,7 +13,7 @@ body {
 	color: $f-color-default;
 	font-weight: $f-w-regular;
 	word-break: keep-all;
-	background: $bg-layer;
+	background: $bg-default;
 }
 .blind {
 	position: absolute;
@@ -42,7 +42,7 @@ body {
 	text-align: center;
 	font-size: 11px;
 	text-indent: 0;
-	color: #fff;
+	color: $color-white;
 	background-color: $f-color-default;
 	z-index: 999;
 }
@@ -52,10 +52,55 @@ body {
 }
 
 .pages {
-  background-color: #fff;
+  background-color: $color-white;
+}
+
+.modsWrap {
+	padding: 8px 0;
 }
 
 .mods {
   position: relative;
-	padding: 8px 30px;
+	padding: 8px 15px;
+	.module {
+		display: flex;
+		margin: 0 -8px;
+	}
+	.column {
+		flex: 1;
+		padding: 0 8px;
+	}
+	.uploadImg {
+		display: block;
+		padding: 30px 0;
+		text-align: center;
+		color: $color-grey;
+		background-color: $bg-default;
+		cursor: pointer;
+    input[type="file"] {
+      position: absolute;
+      left: -9999px;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      opacity: 0;
+    }
+	}
+	[data-mods*="img"] img {
+		width: 100%;
+	}
+}
+
+.formGroup {
+	.label {
+		display: block;
+	}
+	.input {
+		padding: 8px 10px;
+		@include input;
+	}
+	.label + .input {
+		margin-top: 0.5em;
+	}
 }
