@@ -144,5 +144,19 @@
   background-color: $color-white;
   .list {
     width: 400px;
+    padding: 15px;
+  }
+  .item {
+    padding: 15px 0;
+    .label {
+      margin-bottom: 0.3em;
+    }
+  }
+  [data-setting="color"] {
+    .value {
+      padding: 8px;
+      border: 1px solid $color-lgrey2;
+      cursor: pointer;
+    }
   }
 }

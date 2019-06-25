@@ -28,7 +28,9 @@
     </div>
     <!-- //module list -->
     <!-- article preview -->
-    <div class="preview">
+    <div class="preview"
+      @click="onPrevClick"
+    >
       <div class="article">
         <draggable
           class="modsWrap"
@@ -45,7 +47,13 @@
             @mouseenter="onMouseEnter"
             @mouseleave="onMouseLeave"
             @click="onModuleClick($event, index)">
-            <div v-html="mods.html"></div>
+            <!-- <RenderModule /> -->
+            <component :is="'RenderModule'"></component>
+<!--             
+            <div
+              class="inner"
+              v-html="mods.html">
+            </div> -->
             <div class="handleMods">
               <button type="button" class="btn btnMove" title="이동"></button>
               <button type="button" class="btn btnDel" @click="onRemove(index)" title="삭제"></button>
@@ -55,14 +63,14 @@
       </div>
     </div>
     <!-- //article preview -->
-    <SettingModule>
-    </SettingModule>
+    <SettingModule></SettingModule>
   </div>
 </template>
 
 <script>
 import draggable from "vuedraggable"
 import modules from "./Modules"
+import RenderModule from "./RenderModule.vue"
 import SettingModule from "./SettingModule.vue"
 
 const MODULE_DATA = Object.values(modules)
@@ -73,6 +81,7 @@ export default {
   order: 2,
   components: {
     draggable,
+    RenderModule,
     SettingModule
   },
   data () {
@@ -82,14 +91,8 @@ export default {
         {type: "function", label: "기능형"}
       ],
       moduleType: "standard",
-      settingTab: [
-        {type: "style", label: "스타일"},
-        {type: "function", label: "기능"}
-      ],
-      settingType: "style",
       moduleList: [],
-      article: [],
-      isEmpty: false
+      article: []
     }
   },
   watch: {
@@ -135,13 +138,23 @@ export default {
     },
     /**
      * 특정 엘리먼트에 클래스명을 추가하고 인접 엘리먼트들에 클래스명을 삭제
-     * @param target 클래스 추가할 대상, DOM object
+     * @param target 클래스 추가할 대상, DOM object (* array 아님 주의)
      * @param classname 추가/삭제할 클래스명, string
-     * TODO : store 등록
+     * @param classaction add or remove 단일 실행
      */
-    addRemoveClass: function (target, classname) {
-      [...target.parentElement.children].forEach(el => el.classList.remove(classname))
-      target.classList.add(classname)
+    addRemoveClass: function (target, classname, classaction) {
+      if (classaction !== "add") {
+        [...target.parentElement.children].forEach(el => el.classList.remove(classname))
+      }
+      if (classaction !== "remove") {
+        target.classList.add(classname)
+      }
+    },
+    onPrevClick: function (e) {
+      let target = document.querySelectorAll('.article .mods')[0]
+      if (e.target.className === 'preview') {
+        this.addRemoveClass(target, 'active', 'remove')
+      }
     },
     onChange: function (e) {
       let event = Object.keys(e)[0]

@@ -6,20 +6,32 @@
         :key="index"
         :data-setting_type="button.type"
         :class="{ active: button.type === settingType, btn: true }"
-        @click="onTabClick">
+        @click="onTabClick($event, 'settingType', 'setting_type')">
         {{ button.label }}
       </button>
     </div>
     <div class="list">
       <div
-        class="item"
         v-for="(item, index) in settingList"
         :key="index"
         :data-setting="item.option"
       >
-        <div class="label">{{ item.settingKey }}</div>
-        <div class="value">{{ item.settingValue }}</div>
-        {{ moduleData }}
+        <div class="label">{{ item.moduleName }}</div>
+        <div class="value">
+          <div
+            class="colorBox"
+            v-if="item.option === 'color'">
+            <div
+              class="palette">
+              
+            </div>
+            <sketch-picker
+              v-model="colors"
+              @input="changeColor"
+              :value="colors">
+            </sketch-picker>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -43,24 +55,28 @@ export default {
         {type: "function", label: "기능"}
       ],
       settingType: "style",
+      options: {},
       settingList: [],
-      settingInfo: {}
-    }
-  },
-  computed: {
-    moduleData () {
-      return this.$store.state.moduledata.moduleData
+      moduleInfo: {},
+      settingInfo: {
+        style: {},
+        function: {}
+      },
+      colors: "rgba(255, 255, 255, 1)"
     }
   },
   created: function () {
     this.getSettings(this.settingType)
+    this.setSettingData(this.settingType)
+  },
+  computed: {
+    getModuleData () {
+      this.moduleInfo = this.$store.state.moduledata.moduleData
+      // console.log(this.moduleInfo)
+    }
   },
   watch: {
-    settingType: function (data) {
-      // console.log(data)
-    },
-    moduleData: function (data) {
-      this.settingInfo = data
+    moduleInfo: function (data) {
       console.log(data)
     }
   },
@@ -73,20 +89,30 @@ export default {
       })
     },
     setSettingData: function (type) {
-      // this.moduleData
-      /*
       this.settingInfo[type] = this.settingList.map(info => {
         if (info.type === type) {
           return info
         }
       })
-      */
+      console.log(this.settingInfo[type])
     },
-    onTabClick: function (e) {
-      let type = e.target.dataset.setting_type
-      this.settingType = type
+    onTabClick: function (e, dataType, targetType) {
+      let type = e.target.dataset[targetType]
+      if (this.moduleInfo.type === "standard" && type === "function") {
+        alert("기본형은 기능 설정을 지원하지 않습니다")
+      } else {
+        this[dataType] = type
+        this.getSettings(type)
+      }
+      // this.setSettingData(this.se)
+      console.log(this.moduleInfo.type, type)
     },
     changeColor: function (color) {
+      // if (typeof(color))
+      // return color.hex
+      console.log(color)
+      // return rgbaColor
+      // this.moduleInfo.style.backgroundColor = rgbaColor
     }
   }
 }
