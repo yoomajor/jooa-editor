@@ -38,22 +38,21 @@
           :animation="200"
           :options="{draggable: '.mods'}"
           group="modules"
-          handle=".handleMods .btnMove"
+          handle=".handleMods .handleMove"
           @change="onChange">
           <div
             class="mods"
             v-for="(mods, index) in article"
-            :key="index"
+            :key="modsKey(index)"
             @mouseenter="onMouseEnter"
             @mouseleave="onMouseLeave"
             @click="onModuleClick($event, index)">
-            <!-- <RenderModule /> -->
-            <component :is="'RenderModule'"></component>
-<!--             
-            <div
-              class="inner"
-              v-html="mods.html">
-            </div> -->
+
+            <component
+              :is="'RenderModule'"
+              :data="mods.dataSet">
+            </component>
+            
             <div class="handleMods">
               <button type="button" class="handle handleMove" title="이동"></button>
               <button type="button" class="handle handleDel" @click="onRemove(index)" title="삭제"></button>
@@ -113,6 +112,11 @@ export default {
   },
   methods: {
     log: function (e) {
+    },
+    modsKey: function (index) {
+      let time = Date.now()
+      let key = `KEY_${time}_${index}`
+      return key
     },
     getModules: function (type) {
       this.moduleList = MODULE_DATA.filter(mods => {

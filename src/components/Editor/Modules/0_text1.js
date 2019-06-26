@@ -9,6 +9,15 @@ export default {
     </div>
   </div>
   `,
+  dataSet: {
+    mods: "text1",
+    column: [
+      {
+        type: "text",
+        value: "default text"
+      }
+    ]
+  },
   value: {
     ko: '텍스트',
     en: 'text'

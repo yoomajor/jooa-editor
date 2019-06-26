@@ -1,0 +1,103 @@
+{
+  "article": {
+    "id": 0,
+    "title": "한국식 조식",
+    "author": "guest00",
+    "published": "2019-00-00 00:00:00",
+    "category": {
+      "name": "roomService",
+      "child": {
+        "name": "breakfast"
+      }
+    },
+    "module": [
+	{
+          "name": "image1",
+          "type": "standard",
+          "html": "<div class='module'><div class='column'>111 text1 <strong>strong</strong><br>break..</div></div>",
+	  "dataSet": {
+	      "mods": "image1",
+	      "column": [
+		{
+		"type": "image",
+		"value": "https://images.pexels.com/photos/462118/pexels-photo-462118.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+		"link": null
+		}
+	      ]
+	    }
+        },
+	{
+          "name": "image2",
+          "type": "standard",
+          "html": "<div class='module'><div class='column'>111 text1 <strong>strong</strong><br>break..</div></div>",
+	  "dataSet": {
+	      "mods": "image2",
+	      "column": [
+		{
+		"type": "image",
+		"value": "https://images.pexels.com/photos/462118/pexels-photo-462118.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+		"link": null
+		},
+		{
+		"type": "image",
+		"value": "https://images.pexels.com/photos/462118/pexels-photo-462118.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+		"link": null
+		}
+	      ]
+	    }
+        },
+	{
+          "name": "image_text",
+          "type": "standard",
+          "html": "<div class='module'><div class='column'>111 text1 <strong>strong</strong><br>break..</div></div>",
+	  "dataSet": {
+	      "mods": "image2",
+	      "column": [
+		{
+		"type": "image",
+		"value": "https://images.pexels.com/photos/462118/pexels-photo-462118.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+		"link": null
+		},
+		{
+		"type": "text",
+		"value": "image+text"
+		}
+	      ]
+	    }
+        },
+        {
+          "name": "text1",
+          "type": "standard",
+          "html": "<div class='module'><div class='column'>111 text1 <strong>strong</strong><br>break..</div></div>",
+	  "dataSet": {
+	      "mods": "text1",
+	      "column": [
+		{
+		"type": "text",
+		"value": "aaa w wetext asdf"
+		}
+	      ]
+	    }
+        },
+        {
+          "name": "text1",
+          "type": "standard",
+          "html": "<div class='module'><div class='column'><ul><li>list1</li><li>list2</li><li>list3</li><li>list4</li></ul></div><div class='column'><ol><li>list1</li><li>list2</li><li>list3</li><li>list4</li></ol></div></div>",
+	  "dataSet": {
+	      "mods": "text2",
+	      "column": [
+		{
+			"type": "text",
+			"value": "11 text ^^..."
+		},
+		{
+			"type": "text",
+			"value": "22 text ^^..."
+		}
+	      ]
+	    }
+        }
+      ],
+    "render": "<div data-mods='text-1' contenteditable='true' class='mods mods1'>text1</div><div data-mods='text-2' contenteditable='true' class='mods mods2'>text2</div>"
+  }
+}

@@ -9,6 +9,16 @@ export default {
     </div>
   </div>
   `,
+  dataSet: {
+    "mods": "image1",
+    "column": [
+      {
+        "type": "image",
+        "value": null,
+        "link": null
+      }
+    ]
+  },
   style: {
     backgroundColor: 'rgba(255,255,255,1)',
     backgroundImage: 'url(/image.jpg)',

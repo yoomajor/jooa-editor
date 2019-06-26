@@ -12,6 +12,19 @@ export default {
     </div>
   </div>
   `,
+  dataSet: {
+    mods: "text2",
+    column: [
+      {
+        type: "text",
+        value: "default text"
+      },
+      {
+        type: "text",
+        value: "default text"
+      }
+    ]
+  },
   style: {
     backgroundColor: 'rgba(255,255,255,1)',
     backgroundImage: 'url(/image.jpg)',
