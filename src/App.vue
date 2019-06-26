@@ -4,10 +4,22 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
       <router-link to="/editor">Editor</router-link>
+      <!-- GLOBAL SETTING :: lang -->
+      <SetLang />
+      <!-- // GLOBAL SETTING :: lang -->
     </div>
     <router-view/>
   </div>
 </template>
+
+<script>
+import SetLang from './views/SetLang.vue'
+export default {
+  components: {
+    SetLang
+  }
+}
+</script>
 
 <style lang="scss">
 #nav {

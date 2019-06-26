@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import LANG from '@/lang'
 
 // 모든모듈 modules로 임포트
 import * as modules from './modules'
@@ -11,8 +12,17 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   // 전역 상태로 사용할것이 있다면 이곳에 추가
   state: {
+    langData: {
+      info: LANG.langs,
+      usable: LANG.init(),
+      default: LANG.default,
+      langObj: LANG.langObj()
+    }
   },
   mutations: {
+    setLang: function (state, data) {
+      state.langData.usable = data
+    }
   },
   actions: {
   },

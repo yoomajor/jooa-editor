@@ -5,7 +5,7 @@
         v-for="(button, index) in settingTab"
         :key="index"
         :data-setting_type="button.type"
-        :class="{ active: button.type === settingType, btn: true }"
+        :class="{ active: button.type === settingType, tab: true }"
         @click="onTabClick">
         {{ button.label }}
       </button>
@@ -61,7 +61,7 @@ export default {
     },
     moduleData: function (data) {
       this.settingInfo = data
-      console.log(data)
+      // console.log(data)
     }
   },
   methods: {

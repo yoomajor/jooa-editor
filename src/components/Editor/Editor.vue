@@ -7,7 +7,7 @@
           v-for="(button, index) in moduleTab"
           :key="index"
           :data-module_type="button.type"
-          :class="{ active: button.type === moduleType, btn: true }"
+          :class="{ active: button.type === moduleType, tab: true }"
           @click="onTabClick($event, 'moduleType', 'module_type')">
           {{ button.label }}
         </button>
@@ -55,8 +55,8 @@
               v-html="mods.html">
             </div> -->
             <div class="handleMods">
-              <button type="button" class="btn btnMove" title="이동"></button>
-              <button type="button" class="btn btnDel" @click="onRemove(index)" title="삭제"></button>
+              <button type="button" class="handle handleMove" title="이동"></button>
+              <button type="button" class="handle handleDel" @click="onRemove(index)" title="삭제"></button>
             </div>
           </div>
         </draggable>
@@ -76,7 +76,7 @@ import SettingModule from "./SettingModule.vue"
 const MODULE_DATA = Object.values(modules)
 
 export default {
-  name: 'Editor',
+  name: 'EditArticle',
   display: "Clone",
   order: 2,
   components: {

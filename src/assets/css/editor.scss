@@ -13,7 +13,7 @@
 }
 .tabs {
   display: flex;
-  .btn {
+  .tab {
     flex: 1;
     padding: 1em 0;
     color: $color-white;
@@ -85,7 +85,7 @@
     &.hover {
       .handleMods {
         display: block;
-        .btn {
+        .handle {
           @include mods-hover;
         }
 			}
@@ -95,7 +95,7 @@
       @include mods-active;
       .handleMods {
         display: block;
-        .btn {
+        .handle {
           @include mods-active;
           background-color: $color-primary;
         }
@@ -108,7 +108,7 @@
     top: -1px;
     left: 100%;
     background-color: #fff;
-    .btn {
+    .handle {
       display: block;
       position: relative;
       width: 30px;
@@ -130,11 +130,11 @@
         display: none;
       }
     }
-    .btnMove {
+    .handleMove {
       cursor: move;
       background-image: url('~@/assets/img/ico_move.png');
     }
-    .btnDel {
+    .handleDel {
       background-image: url('~@/assets/img/ico_del.png');
     }
   }

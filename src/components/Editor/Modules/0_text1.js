@@ -9,9 +9,10 @@ export default {
     </div>
   </div>
   `,
-  value: [
-    "text <span color='red'>module</span> example"
-  ],
+  value: {
+    ko: '텍스트',
+    en: 'text'
+  },
   style: {
     backgroundColor: 'rgba(0,0,0,0.5)',
     backgroundImage: 'url(/image.jpg)',
