@@ -16,7 +16,7 @@ const LANG = {
     // let result = {}
     let result = {}
     this.langs.map(x => {
-      result[x.c] = ''
+      result[x.c] = []
     })
     return result
   }
