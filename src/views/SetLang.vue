@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import LANG from '@/lang'
+import LANG from '@/common/lang'
 
 export default {
   name: 'SetLang',
@@ -70,8 +70,8 @@ export default {
     }
   },
   created: function () {
-    this.langInfos = this.$store.state.langData.info
-    this.defaultLang = this.$store.state.langData.default
+    this.langInfos = this.$_.clone(this.$store.state.langData.info)
+    this.defaultLang = this.$_.clone(this.$store.state.langData.default)
   },
   methods: {
     // commit lang data to $store

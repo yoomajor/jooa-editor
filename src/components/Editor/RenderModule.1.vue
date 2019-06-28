@@ -2,13 +2,13 @@
   <div class="inner">
     <div
       class="module"
-      :data-mods="data.mods"
+      :data-mods="itemData.mods"
       :data-lang="$store.state.setcontent.lang">
       <div
         class="column"
-        v-for="(column, index) in data.column"
-        :key="index">
-        <div v-if="column.type === 'text'" @focusout="textValueUpdate($event, index)" contenteditable="true">{{ id }}</div>
+        v-for="(column, index) in itemData.editColumn"
+        :key="columnKey(index)">
+        <div v-if="column.type === 'text'" v-html="textValueByLang(column.value, index)" @focusout="textValueUpdate($event, index)" contenteditable="true"></div>
         <div v-if="column.type === 'image'">
           <img v-if="column.value" :src="column.value" alt="" />
           <label v-else class="uploadImg">Upload image<input type="file"></label>
@@ -28,7 +28,6 @@ export default {
   data () {
     return {
       itemData: {},
-      editColumn: {},
       test: {}
     }
   },
@@ -40,22 +39,26 @@ export default {
   watch: {
     selectedLang (data) {
       this.renderDOM(data)
-      // console.log(this.editColumn)
+      console.log(this.itemData.editColumn)
     }
   },
-  mounted: function () {
-    // console.log(this.data)
+  created: function () {
     const lang = this.$store.state.setcontent.lang
-    // this.renderDOM(lang)
+    this.renderDOM(lang)
   },
   methods: {
+    columnKey: function (index) {
+      const id = this.id
+      let mods = this.itemData.mods
+      let key = `KEY_COLUMN_${id}_${mods}_${index}`
+      return key
+    },
     renderDOM: function (lang) {
       let isEmptyObject = Object.keys(this.itemData).length === 0
       if (isEmptyObject) {
         this.itemData = this.$_.clone(this.data)
       }
-      // this.editColumn = this.data.column
-      // console.log(this.itemData)
+      this.itemData.editColumn = this.$_.clone(this.data.column)
     },
     contenteditable: function (isText) {
       return isText === 'text'
@@ -63,13 +66,8 @@ export default {
     textValueUpdate: function (e, index) {
       const value = e.target.innerHTML
       const lang = this.$store.state.setcontent.lang
-      const valueData = {
-        id: this.id, // module id
-        cIdx: index, // column index
-        lang: lang,
-        value: value
-      }
-      this.$store.commit('renderdata/updateModuleData', valueData)
+      // this.itemData.column[index].value[lang] = e.target.innerHTML
+      console.log(`${this.itemData.column[index].value[lang]} / ${this.itemData.editColumn[index].value[lang]} / ${value}`)
     },
     textValueByLang: function (info, index) {
       const lang = this.$store.state.setcontent.lang

@@ -1,19 +1,20 @@
 <template>
   <div class="container">
     <SetContent />
-    <EditArticle />
+    <EditContent />
   </div>
 </template>
 
 <script>
-import EditArticle from '@/components/Editor/Editor.vue'
 import SetContent from '@/components/Content/Setting.vue'
+// import EditContent from '@/components/Editor/Editor.vue'
+import EditContent from '@/components/Editor/Index.vue'
 
 export default {
   name: 'Editor',
   components: {
-    EditArticle,
-    SetContent
+    SetContent,
+    EditContent
   }
 }
 </script>

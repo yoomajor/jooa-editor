@@ -16,6 +16,7 @@
         class="list"
         :list="moduleList"
         :group="{ name: 'modules', pull: 'clone', put: false }"
+        :clone="addModule"
         :sort="false">
         <div
           class="item"
@@ -43,15 +44,15 @@
           <div
             class="mods"
             v-for="(mods, index) in article"
-            :key="modsKey(index)"
+            :key="index"
             @mouseenter="onMouseEnter"
             @mouseleave="onMouseLeave"
             @click="onModuleClick($event, index)">
-
-            <component
-              :is="'RenderModule'"
-              :data="mods.dataSet">
-            </component>
+  {{ `id : ${mods.id}, ${index}` }}
+            <RenderModule
+              :data="mods.dataSet"
+              :id="mods.id">
+            </RenderModule>
             
             <div class="handleMods">
               <button type="button" class="handle handleMove" title="이동"></button>
@@ -62,7 +63,7 @@
       </div>
     </div>
     <!-- //article preview -->
-    <SettingModule></SettingModule>
+    <!-- <SettingModule></SettingModule> -->
   </div>
 </template>
 
@@ -73,6 +74,7 @@ import RenderModule from "./RenderModule.vue"
 import SettingModule from "./SettingModule.vue"
 
 const MODULE_DATA = Object.values(modules)
+let moduleId = 0
 
 export default {
   name: 'EditArticle',
@@ -94,9 +96,15 @@ export default {
       article: []
     }
   },
+  computed: {
+    updateModuleData () {
+      return this.$store.state.renderdata.updateModuleData
+    }
+  },
   watch: {
     article: function (data) {
-      this.$store.commit('renderdata/setRenderData', this.article)
+      this.$store.commit('renderdata/setRenderData', data)
+      console.log('서')
     },
     moduleType: function (type) {
       this.moduleList = MODULE_DATA.filter(mods => {
@@ -104,6 +112,9 @@ export default {
           return mods
         }
       })
+    },
+    updateModuleData: function (data) {
+      this.article[data.mIdx].dataSet.column[data.cIdx].value[lang].value = data.valaue
     }
   },
   created: function () {
@@ -111,18 +122,19 @@ export default {
     this.getData()
   },
   methods: {
-    log: function (e) {
-    },
-    modsKey: function (index) {
-      let time = Date.now()
-      let key = `KEY_${time}_${index}`
-      return key
-    },
     getModules: function (type) {
       this.moduleList = MODULE_DATA.filter(mods => {
         if (mods.type === type) {
           return mods
         }
+      })
+      this.moduleList.forEach(mods => { // setting text value by language (object type)
+        let column = mods.dataSet.column
+        column.forEach(x => {
+          if (x.type === "text") {
+            x.value = this.$store.state.langData.langObj
+          }
+        })
       })
     },
     // GET api data
@@ -131,7 +143,11 @@ export default {
         method: 'GET',
         url: '/article'
       }).then((res) => { // data mapping
-        this.article = res.data.module
+        this.article = this.$_.clone(res.data.module)
+        this.article.forEach(x => {
+          x.id = moduleId
+          moduleId++
+        })
       }).then( () => { // article + module setting init
         let target = document.querySelectorAll('.article .mods')[0]
         this.addRemoveClass(target, "active")
@@ -158,6 +174,12 @@ export default {
       let target = document.querySelectorAll('.article .mods')[0]
       if (e.target.className === 'preview') {
         this.addRemoveClass(target, 'active', 'remove')
+      }
+    },
+    addModule(data) {
+      return {
+        id: moduleId++,
+        ...data
       }
     },
     onChange: function (e) {

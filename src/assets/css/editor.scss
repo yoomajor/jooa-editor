@@ -66,10 +66,17 @@
     max-width: 375px;
     margin: 0 auto;
     background-color: $color-white;
-  }
-  .noMods {
-    padding: 100px 0;
-    text-align: center;
+    &.isEmpty {
+      position: relative;
+      padding: 250px 0;
+      &:before {
+        content: "콘텐츠를 작성하세요.";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
   }
   .item {
     padding: 8px 30px;

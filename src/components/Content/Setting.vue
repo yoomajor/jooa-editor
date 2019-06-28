@@ -10,6 +10,11 @@
         {{ item.n }}
       </option>
     </select>
+    <button
+      type="button"
+      @click="loadData">
+      불러오기
+    </button>
   </div>
 </template>
 
@@ -32,12 +37,17 @@ export default {
       this.langList = data
     },
     selectLang (data) {
-      console.log(data)
+      
     }
   },
   created: function () {
     this.langList = this.$store.state.langData.usable
     this.selectLang = this.$store.state.langData.default
+  },
+  methods: {
+    loadData: function () {
+      this.$store.commit('setcontent/selectedLang', this.selectLang)
+    }
   }
 }
 </script>

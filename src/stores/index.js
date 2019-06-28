@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import LANG from '@/lang'
+import LANG from '@/common/lang'
 
 // 모든모듈 modules로 임포트
-import * as modules from './modules'
+import * as modules from './modules/'
 
 // VUEX 사용처리
 Vue.use(Vuex)

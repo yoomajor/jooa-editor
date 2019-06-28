@@ -1,6 +1,7 @@
 export default {
   namespaced: true,
   state: {
+    info: {},
     moduleData: []
   },
   getters: {
@@ -9,7 +10,6 @@ export default {
   mutations: {
     moduleData: function (state, data) {
       state.moduleData = data
-      // console.log(state.moduleData)
     }
   },
   actions: {

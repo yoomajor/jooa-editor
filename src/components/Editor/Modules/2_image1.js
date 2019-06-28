@@ -10,12 +10,12 @@ export default {
   </div>
   `,
   dataSet: {
-    "mods": "image1",
-    "column": [
+    mods: 'image1',
+    column: [
       {
-        "type": "image",
-        "value": null,
-        "link": null
+        type: 'image',
+        value: null,
+        link: null
       }
     ]
   },
