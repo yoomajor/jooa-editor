@@ -12,6 +12,7 @@
       >
         <div class="list-group-item" v-for="element in list1" :key="element.id">
           {{ element.name }}
+          {{ element.id }}
         </div>
       </draggable>
     </div>
@@ -26,6 +27,7 @@
       >
         <div class="list-group-item" v-for="element in list2" :key="element.id" contenteditable>
           {{ element.name }}
+          {{ element.id }}
         </div>
       </draggable>
     </div>

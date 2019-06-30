@@ -105,7 +105,7 @@ export default {
   },
   watch: {
     content: function (data) {
-      this.updateContent()
+      // this.updateContent()
     }
   },
   created: function () {
@@ -179,10 +179,10 @@ export default {
       this.addRemoveClass(target, "active")
     },
     updateValue: function (data) {
-      // this.content[data.mIdx].dataSet.column[data.cIdx].value[this.selectedLang] = data.value
+      this.content[data.mIdx].dataSet.column[data.cIdx].value[this.selectedLang] = data.value
     },
     updateContent: function () {
-      this.$store.commit('content/modules', this.content)
+      // this.$store.commit('content/modules', this.content)
     }
   }
 }
