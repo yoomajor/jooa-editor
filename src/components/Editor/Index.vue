@@ -15,13 +15,13 @@
       <draggable
         class="list"
         :list="moduleList"
-        :group="{ name: 'modules', pull: 'clone', put: false }"
+        :group="{ name: 'moduleGroup', pull: 'clone', put: false }"
         :sort="false"
         :clone="onClone">
         <div
           class="item"
           v-for="(module, index) in moduleList"
-          :key="index"
+          :key="`module${index}`"
           :data-mods_name="module.name">
 
           <div v-if="module.name.indexOf('text') != -1">
@@ -42,7 +42,7 @@
         :list="content"
         :animation="200"
         :options="{draggable: '.mods'}"
-        group="modules"
+        group="moduleGroup"
         handle=".handleMods .handleMove">
         <div
           class="mods"
@@ -104,6 +104,9 @@ export default {
     }
   },
   watch: {
+    moduleType: function () {
+      this.getModules(this.moduleType)
+    },
     content: function (data) {
       // this.updateContent()
     }
@@ -113,11 +116,14 @@ export default {
     this.getData()
   },
   methods: {
+    onTabClick: function (e, dataType, targetType) {
+      let type = e.target.dataset[targetType]
+      this[dataType] = type
+    },
     getModules: function (type) {
-      this.moduleList = MODULE_DATA.filter(mods => {
-        if (mods.type === type) {
-          return mods
-        }
+      this.moduleList = this._.cloneDeep(MODULE_DATA.filter(mods => { return mods.type === type }))
+      this.moduleList.filter(mods => { 
+        mods.type === type
       })
       this.moduleList.forEach(mods => { // setting text value by language (object type)
         let column = mods.dataSet.column
@@ -142,9 +148,10 @@ export default {
       })
     },
     onClone: function (data) {
+      const cloneData = this._.cloneDeep(data)
       return {
         id: moduleId++,
-        ...data
+        ...cloneData
       }
     },
     onRemove: function (index) {

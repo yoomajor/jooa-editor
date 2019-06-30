@@ -1,12 +1,13 @@
 import Vue from 'vue'
-import underscore from 'vue-underscore'
+import VueLodash from 'vue-lodash'
 import App from './App.vue'
 import axios from 'axios'
 import router from './router'
 import store from './stores/'
 
-Vue.use(underscore)
 Vue.config.productionTip = false
+
+Vue.use(VueLodash)
 
 const baseApi = axios.create({
   baseURL: 'http://localhost:3000/'
