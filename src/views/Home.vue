@@ -4,15 +4,21 @@
       <h3>Draggable 1</h3>
       <draggable
         class="dragArea list-group"
-        :list="list1"
+        :list="moduleList"
         :group="{ name: 'people', pull: 'clone', put: false }"
-        :clone="cloneDog"
+        :clone="cloneModule"
         :sort="false"
         @change="log"
       >
-        <div class="list-group-item" v-for="element in list1" :key="element.id">
-          {{ element.name }}
+        <div class="list-group-item" v-for="(element, index) in moduleList" :key="index">
+          <div v-if="element.name.indexOf('text') != -1">
+          {{ element.dataSet.column[0].value.en }}
+          </div>
+
+          {{ element.moduleName }}
+
         </div>
+        
       </draggable>
     </div>
 
@@ -20,13 +26,29 @@
       <h3>Draggable 2</h3>
       <draggable
         class="dragArea list-group"
-        :list="list2"
+        :list="contentModule"
         group="people"
         @change="log"
       >
-        <div class="list-group-item" v-for="element in list2" :key="element.id" contenteditable>
-          {{ element.name }}
+        <div
+          class="mods"
+          v-for="(module, index) in contentModule"
+          :key="module.id">
+
+          <Module
+            @updateValue="updateValue"
+            :data="module.dataSet"
+            :mIdx="index">
+          </Module>
+
+          <div class="handleMods">
+            <button type="button" class="handle handleMove" title="이동"></button>
+            <button type="button" class="handle handleDel" @click="onRemove(index)" title="삭제"></button>
+          </div>
         </div>
+<!-- 
+        <div class="list-group-item" v-for="(element, index) in contentModule" v-html="element.name" :key="element.id" contenteditable @focusout="onFocusout($event, index)">
+        </div> -->
       </draggable>
     </div>
   </div>
@@ -34,36 +56,71 @@
 
 <script>
 import draggable from "vuedraggable";
-let idGlobal = 8;
+import modules from "../components/Editor/Modules"
+import Module from "../components/Editor/Module.vue"
+
+const MODULE_DATA = Object.values(modules)
+let idGlobal = 0;
 export default {
   components: {
-    draggable
+    draggable,
+    Module
   },
   data() {
     return {
-      list1: [
-        { name: "dog 1", id: 1 },
-        { name: "dog 2", id: 2 },
-        { name: "dog 3", id: 3 },
-        { name: "dog 4", id: 4 }
-      ],
-      list2: [
-        { name: "cat 5", id: 5 },
-        { name: "cat 6", id: 6 },
-        { name: "cat 7", id: 7 }
-      ]
+      moduleType: "standard",
+      moduleList: [],
+      contentModule: []
     };
   },
+  computed: {
+    selectedLang () {
+      return this.$store.state.setcontent.lang
+    }
+  },
+  created: function () {
+    this.getModules(this.moduleType)
+    this.getData()
+  },
   methods: {
+    getModules: function (type) {
+      this.moduleList = this._.cloneDeep(MODULE_DATA)
+
+      this.moduleList.forEach(mods => { // setting text value by language (object type)
+        let column = mods.dataSet.column
+        column.forEach(x => {
+          if (x.type === "text") {
+            x.value = { ...this.$store.state.langData.langObj }
+          }
+        })
+      })
+    },
+    // GET api data
+    getData: function () {
+      this.$http({
+        method: 'GET',
+        url: '/article'
+      }).then((res) => { // data to store
+        this.contentModule = res.data.module.map(data => {
+          return { id: idGlobal++, ...data }
+        })
+      }).catch((ex) => {
+        console.error('error:', ex)
+      })
+    },
     log: function(evt) {
       window.console.log(evt);
     },
-    cloneDog({ name }) {
+    cloneModule(data) {
+      const cloneData = this._.cloneDeep(data)
       return {
         id: idGlobal++,
-        name: `cat ${name}`
+        ...cloneData
       };
-    }
+    },
+    updateValue: function (data) {
+      this.contentModule[data.mIdx].dataSet.column[data.cIdx].value[this.selectedLang] = data.value
+    },
   }
 };
 </script>

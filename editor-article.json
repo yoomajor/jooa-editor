@@ -74,7 +74,10 @@
 	      "column": [
 		{
 		"type": "text",
-		"value": "aaa w wetext asdf"
+		"value": {
+      "ko": "한그으으을",
+      "en": "aaa w wetext asdf"
+    }
 		}
 	      ]
 	    }
@@ -88,11 +91,17 @@
 	      "column": [
 		{
 			"type": "text",
-			"value": "11 text ^^..."
+			"value": {
+        "ko": "한그으으을",
+        "en": "aaa w wetext asdf"
+      }
 		},
 		{
 			"type": "text",
-			"value": "22 text ^^..."
+			"value": {
+        "ko": "한그으으을",
+        "en": "aaa w wetext asdf"
+      }
 		}
 	      ]
 	    }

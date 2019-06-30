@@ -2,11 +2,11 @@
   <div class="inner">
     <div
       class="module"
-      :data-mods="data.mods"
+      :data-mods="itemData.mods"
       :data-lang="$store.state.setcontent.lang">
       <div
         class="column"
-        v-for="(item, index) in data.column"
+        v-for="(item, index) in itemData.column"
         :key="index">
         <div v-if="item.type === 'text'" v-html="item.value[selectedLang]" contenteditable="true" @focusout="onFocusout($event, index, mIdx)"></div>
         <div v-if="item.type === 'image'">
@@ -45,10 +45,7 @@ export default {
   },
   methods: {
     renderModule: function () {
-      let isEmptyObject = Object.keys(this.itemData).length === 0
-      if (isEmptyObject) {
-        this.itemData = { ...this.data }
-      }
+      this.itemData = this._.cloneDeep(this.data)
     },
     onFocusout: function (e, cIdx, mIdx) {
       let updateData = {
