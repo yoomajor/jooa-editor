@@ -35,13 +35,15 @@
     <!-- //module list -->
     <!-- content -->
     <div class="preview">
-      <div class="article" @focusout="updateContent">
+      <div class="article">
 
       <draggable
         class="modsWrap"
         :list="content"
         :animation="200"
         :options="{draggable: '.mods'}"
+        @choose="onChoose"
+        @unchoose="onUnChoose"
         group="moduleGroup"
         handle=".handleMods .handleMove">
         <div
@@ -53,8 +55,10 @@
           @click="onModuleClick($event, index)">
           <Module
             @updateValue="updateValue"
+            :state="editMode.state"
             :data="module.dataSet"
-            :mIdx="index">
+            :mIdx="index"
+            :type="module.type">
           </Module>
           <div class="handleMods">
             <button type="button" class="handle handleMove" title="이동"></button>
@@ -95,6 +99,9 @@ export default {
       ],
       moduleType: "standard",
       moduleList: [],
+      editMode: {
+        state: 'default'
+      },
       content: []
     }
   },
@@ -107,8 +114,9 @@ export default {
     moduleType: function () {
       this.getModules(this.moduleType)
     },
-    content: function (data) {
-      // this.updateContent()
+    selectedLang: function (data) {
+      console.log('asdf')
+      this.getModules(this.moduleType)
     }
   },
   created: function () {
@@ -146,6 +154,13 @@ export default {
       }).catch((ex) => {
         console.error('error:', ex)
       })
+    },
+    onChoose: function () {
+      this.editMode.state = 'choose'
+      console.log(this.instance)
+    },
+    onUnChoose: function () {
+      this.editMode.state = 'default'
     },
     onClone: function (data) {
       const cloneData = this._.cloneDeep(data)
@@ -187,9 +202,7 @@ export default {
     },
     updateValue: function (data) {
       this.content[data.mIdx].dataSet.column[data.cIdx].value[this.selectedLang] = data.value
-    },
-    updateContent: function () {
-      // this.$store.commit('content/modules', this.content)
+      console.log(this.content[data.mIdx].dataSet.column[data.cIdx])
     }
   }
 }

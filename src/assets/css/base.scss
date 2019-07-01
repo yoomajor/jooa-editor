@@ -115,6 +115,9 @@ body {
 		padding: 8px 10px;
 		@include input;
 	}
+	.textarea {
+		min-height: calc(6em + 16px);
+	}
 	.label + .input {
 		margin-top: 0.5em;
 	}

@@ -4,10 +4,22 @@ import App from './App.vue'
 import axios from 'axios'
 import router from './router'
 import store from './stores/'
+import InlineEditor from '@ckeditor/ckeditor5-build-inline'
+import VueCkeditor from 'vue-ckeditor5'
+// import Font from '@ckeditor/ckeditor5-font/src/font'
 
 Vue.config.productionTip = false
 
+const options = {
+  name: 'ckeditor',
+  editors: {
+    inline: InlineEditor
+  }
+}
+
 Vue.use(VueLodash)
+Vue.use(VueCkeditor.plugin, options)
+console.log(VueCkeditor.plugin)
 
 const baseApi = axios.create({
   baseURL: 'http://localhost:3000/'

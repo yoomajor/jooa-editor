@@ -46,6 +46,7 @@ export default {
   },
   methods: {
     loadData: function () {
+      console.log(this.selectLang)
       this.$store.commit('setcontent/selectedLang', this.selectLang)
     }
   }
