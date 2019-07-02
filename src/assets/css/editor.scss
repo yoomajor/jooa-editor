@@ -188,8 +188,10 @@
     .btnColorPicker {
       width: 100%;
       height: 34px;
+      color: transparent;
       border: none;
       background: none;
+      cursor: pointer;
     }
     .vc-sketch {
       position: absolute;

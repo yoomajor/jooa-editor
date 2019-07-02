@@ -4,7 +4,8 @@ export default {
     info: {},
     modules: [],
     activeModule: {},
-    settingModuleData: {}
+    settingModuleData: {},
+    settingModuleInfo: {}
   },
   mutations: {
     modules: function (state, data) {
@@ -15,6 +16,9 @@ export default {
     },
     settingModuleData: function (state, data) {
       state.settingModuleData = data
+    },
+    settingModuleInfo: function (state, data) {
+      state.settingModuleInfo = data
     }
   },
   actions: {

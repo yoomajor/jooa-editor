@@ -16,6 +16,8 @@ const store = new Vuex.Store({
       info: LANG.langs,
       usable: LANG.init(),
       default: LANG.default,
+      defaultText: LANG.defaultText,
+      defaultLabel: LANG.defaultLabel,
       langObj: LANG.langObj()
     }
   },
