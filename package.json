@@ -9,9 +9,18 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^12.2.0",
+    "@ckeditor/ckeditor5-build-inline": "^12.2.0",
+    "@ckeditor/ckeditor5-editor-inline": "^12.1.1",
+    "@ckeditor/ckeditor5-font": "^11.1.1",
+    "axios": "^0.19.0",
     "core-js": "^2.6.5",
     "vue": "^2.6.10",
+    "vue-ckeditor5": "^0.4.1",
+    "vue-color": "^2.7.0",
+    "vue-lodash": "^2.0.2",
     "vue-router": "^3.0.3",
+    "vue-underscore": "^0.1.4",
     "vuedraggable": "^2.21.0",
     "vuex": "^3.0.1"
   },
