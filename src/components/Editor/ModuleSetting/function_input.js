@@ -2,7 +2,12 @@ export default {
   name: 'functionInput',
   type: 'function',
   option: null,
-  moduleName: '입력필드',
-  settingKey: 'label',
-  settingValue: ''
+  moduleName: 'inputLabel',
+  settingInfo: [
+    {
+      key: 'inputText',
+      label: 'input label',
+      value: ''
+    }
+  ]
 }

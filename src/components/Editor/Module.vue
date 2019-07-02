@@ -1,5 +1,6 @@
 <template>
-  <div class="inner">
+  <div class="inner"
+    :style="styles">
     <div
       class="module"
       :data-mods="itemData.mods"
@@ -15,7 +16,7 @@
             v-model="item.value[selectedLang]"
             :config="config"
             @blur="updateValue($event, index, mIdx)"
-            @drop="log">
+            @drop="onDrop">
           </ckeditor>
           <div v-if="item.type === 'image'" class="standardImage">
             <img v-if="item.value" :src="item.value" alt="" />
@@ -43,6 +44,8 @@ import config from "./ckeditor_config"
 export default {
   props: [
     'data',
+    'styles',
+    'functions',
     'mIdx',
     'type',
     'state'
@@ -50,6 +53,8 @@ export default {
   data () {
     return {
       itemData: {},
+      itemStyle: {},
+      itemFunction: {},
       editColumn: {},
       editorValue: {},
       config: config
@@ -74,6 +79,8 @@ export default {
   methods: {
     renderModule: function () {
       this.itemData = this._.cloneDeep(this.data)
+      this.itemStyle = this._.cloneDeep(this.data)
+      // this.itemData.setting = this._.cloneDeep(this.settingModuleData)
     },
     updateValue: function (e, cIdx, mIdx) {
       if (this.state !== 'move') {
@@ -91,17 +98,17 @@ export default {
           mIdx: mIdx,
           cIdx: cIdx
         }
-        console.log(updateData)
         this.$emit('updateValue', updateData)
       }
     },
-    onDestroy: function (e) {
-      console.log(e)
-    },
-    log: function (e, data, dropRange) {
+    onDrop: function (e, data, dropRange) {
       if (dropRange.domTarget.contentEditable) {
         data.stop()
       }
+    },
+    setStyle: function (itemData) {
+      let style = itemData.style
+      console.log(style)
     }
   }
 }

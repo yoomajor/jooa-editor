@@ -59,6 +59,11 @@ body {
   position: relative;
 	.inner {
 		padding: 8px 15px;
+		border-width: 1px;
+		border-style: solid;
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: 50% 50%;
 	}
 	.module {
 		display: flex;

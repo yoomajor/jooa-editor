@@ -52,11 +52,13 @@
           :key="module.id"
           @mouseenter="onMouseEnter"
           @mouseleave="onMouseLeave"
-          @click="onModuleClick($event, index)">
+          @click="onModuleClick($event, index, module)">
           <Module
             @updateValue="updateValue"
             :state="editMode.state"
             :data="module.dataSet"
+            :styles="module.setting.style"
+            :functions="module.setting.function"
             :mIdx="index"
             :type="module.type">
           </Module>
@@ -72,7 +74,8 @@
     <!-- //content -->
     <!-- setting module -->
     <div class="setting">
-      
+      <SettingModule>
+      </SettingModule>
     </div>
     <!-- //setting module -->
   </div>
@@ -82,6 +85,7 @@
 import modules from "./Modules"
 import draggable from "vuedraggable"
 import Module from "./Module.vue"
+import SettingModule from "./SettingModule.vue"
 
 const MODULE_DATA = Object.values(modules)
 let moduleId = 0
@@ -89,7 +93,8 @@ let moduleId = 0
 export default {
   components: {
     draggable,
-    Module
+    Module,
+    SettingModule
   },
   data () {
     return {
@@ -102,12 +107,17 @@ export default {
       editMode: {
         state: 'default'
       },
-      content: []
+      content: [],
+      moduleInfo: {},
+      moduleStyle: {}
     }
   },
   computed: {
     selectedLang () {
       return this.$store.state.setcontent.lang
+    },
+    settingModuleData () {
+      return this.$store.state.content.settingModuleData
     }
   },
   watch: {
@@ -115,8 +125,16 @@ export default {
       this.getModules(this.moduleType)
     },
     selectedLang: function (data) {
-      console.log('asdf')
       this.getModules(this.moduleType)
+    },
+    settingModuleData: {
+      deep: true,
+      handler: function (data) {
+        let activeIndex = this.$store.state.content.activeModule.id
+        let activeModule = this.content[activeIndex]
+        activeModule.setting.style = this._.cloneDeep(data.style)
+        activeModule.setting.function = this._.cloneDeep(data.function)
+      }
     }
   },
   created: function () {
@@ -196,13 +214,15 @@ export default {
     onMouseLeave: function (e) {
       e.target.classList.remove("hover")
     },
-    onModuleClick: function (e, index) {
+    onModuleClick: function (e, index, data) {
       let target = e.currentTarget
       this.addRemoveClass(target, "active")
+      this.moduleInfo = this._.cloneDeep(data)
+      this.$store.commit('content/moduleInfo', this.moduleInfo)
+      console.log(data.id, this.moduleInfo.id, this.content[index].id)
     },
     updateValue: function (data) {
       this.content[data.mIdx].dataSet.column[data.cIdx].value[this.selectedLang] = data.value
-      console.log(this.content[data.mIdx].dataSet.column[data.cIdx])
     }
   }
 }

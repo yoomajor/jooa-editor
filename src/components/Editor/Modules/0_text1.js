@@ -11,12 +11,9 @@ export default {
       }
     ]
   },
-  style: {
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    backgroundImage: 'url(/image.jpg)',
-    border: '1px solid transparent',
-    borderColor: 'rgba(0,0,255,1)',
-    padding: '30px'
+  setting: {
+    style: {},
+    function: {}
   },
   link: null
 }

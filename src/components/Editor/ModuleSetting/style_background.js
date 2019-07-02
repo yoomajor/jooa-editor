@@ -1,8 +1,19 @@
 export default {
   name: 'styleBackground',
   type: 'style',
-  option: 'color',
-  moduleName: '배경',
-  settingKey: 'backgroundColor',
-  settingValue: 'rgba(255, 255, 255, 1)'
+  moduleName: 'background',
+  settingInfo: [
+    {
+      key: 'backgroundColor',
+      label: 'background color',
+      value: 'rgba(241,238,232,1)',
+      option: 'color'
+    },
+    {
+      key: 'backgroundImage',
+      label: 'background image',
+      value: './image.jpg',
+      option: 'image'
+    }
+  ]
 }

@@ -54,29 +54,6 @@
       }
     },
     "module":[
-    	{
-        "name":"text2",
-        "type":"standard",
-        "dataSet":{
-          "mods":"text2",
-          "column":[
-            {
-              "type":"text",
-              "value": {
-		  "ko": "한글 텍스트",
-		  "en": "english text"
-	      }
-            },
-	    {
-              "type":"text",
-              "value": {
-		  "ko": "한글 텍스트2",
-		  "en": "english text2"
-	      }
-            }
-          ]
-        }
-      },
       {
         "name":"text1",
         "type":"standard",
@@ -85,12 +62,55 @@
           "column":[
             {
               "type":"text",
-              "value": {
-		  "ko": "한글 텍스트",
-		  "en": "<span style='color:red'>english</span> text<br>break text..."
-	      }
+              "value":{
+                "ko":"한글 텍스트",
+                "en":"<span style='color:red'>english</span> text<br>break text..."
+              }
             }
           ]
+        },
+        "setting":{
+          "style":{
+            "backgroundColor":"rgba(154,35,35,1)",
+            "backgroundImage":"",
+            "borderColor":"rgba(35,154,105,1)"
+          },
+          "function":{
+
+          }
+        }
+      },
+      {
+        "name":"text2",
+        "type":"standard",
+        "dataSet":{
+          "mods":"text2",
+          "column":[
+            {
+              "type":"text",
+              "value":{
+                "ko":"한글 텍스트",
+                "en":"english text"
+              }
+            },
+            {
+              "type":"text",
+              "value":{
+                "ko":"한글 텍스트2",
+                "en":"english text2"
+              }
+            }
+          ]
+        },
+        "setting":{
+          "style":{
+            "backgroundColor":"rgba(111,35,135,1)",
+            "backgroundImage":"",
+            "borderColor":"rgba(135,104,2,1)"
+          },
+          "function":{
+
+          }
         }
       },
       {
@@ -110,6 +130,16 @@
               "link":null
             }
           ]
+        },
+        "setting":{
+          "style":{
+            "backgroundColor":"rgba(33,35,78,1)",
+            "backgroundImage":"",
+            "borderColor":"rgba(240,240,240,1)"
+          },
+          "function":{
+
+          }
         }
       }
     ],

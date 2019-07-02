@@ -2,7 +2,13 @@ export default {
   name: 'styleBorder',
   type: 'style',
   option: 'color',
-  moduleName: '테두리',
-  settingKey: 'borderColor',
-  settingValue: 'rgba(255, 255, 255, 1)'
+  moduleName: 'border',
+  settingInfo: [
+    {
+      key: 'borderColor',
+      label: 'border color',
+      value: 'rgba(71,71,190,1)',
+      option: 'color'
+    }
+  ]
 }

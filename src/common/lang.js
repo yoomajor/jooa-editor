@@ -17,7 +17,7 @@ const LANG = {
   langObj: function () {
     let result = {}
     this.langs.map(x => {
-      result[x.c] = this.defaultText
+      result[x.c] = ''
     })
     return result
   }
