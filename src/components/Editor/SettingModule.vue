@@ -12,47 +12,77 @@
         </button>
       </div>
       <div class="list">
-        <div
-          class="item"
-          v-for="(item, index) in settingList"
-          :key="index">
+        <!-- setting style -->
+        <div v-if="settingType === 'style'">
           <div
-            class="unit"
-            v-for="(set, idx) in item.settingInfo"
-            :key="idx">
-            <div class="label">{{ set.label }}</div>
-            <!-- style :: color -->
+            class="item"
+            v-for="(item, index) in settingList"
+            :key="index">
             <div
-              v-if="set.option === 'color'"
-              class="colorPreset"
-              :style="{ backgroundColor: settingColor(settingModuleData.style[set.key], set.key) }">
-              <button type="button"
-                class="btnColorPicker"
-                @click="colorPicker">
-              </button>
-              <sketch-picker
-                style="display: none"
-                v-model="settingModuleData.style[set.key]" />
+              class="unit"
+              v-for="(set, idx) in item.settingInfo"
+              :key="idx">
+              <div class="label">{{ set.label }}</div>
+              <!-- style :: color -->
+              <div
+                v-if="set.option === 'color'"
+                class="colorPreset"
+                :style="{ backgroundColor: settingColor(settingModuleData.style[set.key], set.key) }">
+                <input type="text"
+                  class="btnColorPicker"
+                  v-model="settingModuleData.style[set.key]"
+                  @click="colorPicker" />
+                <sketch-picker
+                  style="display: none"
+                  v-model="settingModuleData.style[set.key]" />
+              </div>
+              <!-- //style :: color -->
+              <!-- style :: image -->
+              <div
+                v-if="set.option === 'image'">
+                <input type="text"
+                  class="input"
+                  v-model="set.value">
+                <input type="file">
+              </div>
+              <!-- //style :: image -->
             </div>
-            <!-- //style :: color -->
-            <!-- style :: image -->
-            <div
-              v-if="set.option === 'image'">
-              <input type="text"
-                class="input"
-                v-model="set.value">
-              <input type="file">
-            </div>
-            <!-- //style :: image -->
-            <!-- function :: input -->
-            <div
-              v-if="set.key === 'inputText'">
-              <input type="text" class="input"
-                v-model="set.value">
-            </div>
-            <!-- //function :: input -->
           </div>
         </div>
+        <!-- //setting style -->
+        <!-- setting function -->
+        <div v-else-if="settingType === 'function'">
+          <div
+            class="item"
+            v-for="(item, index) in settingList"
+            :key="index">
+            <!-- common :: data required -->
+            <div class="unit">
+              <div class="checkbox">
+                <input type="checkbox" id="isRequired" v-model="settingModuleData.function.isRequired"><label for="isRequired">필수입력</label>
+              </div>
+            </div>
+            <!-- //common :: data required -->
+            <div
+              class="unit"
+              v-for="(set, idx) in item.settingInfo"
+              :key="idx">
+              <!-- common :: data label -->
+              <div class="label">{{ set.label }}</div>
+              <div>
+                <input type="text" class="input"
+                  v-model="settingModuleInfo.column[0].value[selectedLang]"
+                  @input="updateLabel" />
+              </div>
+              <!-- //common :: data label -->
+            </div>
+          </div>
+        </div>
+        <!-- //setting function -->
+
+
+        <p>settingModuleInfo</p>
+        {{ settingModuleInfo }}
         <p>settingModuleData</p>
         {{ settingModuleData }}
       </div>
@@ -81,19 +111,17 @@ export default {
       ],
       settingType: "style",
       settingList: [],
-      settingModuleData: {
-        style: {
-          backgroundColor: 'rgba(255,255,255,1)',
-          borderColor: 'rgba(255,255,255,1)'
-        },
-        function: {}
-      }
+      settingModuleInfo: {},
+      settingModuleData: {}
     }
   },
   created: function () {
     this.getSettings(this.settingType)
   },
   computed: {
+    selectedLang () {
+      return this.$store.state.setcontent.lang
+    },
     moduleInfo: function () {
       return this.$store.state.content.activeModule
     }
@@ -102,13 +130,17 @@ export default {
     settingType: function (data) {
       this.getSettings(this.settingType)
     },
-    moduleInfo: function (data) {
-      this.settingModuleData = this._.cloneDeep(data.setting)
+    moduleInfo: {
+      deep: true,
+      handler: function (data) {
+        this.isActive = true
+        this.settingModuleData = this._.cloneDeep(data.setting)
+        this.settingModuleInfo = this._.cloneDeep(data.dataSet)
+      }
     },
     settingModuleData: {
       deep: true,
       handler: function (data) {
-        this.isActive = true
         this.$store.commit('content/settingModuleData', data)
       }
     }
@@ -119,7 +151,11 @@ export default {
     },
     onTabClick: function (e) {
       let type = e.target.dataset.setting_type
-      this.settingType = type
+      if (this.$store.state.content.activeModule.type === 'standard' && type === 'function') {
+        alert('기본형 모듈은 스타일 설정만 가능합니다')
+      } else {
+        this.settingType = type
+      }
     },
     colorPicker: function (e) {
       e.target.closest('.colorPreset').classList.add('active')
@@ -141,6 +177,13 @@ export default {
       let rgba = typeof(c) === 'string' ? c : `rgba(${c.rgba.r},${c.rgba.g},${c.rgba.b},${c.rgba.a})`
       this.settingModuleData.style[key] = rgba
       return rgba
+    },
+    updateLabel: function () {
+      let data = this.settingModuleInfo
+      this.$store.commit('content/settingModuleInfo', data)
+    },
+    checkRequired: function () {
+      console.log(this.isRequired)
     }
   }
 }

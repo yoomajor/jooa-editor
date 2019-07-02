@@ -9,7 +9,6 @@
         class="column"
         v-for="(item, index) in itemData.column"
         :key="index">
-        {{item.mods}}
         <!-- standard module case -->
         <div v-if="type === 'standard'" class="standardModule">
           <ckeditor v-if="item.type === 'text'" class="standardText" contenteditable="true" type="inline"
@@ -26,11 +25,15 @@
         <!-- //standard module case -->
         <!-- function module case -->
         <div v-else-if="type === 'function'" class="valueModule" @focusout="updateValue($event, index, mIdx)">
-          <div v-if="itemData.mods === 'input'" class="formGroup">
-            <input type="text" v-model="item.value[selectedLang]" class="input" placeholder="text here">
+          <div v-if="itemData.mods === 'input'"
+            :class="{ isRequired: functions.isRequired, formGroup: true }">
+            <div class="label">{{ item.value[selectedLang] }}</div>
+            <input type="text" class="input" placeholder="text here" :data-required="functions.isRequired" disabled>
           </div>
-          <div v-if="itemData.mods === 'textarea'" class="formGroup">
-            <textarea type="text" v-model="item.value[selectedLang]" class="input textarea" placeholder="text here"></textarea>
+          <div v-if="itemData.mods === 'textarea'"
+            :class="{ isRequired: functions.isRequired, formGroup: true }">
+            <div class="label">{{ item.value[selectedLang] }}</div>
+            <textarea type="text" class="input textarea" placeholder="text here" :data-required="functions.isRequired" disabled></textarea>
           </div>
         </div>
         <!-- //function module case -->
@@ -66,6 +69,12 @@ export default {
     }
   },
   watch: {
+    data: {
+      deep: true,
+      handler: function (data) {
+        this.itemData = this._.cloneDeep(this.data)
+      }
+    },
     selectedLang: function (){
       this.renderModule()
     },
@@ -79,8 +88,6 @@ export default {
   methods: {
     renderModule: function () {
       this.itemData = this._.cloneDeep(this.data)
-      this.itemStyle = this._.cloneDeep(this.data)
-      // this.itemData.setting = this._.cloneDeep(this.settingModuleData)
     },
     updateValue: function (e, cIdx, mIdx) {
       if (this.state !== 'move') {

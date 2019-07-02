@@ -23,11 +23,6 @@
           v-for="(module, index) in moduleList"
           :key="`module${index}`"
           :data-mods_name="module.name">
-
-          <div v-if="module.name.indexOf('text') != -1">
-          {{ module.dataSet.column[0].value.en }}
-          </div>
-
           {{ module.moduleName }}
         </div>
       </draggable>
@@ -118,6 +113,9 @@ export default {
     },
     settingModuleData () {
       return this.$store.state.content.settingModuleData
+    },
+    settingModuleInfo () {
+      return this.$store.state.content.settingModuleInfo
     }
   },
   watch: {
@@ -131,9 +129,29 @@ export default {
       deep: true,
       handler: function (data) {
         let activeIndex = this.$store.state.content.activeModule.id
-        let activeModule = this.content[activeIndex]
+        let modules = this.content.filter(function(x) {
+            return x.id === activeIndex
+        })[0]
+        let moduleIndex = this.content.indexOf(modules)
+        let activeModule = this.content[moduleIndex]
+        console.log('ㅇㅇ?')
         activeModule.setting.style = this._.cloneDeep(data.style)
         activeModule.setting.function = this._.cloneDeep(data.function)
+        console.log(data.function.isRequired)
+        console.log(data)
+      }
+    },
+    settingModuleInfo: {
+      deep: true,
+      handler: function (data) {
+        let activeIndex = this.$store.state.content.activeModule.id
+        let modules = this.content.filter(function(x) {
+            return x.id === activeIndex
+        })[0]
+        let moduleIndex = this.content.indexOf(modules)
+        let activeModule = this.content[moduleIndex]
+
+        activeModule.dataSet = this._.cloneDeep(data)
       }
     }
   },
@@ -154,10 +172,18 @@ export default {
       this.moduleList.forEach(mods => { // setting text value by language (object type)
         let column = mods.dataSet.column
         column.forEach(x => {
-          if (x.type === "text") {
+          if (x.type === 'text') {
             x.value = { ...this.$store.state.langData.langObj }
           }
         })
+        if (mods.type === 'function') {
+          column.forEach(x => {
+            let key = Object.keys(x.value)
+            key.forEach(k => {
+              x.value[k] = this.$store.state.langData.defaultLabel
+            })
+          })
+        }
       })
     },
     // GET api data
@@ -216,10 +242,10 @@ export default {
     },
     onModuleClick: function (e, index, data) {
       let target = e.currentTarget
+      let isModule = !e.target.closest('.column')
       this.addRemoveClass(target, "active")
       this.moduleInfo = this._.cloneDeep(data)
       this.$store.commit('content/moduleInfo', this.moduleInfo)
-      console.log(data.id, this.moduleInfo.id, this.content[index].id)
     },
     updateValue: function (data) {
       this.content[data.mIdx].dataSet.column[data.cIdx].value[this.selectedLang] = data.value

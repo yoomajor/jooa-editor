@@ -11,9 +11,5 @@ export default {
       }
     ]
   },
-  setting: {
-    style: {},
-    function: {}
-  },
   link: null
 }
