@@ -58,6 +58,7 @@ body {
 .mods {
   position: relative;
 	.inner {
+		position: relative;
 		padding: 8px 15px;
 		border-width: 1px;
 		border-style: solid;
@@ -115,6 +116,7 @@ body {
 .formGroup {
 	.label {
 		display: block;
+		margin-bottom: 0.5em;
   }
   &.isRequired .label:before {
     content: "*";
@@ -128,8 +130,28 @@ body {
 	.textarea {
 		min-height: calc(6em + 16px);
 	}
-	.label + .input {
-		margin-top: 0.5em;
+	.quantity {
+		display: flex;
+		position: relative;
+		background-color: $color-white;
+		.btnQuantity {
+			width: 40px;
+			height: 40px;
+			border: 1px solid $color-lgrey;
+		}
+		.inputQuantity {
+			flex: 1;
+			text-align: center;
+			border: 1px solid $color-lgrey;
+			border-right: none;
+			border-left: none;
+			background-color: transparent;
+		}
+	}
+	.listItem {
+		display: block;
+		margin-right: 0;
+		margin-bottom: 10px;
 	}
 }
 
@@ -142,6 +164,9 @@ body {
 	border-radius: 2px;
 	border: 1px solid $color-primary;
 	background-color: $color-primary;
+	&.btnFull {
+		width: 100%;
+	}
 }
 
 .checkbox {
@@ -157,8 +182,8 @@ body {
 		opacity: 0;
 		&:checked+label {
 			&:before {
-				width: 10px;
-				height: 10px;
+				width: 8px;
+				height: 8px;
 				border-width: 5px;
 				border-color: $color-primary;
 				background-color: rgba($color-blue, 0.2);
@@ -173,10 +198,10 @@ body {
 		&:before {
 			content: "";
 			position: absolute;
-			top: 0;
+			top: 2px;
 			left: 0;
-			width: 16px;
-			height: 16px;
+			width: 14px;
+			height: 14px;
 			border: 2px solid $color-grey;
 			background-color: $color-white;
 			transition: all 0.3s;

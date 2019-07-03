@@ -63,19 +63,50 @@
               </div>
             </div>
             <!-- //common :: data required -->
+            <!-- common :: data label -->
             <div
               class="unit"
               v-for="(set, idx) in item.settingInfo"
               :key="idx">
-              <!-- common :: data label -->
               <div class="label">{{ set.label }}</div>
               <div>
                 <input type="text" class="input"
                   v-model="settingModuleInfo.column[0].value[selectedLang]"
                   @input="updateLabel" />
               </div>
-              <!-- //common :: data label -->
             </div>
+            <!-- //common :: data label -->
+            <!-- function :: quantity -->
+            <div
+              class="unit hasColumn"
+              v-if="settingModuleInfo.mods === 'quantity'">
+              <div class="unitColumn">
+                <div class="label">{{ settingModuleData.function.min.name }}</div>
+                <input type="text" v-model="settingModuleData.function.min.vol" class="input" data-quantity='min' @input="setQuantity" @focusout="validateQuantity" />
+              </div>
+              <div class="unitColumn">
+                <div class="label">{{ settingModuleData.function.max.name }}</div>
+                <input type="text" v-model="settingModuleData.function.max.vol" class="input" data-quantity='max' @input="setQuantity" @focusout="validateQuantity" />
+              </div>
+              <p class="message">{{ validateQuantity() }}</p>
+            </div>
+            <!-- //function :: quantity -->
+            <!-- function :: radio -->
+            <div
+              class="unit itemList"
+              v-if="settingModuleInfo.mods === 'radio'">
+              <div class="label">{{ settingModuleData.function.label }}</div>
+              <div
+                class="listItem"
+                v-for="(item, index) in settingModuleData.function.item"
+                :key="index">
+                <input type="text" class="input" :data-id="`option_${moduleInfo.id}_${index}`" v-model="item.label">
+                <button type="button" class="btnRemove" @click="removeOption(index)">삭제</button>
+              </div>
+              <button type="button" class="btn btnFull" @click="addOption(settingModuleData.function.item.length)">Add option</button>
+              <!-- <p class="message">{{ validateQuantity() }}</p> -->
+            </div>
+            <!-- //function :: radio -->
           </div>
         </div>
         <!-- //setting function -->
@@ -83,6 +114,7 @@
 
         <p>settingModuleInfo</p>
         {{ settingModuleInfo }}
+        <br><br><br>
         <p>settingModuleData</p>
         {{ settingModuleData }}
       </div>
@@ -94,6 +126,7 @@
 <script>
 import settings from "./ModuleSetting"
 import sketch from 'vue-color/src/components/Sketch.vue'
+import regExp from "@/common/regExp"
 
 const SETTING_DATA = Object.values(settings)
 
@@ -109,7 +142,7 @@ export default {
         {type: "style", label: "스타일"},
         {type: "function", label: "기능"}
       ],
-      settingType: "style",
+      settingType: "function",
       settingList: [],
       settingModuleInfo: {},
       settingModuleData: {}
@@ -142,6 +175,10 @@ export default {
       deep: true,
       handler: function (data) {
         this.$store.commit('content/settingModuleData', data)
+        if (this._.isEmpty(data.function)) {
+          this.getSettings('style')
+          this.settingType = 'style'
+        }
       }
     }
   },
@@ -182,8 +219,28 @@ export default {
       let data = this.settingModuleInfo
       this.$store.commit('content/settingModuleInfo', data)
     },
-    checkRequired: function () {
-      console.log(this.isRequired)
+    setQuantity: function (e) {
+      const role = e.target.dataset.quantity
+      let vol = this.settingModuleData.function[role].vol
+      this.settingModuleData.function[role].vol = Number(regExp.numberOnly(e.target.value))
+    },
+    validateQuantity: function (e) {
+      const min = this.settingModuleData.function.min.vol
+      const max = this.settingModuleData.function.max.vol
+      let message = min > max ? '최대값보다 최소값이 높습니다' : ''
+      return message
+    },
+    addOption: function (index) {
+      index++
+      this.settingModuleData.function.item.push(
+        {
+          label: 'list option item'
+        }
+      )
+    },
+    removeOption: function (index) {
+      let isLast = this.settingModuleData.function.item.length <= 1
+      isLast ? alert ('옵션을 모두 삭제할 수 없습니다.') : this.settingModuleData.function.item.splice(index, 1)
     }
   }
 }

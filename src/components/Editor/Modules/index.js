@@ -5,9 +5,7 @@ const settings = {
     backgroundColor: 'rgba(255,255,255,1)',
     borderColor: 'rgba(255,255,255,1)'
   },
-  function: {
-    isRequired: true
-  }
+  function: {}
 }
 
 // index.js를 제외한 모든 js를 file명을 키로 modules에 담아 리턴
@@ -16,8 +14,11 @@ files.keys().forEach((key) => {
   moduleList[key.toLowerCase().replace(/(\.\/|\.js)/g, '')] = files(key).default
 })
 
-for(var index in moduleList) { 
-  moduleList[index].setting = settings
+for (let index in moduleList) {
+  moduleList[index].setting = _.merge(moduleList[index].setting, settings)
+  if (moduleList[index].type === 'function') {
+    moduleList[index].setting.function = _.merge(moduleList[index].setting.function, { isRequired: true })
+  }
 }
 
 export default moduleList

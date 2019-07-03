@@ -25,16 +25,44 @@
         <!-- //standard module case -->
         <!-- function module case -->
         <div v-else-if="type === 'function'" class="valueModule" @focusout="updateValue($event, index, mIdx)">
+          <!-- input -->
           <div v-if="itemData.mods === 'input'"
             :class="{ isRequired: functions.isRequired, formGroup: true }">
             <div class="label">{{ item.value[selectedLang] }}</div>
             <input type="text" class="input" placeholder="text here" :data-required="functions.isRequired" disabled>
           </div>
+          <!-- //input -->
+          <!-- textarea -->
           <div v-if="itemData.mods === 'textarea'"
             :class="{ isRequired: functions.isRequired, formGroup: true }">
             <div class="label">{{ item.value[selectedLang] }}</div>
             <textarea type="text" class="input textarea" placeholder="text here" :data-required="functions.isRequired" disabled></textarea>
           </div>
+          <!-- //textarea -->
+          <!-- quantity -->
+          <div v-if="itemData.mods === 'quantity'"
+            :class="{ isRequired: functions.isRequired, formGroup: true }">
+            <div class="label">{{ item.value[selectedLang] }}</div>
+            <div class="quantity">
+              <button type="button" class="btnQuantity" data-quantity="minus" disabled>-</button>
+              <input type="text" class="inputQuantity" :placeholder="`${functions.min.vol} ~ ${functions.max.vol}`" disabled>
+              <button type="button" class="btnQuantity" data-quantity="plus" disabled>+</button>
+            </div>
+          </div>
+          <!-- //quantity -->
+          <!-- radio -->
+          <div v-if="itemData.mods === 'radio'"
+            :class="{ isRequired: functions.isRequired, formGroup: true }">
+            <div class="label">{{ item.value[selectedLang] }}</div>
+            <div
+              v-for="(item, index) in functions.item"
+              :key="index"
+              class="listItem checkbox radio">
+              <input type="radio" :name="`module_${mIdx}_radio`" :id="`module_${mIdx}_radio_${index}`" disabled>
+              <label :for="`module_${mIdx}_radio_${index}`">{{ item.label }}</label>
+            </div>
+          </div>
+          <!-- //radio -->
         </div>
         <!-- //function module case -->
       </div>
@@ -75,10 +103,10 @@ export default {
         this.itemData = this._.cloneDeep(this.data)
       }
     },
-    selectedLang: function (){
+    selectedLang: function () {
       this.renderModule()
     },
-    editorValue: function (){
+    editorValue: function () {
       console.log('value changed')
     }
   },
@@ -90,23 +118,22 @@ export default {
       this.itemData = this._.cloneDeep(this.data)
     },
     updateValue: function (e, cIdx, mIdx) {
-      if (this.state !== 'move') {
-        let value = function () {
-          if (e.target === undefined) { // is Editor?
-            return e.sourceElement.innerHTML
-          } else {
-            if (e.target.closest('.valueModule') !== null) {
-              return e.target.value
-            }
+      let value = function () {
+        if (e.target === undefined) { // is Editor?
+          return e.sourceElement.innerHTML
+        } else {
+          if (e.target.closest('.valueModule') !== null) {
+            return e.target.value
           }
         }
-        let updateData = {
-          value: value(),
-          mIdx: mIdx,
-          cIdx: cIdx
-        }
-        this.$emit('updateValue', updateData)
       }
+      console.log(value())
+      let updateData = {
+        value: value(),
+        mIdx: mIdx,
+        cIdx: cIdx
+      }
+      this.$emit('updateValue', updateData)
     },
     onDrop: function (e, data, dropRange) {
       if (dropRange.domTarget.contentEditable) {

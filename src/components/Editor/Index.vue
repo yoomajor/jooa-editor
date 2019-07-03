@@ -29,7 +29,8 @@
     </div>
     <!-- //module list -->
     <!-- content -->
-    <div class="preview">
+    <div class="preview"
+      @click="onDocumentClick">
       <div class="article">
 
       <draggable
@@ -59,7 +60,7 @@
           </Module>
           <div class="handleMods">
             <button type="button" class="handle handleMove" title="이동"></button>
-            <button type="button" class="handle handleDel" @click="onRemove(index)" title="삭제"></button>
+            <button type="button" class="handle handleDel" @click="onRemove($event, index)" title="삭제"></button>
           </div>
         </div>
       </draggable>
@@ -97,7 +98,7 @@ export default {
         {type: "standard", label: "기본형"},
         {type: "function", label: "기능형"}
       ],
-      moduleType: "standard",
+      moduleType: "function",
       moduleList: [],
       editMode: {
         state: 'default'
@@ -134,11 +135,9 @@ export default {
         })[0]
         let moduleIndex = this.content.indexOf(modules)
         let activeModule = this.content[moduleIndex]
-        console.log('ㅇㅇ?')
+
         activeModule.setting.style = this._.cloneDeep(data.style)
         activeModule.setting.function = this._.cloneDeep(data.function)
-        console.log(data.function.isRequired)
-        console.log(data)
       }
     },
     settingModuleInfo: {
@@ -201,7 +200,6 @@ export default {
     },
     onChoose: function () {
       this.editMode.state = 'choose'
-      console.log(this.instance)
     },
     onUnChoose: function () {
       this.editMode.state = 'default'
@@ -213,11 +211,12 @@ export default {
         ...cloneData
       }
     },
-    onRemove: function (index) {
-      if (this.article.length <= 1) {
+    onRemove: function (e, index) {
+      e.stopPropagation()
+      if (this.content.length <= 1) {
         alert("최소 하나의 모듈이 있어야 합니다")
       } else {
-        this.article.splice(index, 1)
+        this.content.splice(index, 1)
       }
     },
     /**
@@ -241,11 +240,18 @@ export default {
       e.target.classList.remove("hover")
     },
     onModuleClick: function (e, index, data) {
+      e.stopPropagation()
       let target = e.currentTarget
       let isModule = !e.target.closest('.column')
       this.addRemoveClass(target, "active")
       this.moduleInfo = this._.cloneDeep(data)
       this.$store.commit('content/moduleInfo', this.moduleInfo)
+    },
+    onDocumentClick: function (e) {
+      if (e.target.closest('.article') === null && e.target.closest('.handleMods') === null) {
+        let mods = document.querySelector('.mods')
+        this.addRemoveClass(mods, 'active', 'remove')
+      }
     },
     updateValue: function (data) {
       this.content[data.mIdx].dataSet.column[data.cIdx].value[this.selectedLang] = data.value

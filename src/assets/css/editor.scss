@@ -84,22 +84,35 @@
     @include mods-hover;
   }
   .mods {
-    border: 1px dashed transparent;
+    &:before {
+      content: "";
+      position: absolute;
+      top: -1px;
+      left: -1px;
+      right: -1px;
+      bottom: -1px;
+      border: 1px dashed transparent;
+    }
     &:hover {
-			@include mods-hover;
-			z-index: 1;
+      z-index: 1;
+      &:before {
+        @include mods-hover;
+      }
     }
     &.hover {
+      z-index: 1;
       .handleMods {
         display: block;
         .handle {
           @include mods-hover;
         }
 			}
-			z-index: 1;
     }
     &.active {
-      @include mods-active;
+      z-index: 2;
+      &:before {
+        @include mods-active;
+      }
       .handleMods {
         display: block;
         .handle {
@@ -171,6 +184,61 @@
       &:first-of-type {
         margin-top: 0;
       }
+      &.hasColumn {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-left: -4px;
+        margin-right: -4px;
+        .unitColumn {
+          flex-basis: calc(50% - 8px);
+          margin: 0 4px;
+        }
+      }
+      .message {
+        font-size: 12px;
+        color: $color-red;
+      }
+    }
+    .itemList {
+      .listItem {
+        position: relative;
+        margin-bottom: 5px;
+        .input {
+          padding-right: 55px;
+        }
+      }
+      .btnRemove {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 40px;
+        height: 100%;
+        text-indent: -9999px;
+        opacity: 0.5;
+        &:before,
+        &:after {
+          content: "";
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 24px;
+          height: 2px;
+          margin-top: -1px;
+          margin-left: -12px;
+          background-color: $color-grey;
+          transform-origin: 50% 50%;
+        }
+        &:before {
+          transform: rotate(45deg);
+        }
+        &:after {
+          transform: rotate(-45deg);
+        }
+        &:hover {
+          opacity: 1;
+        }
+      }
     }
     .input {
       width: 100%;
@@ -188,6 +256,7 @@
     .btnColorPicker {
       width: 100%;
       height: 34px;
+      text-indent: -9999px;
       color: transparent;
       border: none;
       background: none;
