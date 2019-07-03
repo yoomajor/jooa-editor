@@ -183,6 +183,20 @@ export default {
             })
           })
         }
+        
+        // function options label required lang
+        let optionItem = mods.setting.function.item
+        if (mods.setting.function.hasLang) {
+          optionItem.forEach((o, index) => {
+            index++
+            o.label = { ...this.$store.state.langData.langObj }
+            o.itemValue = `option value ${index}`
+            let key = Object.keys(o.label)
+            key.forEach(k => {
+              o.label[k] = `list option ${index}`
+            })
+          })
+        }
       })
     },
     // GET api data

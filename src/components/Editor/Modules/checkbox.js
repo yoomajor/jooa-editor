@@ -1,9 +1,9 @@
 export default {
-  name: 'radio',
+  name: 'checkbox',
   type: 'function',
-  moduleName: 'radio',
+  moduleName: 'checkbox',
   dataSet: {
-    mods: 'radio',
+    mods: 'checkbox',
     column: [
       {
         type: 'text',
@@ -15,7 +15,7 @@ export default {
     function: {
       label: 'options',
       hasLang: true,
-      value: '',
+      value: [],
       item: [
         {
           label: {},

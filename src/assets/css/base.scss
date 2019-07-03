@@ -192,7 +192,8 @@ body {
 	}
 	label {
 		display: block;
-		position: relative;
+    position: relative;
+    min-height: 1.5em;
 		padding-left: 24px;
 		cursor: pointer;
 		&:before {

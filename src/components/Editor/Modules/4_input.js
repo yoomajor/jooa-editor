@@ -1,7 +1,7 @@
 export default {
   name: 'input',
   type: 'function',
-  moduleName: '입력필드',
+  moduleName: 'input',
   dataSet: {
     mods: 'input',
     column: [

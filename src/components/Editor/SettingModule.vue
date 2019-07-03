@@ -97,16 +97,40 @@
               v-if="settingModuleInfo.mods === 'radio'">
               <div class="label">{{ settingModuleData.function.label }}</div>
               <div
-                class="listItem"
+                class="listItem checkbox radio"
                 v-for="(item, index) in settingModuleData.function.item"
                 :key="index">
-                <input type="text" class="input" :data-id="`option_${moduleInfo.id}_${index}`" v-model="item.label">
+
+                <input type="radio" class="itemCheck" :name="`option_${moduleInfo.id}`" :id="`option_${moduleInfo.id}_${index}`" :value="item.itemValue"  v-model="settingModuleData.function.value">
+                <label :for="`option_${moduleInfo.id}_${index}`"></label>
+                <input type="text" class="input" :data-id="`option_${moduleInfo.id}_${index}`" v-model="item.label[selectedLang]">
+                <input type="text" class="input input2" v-model="item.itemValue">
+
                 <button type="button" class="btnRemove" @click="removeOption(index)">삭제</button>
               </div>
               <button type="button" class="btn btnFull" @click="addOption(settingModuleData.function.item.length)">Add option</button>
-              <!-- <p class="message">{{ validateQuantity() }}</p> -->
             </div>
             <!-- //function :: radio -->
+            <!-- function :: checkbox -->
+            <div
+              class="unit itemList"
+              v-if="settingModuleInfo.mods === 'checkbox'">
+              <div class="label">{{ settingModuleData.function.label }}</div>
+              <div
+                class="listItem checkbox"
+                v-for="(item, index) in settingModuleData.function.item"
+                :key="index">
+
+                <input type="checkbox" class="itemCheck" :name="`option_${moduleInfo.id}`" :id="`option_${moduleInfo.id}_${index}`" :value="item.itemValue"  v-model="settingModuleData.function.value">
+                <label :for="`option_${moduleInfo.id}_${index}`"></label>
+                <input type="text" class="input" :data-id="`option_${moduleInfo.id}_${index}`" v-model="item.label[selectedLang]">
+                <input type="text" class="input input2" v-model="item.itemValue">
+
+                <button type="button" class="btnRemove" @click="removeOption(index)">삭제</button>
+              </div>
+              <button type="button" class="btn btnFull" @click="addOption(settingModuleData.function.item.length)">Add option</button>
+            </div>
+            <!-- //function :: checkbox -->
           </div>
         </div>
         <!-- //setting function -->
@@ -230,13 +254,14 @@ export default {
       let message = min > max ? '최대값보다 최소값이 높습니다' : ''
       return message
     },
-    addOption: function (index) {
-      index++
-      this.settingModuleData.function.item.push(
-        {
-          label: 'list option item'
-        }
-      )
+    addOption: function (length) {
+      length++
+      let newOption = this._.cloneDeep(this._.last(this.settingModuleData.function.item))
+      Object.keys(newOption.label).forEach(x => {
+        newOption.label[x] = `list option ${length}`
+        newOption.itemValue = `option value ${length}`
+      })
+      this.settingModuleData.function.item.push(newOption)
     },
     removeOption: function (index) {
       let isLast = this.settingModuleData.function.item.length <= 1

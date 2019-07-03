@@ -11,16 +11,20 @@
         :key="index">
         <!-- standard module case -->
         <div v-if="type === 'standard'" class="standardModule">
+          <!-- text -->
           <ckeditor v-if="item.type === 'text'" class="standardText" contenteditable="true" type="inline"
             v-model="item.value[selectedLang]"
             :config="config"
             @blur="updateValue($event, index, mIdx)"
             @drop="onDrop">
           </ckeditor>
+          <!-- //text -->
+          <!-- image -->
           <div v-if="item.type === 'image'" class="standardImage">
             <img v-if="item.value" :src="item.value" alt="" />
             <label v-else class="uploadImg">Upload image<input type="file"></label>
           </div>
+          <!-- //image -->
         </div>
         <!-- //standard module case -->
         <!-- function module case -->
@@ -58,11 +62,24 @@
               v-for="(item, index) in functions.item"
               :key="index"
               class="listItem checkbox radio">
-              <input type="radio" :name="`module_${mIdx}_radio`" :id="`module_${mIdx}_radio_${index}`" disabled>
-              <label :for="`module_${mIdx}_radio_${index}`">{{ item.label }}</label>
+              <input type="radio" :name="`option_${mIdx}`" :id="`option_${mIdx}_${index}`" :value="item.itemValue" v-model="functions.value" disabled>
+              <label :for="`option_${mIdx}_${index}`">{{ item.label[selectedLang] }}</label>
             </div>
           </div>
           <!-- //radio -->
+          <!-- checkbox -->
+          <div v-if="itemData.mods === 'checkbox'"
+            :class="{ isRequired: functions.isRequired, formGroup: true }">
+            <div class="label">{{ item.value[selectedLang] }}</div>
+            <div
+              v-for="(item, index) in functions.item"
+              :key="index"
+              class="listItem checkbox">
+              <input type="checkbox" :name="`option_${mIdx}`" :id="`option_${mIdx}_${index}`" :value="item.itemValue" v-model="functions.value" disabled>
+              <label :for="`option_${mIdx}_${index}`">{{ item.label[selectedLang] }}</label>
+            </div>
+          </div>
+          <!-- //checkbox -->
         </div>
         <!-- //function module case -->
       </div>
@@ -120,14 +137,14 @@ export default {
     updateValue: function (e, cIdx, mIdx) {
       let value = function () {
         if (e.target === undefined) { // is Editor?
-          return e.sourceElement.innerHTML
+          const isEmpty = e.sourceElement.innerText.length === 1 && e.sourceElement.childNodes.length
+          return isEmpty ? '' : e.sourceElement.innerHTML
         } else {
           if (e.target.closest('.valueModule') !== null) {
             return e.target.value
           }
         }
       }
-      console.log(value())
       let updateData = {
         value: value(),
         mIdx: mIdx,
