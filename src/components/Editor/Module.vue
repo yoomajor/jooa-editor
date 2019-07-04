@@ -25,22 +25,28 @@
             <label v-else class="uploadImg">Upload image<input type="file"></label>
           </div>
           <!-- //image -->
+          <!-- button -->
+          <div v-if="item.type === 'button'" class="standardButton">
+            <a v-if="functions.typeValue === 'link'" class="btn btnFull" :href="functions.url" target="_blank" contenteditable>LINK</a>
+            <button v-if="functions.typeValue === 'submit'" class="btn btnFull" type="submit" contenteditable>SUBMIT</button>
+          </div>
+          <!-- //button -->
         </div>
         <!-- //standard module case -->
         <!-- function module case -->
-        <div v-else-if="type === 'function'" class="valueModule" @focusout="updateValue($event, index, mIdx)">
+        <div v-else-if="type === 'function'" class="valueModule">
           <!-- input -->
           <div v-if="itemData.mods === 'input'"
             :class="{ isRequired: functions.isRequired, formGroup: true }">
             <div class="label">{{ item.value[selectedLang] }}</div>
-            <input type="text" class="input" placeholder="text here" :data-required="functions.isRequired" disabled>
+            <input type="text" class="input" placeholder="text here" :data-required="functions.isRequired">
           </div>
           <!-- //input -->
           <!-- textarea -->
           <div v-if="itemData.mods === 'textarea'"
             :class="{ isRequired: functions.isRequired, formGroup: true }">
             <div class="label">{{ item.value[selectedLang] }}</div>
-            <textarea type="text" class="input textarea" placeholder="text here" :data-required="functions.isRequired" disabled></textarea>
+            <textarea type="text" class="input textarea" placeholder="text here" :data-required="functions.isRequired"></textarea>
           </div>
           <!-- //textarea -->
           <!-- quantity -->
@@ -49,7 +55,7 @@
             <div class="label">{{ item.value[selectedLang] }}</div>
             <div class="quantity">
               <button type="button" class="btnQuantity" data-quantity="minus" disabled>-</button>
-              <input type="text" class="inputQuantity" :placeholder="`${functions.min.vol} ~ ${functions.max.vol}`" disabled>
+              <input type="text" class="inputQuantity" :value="functions.min.vol" :placeholder="`${functions.min.vol} ~ ${functions.max.vol}`">
               <button type="button" class="btnQuantity" data-quantity="plus" disabled>+</button>
             </div>
           </div>
@@ -59,11 +65,11 @@
             :class="{ isRequired: functions.isRequired, formGroup: true }">
             <div class="label">{{ item.value[selectedLang] }}</div>
             <div
-              v-for="(item, index) in functions.item"
+              v-for="(option, index) in functions.item"
               :key="index"
               class="listItem checkbox radio">
-              <input type="radio" :name="`option_${mIdx}`" :id="`option_${mIdx}_${index}`" :value="item.itemValue" v-model="functions.value" disabled>
-              <label :for="`option_${mIdx}_${index}`">{{ item.label[selectedLang] }}</label>
+              <input type="radio" :name="`option_${mIdx}`" :id="`option_${mIdx}_${index}`" :value="option.itemValue" v-model="functions.optionValue">
+              <label :for="`option_${mIdx}_${index}`">{{ option.label[selectedLang] }}</label>
             </div>
           </div>
           <!-- //radio -->
@@ -72,14 +78,32 @@
             :class="{ isRequired: functions.isRequired, formGroup: true }">
             <div class="label">{{ item.value[selectedLang] }}</div>
             <div
-              v-for="(item, index) in functions.item"
+              v-for="(option, index) in functions.item"
               :key="index"
               class="listItem checkbox">
-              <input type="checkbox" :name="`option_${mIdx}`" :id="`option_${mIdx}_${index}`" :value="item.itemValue" v-model="functions.value" disabled>
-              <label :for="`option_${mIdx}_${index}`">{{ item.label[selectedLang] }}</label>
+              <input type="checkbox" :name="`option_${mIdx}`" :id="`option_${mIdx}_${index}`" :value="option.itemValue" v-model="functions.optionValue">
+              <label :for="`option_${mIdx}_${index}`">{{ option.label[selectedLang] }}</label>
             </div>
           </div>
           <!-- //checkbox -->
+          <!-- select -->
+          <div v-if="itemData.mods === 'select'"
+            :class="{ isRequired: functions.isRequired, formGroup: true }">
+            <div class="label">{{ item.value[selectedLang] }}</div>
+            <select class="input"
+              v-model="functions.optionValue">
+              <option value="" disabled>{{ item.value[selectedLang] }}</option>
+              <option
+                v-for="(option, index) in functions.item"
+                :key="index"
+                :name="`option_${mIdx}`"
+                :id="`option_${mIdx}_${index}`"
+                :value="option.itemValue" readonly>
+                {{ option.label[selectedLang] }}
+              </option>
+            </select>
+          </div>
+          <!-- //select -->
         </div>
         <!-- //function module case -->
       </div>
@@ -122,9 +146,6 @@ export default {
     },
     selectedLang: function () {
       this.renderModule()
-    },
-    editorValue: function () {
-      console.log('value changed')
     }
   },
   created: function () {
@@ -139,10 +160,6 @@ export default {
         if (e.target === undefined) { // is Editor?
           const isEmpty = e.sourceElement.innerText.length === 1 && e.sourceElement.childNodes.length
           return isEmpty ? '' : e.sourceElement.innerHTML
-        } else {
-          if (e.target.closest('.valueModule') !== null) {
-            return e.target.value
-          }
         }
       }
       let updateData = {
@@ -156,10 +173,6 @@ export default {
       if (dropRange.domTarget.contentEditable) {
         data.stop()
       }
-    },
-    setStyle: function (itemData) {
-      let style = itemData.style
-      console.log(style)
     }
   }
 }

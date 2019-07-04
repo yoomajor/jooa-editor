@@ -1,10 +1,10 @@
 export default {
-  name: 'radio',
+  name: 'select',
   type: 'function',
-  moduleName: 'radio',
+  moduleName: 'select',
   isFunction: true,
   dataSet: {
-    mods: 'radio',
+    mods: 'select',
     column: [
       {
         type: 'text',

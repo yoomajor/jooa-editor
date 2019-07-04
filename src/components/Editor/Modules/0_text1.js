@@ -2,6 +2,7 @@ export default {
   name: 'text1',
   type: 'standard',
   moduleName: '1단 텍스트',
+  isFunction: false,
   dataSet: {
     mods: 'text1',
     column: [

@@ -6,6 +6,9 @@
 @mixin mods-active {
   border: 1px solid $color-primary;
 }
+[contenteditable] {
+  cursor: text;
+}
 .editor {
   display: flex;
   align-items: flex-start;
@@ -202,9 +205,11 @@
     }
     .itemList {
       .listItem {
+        display: block;
         position: relative;
+        margin-right: 0;
         margin-bottom: 15px;
-        .input {
+        .itemInput {
           width: calc(100% - 24px);
           margin-left: 24px;
           padding-right: 55px;

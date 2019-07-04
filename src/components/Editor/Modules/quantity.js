@@ -2,6 +2,7 @@ export default {
   name: 'quantity',
   type: 'function',
   moduleName: '수량',
+  isFunction: true,
   dataSet: {
     mods: 'quantity',
     column: [
@@ -13,6 +14,7 @@ export default {
   },
   setting: {
     function: {
+      optionValue: '',
       min: {
         name: 'minimum',
         vol: 1

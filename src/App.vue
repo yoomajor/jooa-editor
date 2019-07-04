@@ -22,12 +22,12 @@ export default {
 <style lang="scss">
 #nav {
   margin-bottom: 30px;
-}
-a {
-  font-weight: bold;
-  color: #2c3e50;
-  &.router-link-exact-active {
-    color: #42b983;
+  a {
+    font-weight: bold;
+    color: #2c3e50;
+    &.router-link-exact-active {
+      color: #42b983;
+    }
   }
 }
 </style>

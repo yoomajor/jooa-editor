@@ -98,7 +98,7 @@ export default {
         {type: "standard", label: "기본형"},
         {type: "function", label: "기능형"}
       ],
-      moduleType: "function",
+      moduleType: "standard",
       moduleList: [],
       editMode: {
         state: 'default'
@@ -135,7 +135,6 @@ export default {
         })[0]
         let moduleIndex = this.content.indexOf(modules)
         let activeModule = this.content[moduleIndex]
-
         activeModule.setting.style = this._.cloneDeep(data.style)
         activeModule.setting.function = this._.cloneDeep(data.function)
       }
@@ -149,7 +148,6 @@ export default {
         })[0]
         let moduleIndex = this.content.indexOf(modules)
         let activeModule = this.content[moduleIndex]
-
         activeModule.dataSet = this._.cloneDeep(data)
       }
     }
@@ -190,13 +188,14 @@ export default {
           optionItem.forEach((o, index) => {
             index++
             o.label = { ...this.$store.state.langData.langObj }
-            o.itemValue = `option value ${index}`
+            o.itemValue = `value ${index}`
             let key = Object.keys(o.label)
             key.forEach(k => {
               o.label[k] = `list option ${index}`
             })
           })
         }
+        console.log(mods.setting.function)
       })
     },
     // GET api data
@@ -257,14 +256,21 @@ export default {
       e.stopPropagation()
       let target = e.currentTarget
       let isModule = !e.target.closest('.column')
-      this.addRemoveClass(target, "active")
-      this.moduleInfo = this._.cloneDeep(data)
-      this.$store.commit('content/moduleInfo', this.moduleInfo)
+      if (e.target.closest('.mods').className.indexOf('active') === -1) {
+        this.addRemoveClass(target, "active")
+        this.moduleInfo = this._.cloneDeep(data)
+        this.$store.commit('content/moduleInfo', this.moduleInfo)
+        this.$store.commit('content/isActive', true)
+        this._.isEmpty(this.moduleInfo.setting.function) ?
+          this.$store.commit('content/isFunction', false) :
+          this.$store.commit('content/isFunction', true)
+      }
     },
     onDocumentClick: function (e) {
       if (e.target.closest('.article') === null && e.target.closest('.handleMods') === null) {
         let mods = document.querySelector('.mods')
         this.addRemoveClass(mods, 'active', 'remove')
+        this.$store.commit('content/isActive', false)
       }
     },
     updateValue: function (data) {

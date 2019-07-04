@@ -2,6 +2,7 @@ export default {
   name: 'checkbox',
   type: 'function',
   moduleName: 'checkbox',
+  isFunction: true,
   dataSet: {
     mods: 'checkbox',
     column: [
@@ -15,7 +16,7 @@ export default {
     function: {
       label: 'options',
       hasLang: true,
-      value: [],
+      optionValue: [],
       item: [
         {
           label: {},
