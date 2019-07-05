@@ -14,7 +14,7 @@ export default {
     {
       key: 'backgroundImage',
       label: 'background image',
-      value: './image.jpg',
+      value: '',
       option: 'image'
     }
   ]

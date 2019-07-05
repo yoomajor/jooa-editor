@@ -4,7 +4,7 @@ export default {
   moduleName: 'date time',
   isFunction: true,
   dataSet: {
-    mods: 'date time',
+    mods: 'datetime',
     column: [
       {
         type: 'text',
@@ -15,7 +15,7 @@ export default {
   setting: {
     function: {
       label: 'datetime',
-      value: ''
+      date: new Date().toISOString()
     }
   },
   link: null

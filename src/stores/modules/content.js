@@ -27,6 +27,9 @@ export default {
     },
     isFunction: function (state, data) {
       state.isFunction = data
+    },
+    uploadImg: function (state, data) {
+      state.settingModuleData.style.backgroundImage = data
     }
   },
   actions: {

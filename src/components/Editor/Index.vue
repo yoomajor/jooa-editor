@@ -137,6 +137,7 @@ export default {
         let activeModule = this.content[moduleIndex]
         activeModule.setting.style = this._.cloneDeep(data.style)
         activeModule.setting.function = this._.cloneDeep(data.function)
+        console.log(activeModule.setting.style)
       }
     },
     settingModuleInfo: {
@@ -231,11 +232,7 @@ export default {
     },
     onRemove: function (e, index) {
       e.stopPropagation()
-      if (this.content.length <= 1) {
-        alert("최소 하나의 모듈이 있어야 합니다")
-      } else {
-        this.content.splice(index, 1)
-      }
+      this.content.splice(index, 1)
     },
     /**
      * 특정 엘리먼트에 클래스명을 추가하고 인접 엘리먼트들에 클래스명을 삭제

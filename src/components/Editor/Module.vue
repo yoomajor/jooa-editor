@@ -23,7 +23,7 @@
           <!-- image -->
           <div v-if="item.type === 'image'" class="standardImage">
             <img v-if="item.value" :src="item.value" alt="" />
-            <label v-else class="uploadImg">Upload image<input type="file"></label>
+            <label :class="{uploadImg: true, hasImg: item.value}"><span>Upload image</span><input type="file" @change="uploadImage($event, item)"></label>
           </div>
           <!-- //image -->
           <!-- button -->
@@ -36,7 +36,7 @@
               contenteditable>
               LINK
             </a>
-            <button v-if="functions.typeValue === 'submit'" class="btn btnFull" type="submit" contenteditable>
+            <button v-if="functions.typeValue === 'submit'" class="btn btnFull sizeL" type="submit" contenteditable>
               SUBMIT
 
             </button>
@@ -117,8 +117,19 @@
           </div>
           <!-- //select -->
           <!-- datetime -->
-          <div v-if="itemData.mods === 'datetime'">
-            <datetime v-model="functions.value"></datetime>
+          <div v-if="itemData.mods === 'datetime'"
+            :class="{ isRequired: functions.isRequired, formGroup: true, datetime: true }">
+            <div class="label">{{ item.value[selectedLang] }}</div>
+            <datetime type="date"
+              v-model="functions.date"
+              input-class="input"
+              format="yyyy-LL-dd">
+            </datetime>
+            <datetime type="time"
+              input-class="input"
+              :minute-step="10"
+              v-model="functions.date">
+            </datetime>
           </div>
           <!-- //datetime -->
         </div>
@@ -130,6 +141,7 @@
 
 <script>
 import config from "./ckeditor_config"
+import Datetime from 'vue-datetime/src/Datetime.vue'
 export default {
   props: [
     'data',
@@ -139,14 +151,15 @@ export default {
     'type',
     'state'
   ],
+  components: {
+    datetime: Datetime
+  },
   data () {
     return {
       itemData: {},
-      itemStyle: {},
-      itemFunction: {},
       editColumn: {},
       editorValue: {},
-      config: config
+      config: config,
     }
   },
   computed: {
@@ -201,7 +214,18 @@ export default {
     },
     inActivate: function (arr) {
       return arr.join(' ')
-    }
+    },
+    uploadImage: function (e, dataTarget) {
+      const target = e.target
+      if (target.files && target.files[0]) {
+        const reader = new FileReader()
+        reader.onload = (e) => {
+          const src = e.target.result
+          dataTarget.value = src
+        }
+        reader.readAsDataURL(target.files[0])
+      }
+    },
   }
 }
 </script>

@@ -165,6 +165,47 @@
       background-image: url('~@/assets/img/ico_del.png');
     }
   }
+  .standardImage {
+    position: relative;
+    .uploadImg {
+      display: block;
+      padding: 60px 0;
+      text-align: center;
+      color: $color-grey;
+      background-color: $bg-default;
+      cursor: pointer;
+      input[type="file"] {
+        position: absolute;
+        left: -9999px;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        opacity: 0;
+      }
+    }
+    .hasImg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      opacity: 0;
+      z-index: -1;
+      transition: all 0.3s;
+      span {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%)
+      }
+    }
+    &:hover .hasImg {
+      opacity: 0.7;
+      z-index: 1;
+    }
+  }
+  
 }
 .moduleSetting {
   width: 300px;
@@ -186,8 +227,10 @@
       margin-top: 0;
     }
     .label {
-      margin-top: 1em;
       margin-bottom: 0.3em;
+    }
+    .innerLabel {
+      margin-top: 1em;
       font-size: 0.8em;
     }
     .unit {
@@ -234,37 +277,6 @@
           left: 0;
         }
       }
-      .btnRemove {
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 40px;
-        height: 40px;
-        text-indent: -9999px;
-        opacity: 0.5;
-        &:before,
-        &:after {
-          content: "";
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          width: 20px;
-          height: 2px;
-          margin-top: -1px;
-          margin-left: -10px;
-          background-color: $color-grey;
-          transform-origin: 50% 50%;
-        }
-        &:before {
-          transform: rotate(45deg);
-        }
-        &:after {
-          transform: rotate(-45deg);
-        }
-        &:hover {
-          opacity: 1;
-        }
-      }
     }
     .input {
       width: 100%;
@@ -281,8 +293,8 @@
       position: relative;
       input[type="text"] {
         font-size: 14px;
+        padding-right: 35px;
       }
-      /*
       input[type="file"] {
         position: absolute;
         left: -9999px;
@@ -292,7 +304,6 @@
         overflow: hidden;
         opacity: 0;
       }
-      */
       label {
         position: absolute;
         top: 0;
@@ -322,6 +333,37 @@
       position: absolute;
       top: 100%;
       left: 0;
+    }
+  }
+  .btnRemove {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    text-indent: -9999px;
+    opacity: 0.5;
+    &:before,
+    &:after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 20px;
+      height: 2px;
+      margin-top: -1px;
+      margin-left: -10px;
+      background-color: $color-grey;
+      transform-origin: 50% 50%;
+    }
+    &:before {
+      transform: rotate(45deg);
+    }
+    &:after {
+      transform: rotate(-45deg);
+    }
+    &:hover {
+      opacity: 1;
     }
   }
 }

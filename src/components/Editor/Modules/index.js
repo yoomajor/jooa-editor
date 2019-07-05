@@ -3,7 +3,9 @@ const moduleList = {}
 const settings = {
   style: {
     inActivate: [],
-    backgroundColor: 'rgba(255,255,255,1)'
+    color: 'rgba(62,62,62,1)',
+    backgroundColor: 'rgba(255,255,255,1)',
+    backgroundImage: ''
   },
   function: {}
 }
