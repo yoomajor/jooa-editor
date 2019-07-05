@@ -4,8 +4,10 @@ import App from './App.vue'
 import axios from 'axios'
 import router from './router'
 import store from './stores/'
-import InlineEditor from '@ckeditor/ckeditor5-build-inline'
 import VueCkeditor from 'vue-ckeditor5'
+import InlineEditor from '@ckeditor/ckeditor5-build-inline'
+import Datetime from 'vue-datetime'
+import 'vue-datetime/dist/vue-datetime.css'
 // import Font from '@ckeditor/ckeditor5-font/src/font'
 
 Vue.config.productionTip = false
@@ -19,7 +21,7 @@ const options = {
 
 Vue.use(VueLodash)
 Vue.use(VueCkeditor.plugin, options)
-console.log(VueCkeditor.plugin)
+Vue.use(Datetime)
 
 const baseApi = axios.create({
   baseURL: 'http://localhost:3000/'

@@ -36,7 +36,8 @@
 		display: flex;
 		flex-wrap: wrap;
 		width: 360px;
-		padding: 8px;
+    padding: 8px;
+    font-size: 14px;
 		border-top: none;
 		background-color: $color-white;
 		.item {
@@ -80,6 +81,9 @@
         transform: translate(-50%, -50%);
       }
     }
+  }
+  .modsWrap {
+    min-height: 300px;
   }
   .item {
     padding: 8px 30px;
@@ -174,13 +178,17 @@
     padding: 15px;
   }
   .item {
-    padding: 15px 0;
-    border-top: 1px solid $color-lgrey2;
+    margin-top: 15px;
+    padding: 15px;
+    border: 1px solid $color-lgrey2;
+    background-color: $bg-default;
     &:first-of-type {
-      border-top: none;
+      margin-top: 0;
     }
     .label {
+      margin-top: 1em;
       margin-bottom: 0.3em;
+      font-size: 0.8em;
     }
     .unit {
       margin-top: 15px;
@@ -263,6 +271,36 @@
       padding: 8px 10px;
       border: 1px solid $color-lgrey2;
       background-color: $color-white;
+      &[disabled] {
+        color: $color-lgrey;
+        background-color: $color-lgrey2;
+        cursor: not-allowed;
+      }
+    }
+    .upload {
+      position: relative;
+      input[type="text"] {
+        font-size: 14px;
+      }
+      /*
+      input[type="file"] {
+        position: absolute;
+        left: -9999px;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        opacity: 0;
+      }
+      */
+      label {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+      }
     }
   }
   .colorPreset {
@@ -273,7 +311,7 @@
     }
     .btnColorPicker {
       width: 100%;
-      height: 34px;
+      height: 38px;
       text-indent: -9999px;
       color: transparent;
       border: none;

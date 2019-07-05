@@ -48,6 +48,8 @@ body {
 }
 
 #app {
+	display: flex;
+	flex-direction: column;
 	height: 100%;
 }
 
@@ -60,15 +62,25 @@ body {
 	.inner {
 		position: relative;
 		padding: 8px 15px;
-		border-width: 1px;
-		border-style: solid;
 		background-size: cover;
 		background-repeat: no-repeat;
 		background-position: 50% 50%;
+		&.padding {
+			padding: 0;
+		}
+		&.background {
+			background: none !important;
+		}
+		&.border {
+			border: none !important;
+		}
 	}
 	.module {
 		display: flex;
-    margin: 0 -8px;
+		margin: 0 -8px;
+		p {
+			min-height: 1.5em;
+		}
     ol {
       padding-left: 1.3em;
       list-style-type: decimal;
@@ -161,7 +173,6 @@ body {
 	padding: 5px 25px;
 	text-align: center;
 	color: $color-white;
-	border-radius: 2px;
 	border: 1px solid $color-primary;
 	background-color: $color-primary;
 	&.btnFull {
@@ -180,29 +191,27 @@ body {
 		height: 1px;
 		margin: -1px;
 		opacity: 0;
-		&:checked+label {
-			&:before {
-				width: 8px;
-				height: 8px;
-				border-width: 5px;
-				border-color: $color-primary;
-				background-color: rgba($color-blue, 0.2);
-			}
+		&:checked+label:before {
+			width: 6px;
+			height: 6px;
+			border-width: 4px;
+			border-color: $color-primary;
+			background-color: rgba($color-blue, 0.2);
 		}
 	}
 	label {
 		display: block;
     position: relative;
     min-height: 1.5em;
-		padding-left: 24px;
+		padding-left: 20px;
 		cursor: pointer;
 		&:before {
 			content: "";
 			position: absolute;
-			top: 2px;
+			top: 5px;
 			left: 0;
-			width: 14px;
-			height: 14px;
+			width: 10px;
+			height: 10px;
 			border: 2px solid $color-grey;
 			background-color: $color-white;
 			transition: all 0.3s;

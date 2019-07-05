@@ -1,7 +1,9 @@
 export default {
   name: 'styleBackground',
   type: 'style',
+  option: 'background',
   moduleName: 'background',
+  active: true,
   settingInfo: [
     {
       key: 'backgroundColor',

@@ -2,8 +2,8 @@ const files = require.context('.', false, /\.js$/)
 const moduleList = {}
 const settings = {
   style: {
-    backgroundColor: 'rgba(255,255,255,1)',
-    borderColor: 'rgba(255,255,255,1)'
+    inActivate: [],
+    backgroundColor: 'rgba(255,255,255,1)'
   },
   function: {}
 }

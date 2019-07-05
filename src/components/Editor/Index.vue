@@ -31,10 +31,10 @@
     <!-- content -->
     <div class="preview"
       @click="onDocumentClick">
-      <div class="article">
+      <div id="article" class="article">
 
       <draggable
-        class="modsWrap"
+        :class="{ modsWrap: true}"
         :list="content"
         :animation="200"
         :options="{draggable: '.mods'}"
@@ -150,6 +150,12 @@ export default {
         let activeModule = this.content[moduleIndex]
         activeModule.dataSet = this._.cloneDeep(data)
       }
+    },
+    content: {
+      deep: true,
+      handler: function (data) {
+        this.$store.commit('content/modules', data)
+      }
     }
   },
   created: function () {
@@ -195,7 +201,6 @@ export default {
             })
           })
         }
-        console.log(mods.setting.function)
       })
     },
     // GET api data
@@ -220,7 +225,7 @@ export default {
     onClone: function (data) {
       const cloneData = this._.cloneDeep(data)
       return {
-        id: moduleId++,
+        id: `new${moduleId++}`,
         ...cloneData
       }
     },
