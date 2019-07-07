@@ -2,12 +2,13 @@ const files = require.context('.', false, /\.js$/)
 const moduleList = {}
 const settings = {
   style: {
-    inActivate: [],
+    inActive: [],
     color: 'rgba(62,62,62,1)',
     backgroundColor: 'rgba(255,255,255,1)',
     backgroundImage: ''
   },
-  function: {}
+  function: {},
+  unitStyle: {}
 }
 
 // index.js를 제외한 모든 js를 file명을 키로 modules에 담아 리턴

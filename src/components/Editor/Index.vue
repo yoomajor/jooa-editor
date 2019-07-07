@@ -54,6 +54,7 @@
             :state="editMode.state"
             :data="module.dataSet"
             :styles="module.setting.style"
+            :unitStyles="module.setting.unitStyle"
             :functions="module.setting.function"
             :mIdx="index"
             :type="module.type">
@@ -137,7 +138,7 @@ export default {
         let activeModule = this.content[moduleIndex]
         activeModule.setting.style = this._.cloneDeep(data.style)
         activeModule.setting.function = this._.cloneDeep(data.function)
-        console.log(activeModule.setting.style)
+        activeModule.setting.unitStyle = this._.cloneDeep(data.unitStyle)
       }
     },
     settingModuleInfo: {
@@ -165,7 +166,7 @@ export default {
   },
   methods: {
     onTabClick: function (e, dataType, targetType) {
-      let type = e.target.dataset[targetType]
+      const type = e.target.dataset[targetType]
       this[dataType] = type
     },
     getModules: function (type) {
@@ -174,9 +175,9 @@ export default {
         mods.type === type
       })
       this.moduleList.forEach(mods => { // setting text value by language (object type)
-        let column = mods.dataSet.column
+        const column = mods.dataSet.column
         column.forEach(x => {
-          if (x.type === 'text') {
+          if (x.hasLang) {
             x.value = { ...this.$store.state.langData.langObj }
           }
         })

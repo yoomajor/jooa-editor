@@ -1,7 +1,7 @@
 <template>
   <div class="inner"
     :style="styles"
-    :class="inActivate(styles.inActivate)">
+    :class="inActive(styles.inActive)">
     <div
       class="module"
       :data-mods="itemData.mods"
@@ -29,19 +29,31 @@
           <!-- button -->
           <div v-if="item.type === 'button'" class="buttonModule">
             <a v-if="functions.typeValue === 'link'"
-              class="btn btnFull"
+              class="btn btnFull sizeL"
               target="_blank"
               :href="functions.url"
               :style="buttonStyle(functions.style)"
+              v-html="item.value[selectedLang]"
+              @blur="updateValue($event, index, mIdx)"
               contenteditable>
-              LINK
             </a>
-            <button v-if="functions.typeValue === 'submit'" class="btn btnFull sizeL" type="submit" contenteditable>
-              SUBMIT
-
+            <button v-if="functions.typeValue === 'submit'"
+              class="btn btnFull sizeL"
+              :style="buttonStyle(functions.style)"
+              v-html="item.value[selectedLang]"
+              @blur="updateValue($event, index, mIdx)"
+              type="submit" contenteditable>
             </button>
           </div>
           <!-- //button -->
+          <!-- border -->
+          <div v-if="item.type === 'border'" class="standardBorder">
+            <div class="border"
+              :style="unitStyles"
+              >
+            </div>
+          </div>
+          <!-- border -->
         </div>
         <!-- //standard module case -->
         <!-- function module case -->
@@ -146,6 +158,7 @@ export default {
   props: [
     'data',
     'styles',
+    'unitStyles',
     'functions',
     'mIdx',
     'type',
@@ -191,6 +204,8 @@ export default {
           e.sourceElement.querySelectorAll("br[data-cke-filler='true']").forEach(x => x.remove())
           const isEmpty = e.sourceElement.innerText.length === 1 && e.sourceElement.childNodes.length
           return isEmpty ? '' : e.sourceElement.innerHTML
+        } else {
+          return e.target.innerHTML
         }
       }
       let updateData = {
@@ -212,8 +227,10 @@ export default {
       })
       return result
     },
-    inActivate: function (arr) {
-      return arr.join(' ')
+    inActive: function (arr) {
+      if (arr !== undefined) {
+        return arr.join(' ')
+      }
     },
     uploadImage: function (e, dataTarget) {
       const target = e.target

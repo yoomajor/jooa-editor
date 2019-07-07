@@ -9,6 +9,7 @@ export default {
     column: [
       {
         type: 'button',
+        hasLang: true,
         value: {}
       }
     ]

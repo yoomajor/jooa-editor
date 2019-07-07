@@ -20,7 +20,8 @@ $bg-default: #f5f6f7;
 
 /* mixin */
 @mixin input {
-	width: 100%;
+  width: 100%;
+  color: $f-color-default;
 	border: 1px solid $color-lgrey;
 	background-color: $color-white;
 }

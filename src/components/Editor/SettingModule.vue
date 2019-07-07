@@ -20,45 +20,73 @@
           <div class="unit">
             <!-- 사용 여부 -->
             <div v-if="item.active !== undefined" class="checkbox">
-              <input type="checkbox" :id="`${item.option}_${moduleInfo.id}`" v-model="item.active" @change="activeStyle(item, index)">
+              <input type="checkbox" :id="`${item.option}_${moduleInfo.id}`" :value="item.active" v-model="item.active" @change="activeStyle(item, index)">
               <label :for="`${item.option}_${moduleInfo.id}`">{{ item.moduleName }}</label>
             </div>
             <div v-else class="label">{{ item.moduleName }}</div>
-            <!-- //사용 여부 -->
 
+            <div style="font-size:20px;font-weight:bold">
+            {{ `${item.moduleName} / ${index} / ${item.active}` }}
+            </div>
+
+            <!-- //사용 여부 -->
             <div v-if="item.settingInfo">
-              <div>
-                <div v-for="(set, idx) in item.settingInfo"
-                  :key="idx">
-                  <div class="label innerLabel">{{ set.label }}</div>
-                  <!-- style :: color -->
-                  <div
-                    v-if="set.option === 'color'"
-                    class="colorPreset"
-                    :style="{ backgroundColor: settingColor(settingModuleData.style[set.key], set.key) }">
-                    <input type="text"
-                      class="btnColorPicker"
-                      v-model="settingModuleData.style[set.key]"
-                      @click="colorPicker" />
-                    <sketch-picker
-                      style="display: none"
-                      v-model="settingModuleData.style[set.key]" />
-                  </div>
-                  <!-- //style :: color -->
-                  <!-- style :: image -->
-                  <div v-if="set.option === 'image'"
-                    class="upload">
-                    <input type="text"
-                      class="input"
-                      placeholder="upload image"
-                      v-model="settingModuleData.style.backgroundImage"
-                      readonly>
-                    <input type="file" :id="`upload_${moduleInfo.id}`" @change="uploadImage($event, set)">
-                    <label :for="`upload_${moduleInfo.id}`"></label>
-                    <button type="button" class="btnRemove" @click="removeImage($event, set)">remove option</button>
-                  </div>
-                  <!-- //style :: image -->
+              <div v-for="(set, idx) in item.settingInfo"
+                :key="idx">
+                <div class="label innerLabel">{{ set.label }}</div>
+                <!-- style :: color -->
+                <div
+                  v-if="set.option === 'color'"
+                  class="colorPreset"
+                  :style="{ backgroundColor: settingColor(settingModuleData.style[set.key], set.key, 'style') }">
+                  <input type="text"
+                    class="btnColorPicker"
+                    v-model="settingModuleData.style[set.key]"
+                    @click="colorPicker" />
+                  <sketch-picker
+                    style="display: none"
+                    v-model="settingModuleData.style[set.key]" />
                 </div>
+                <!-- //style :: color -->
+                <!-- style :: unitColor -->
+                <div
+                  v-if="set.option === 'unitColor'"
+                  class="colorPreset"
+                  :style="{ backgroundColor: settingColor(settingModuleData.unitStyle[set.key], set.key, 'unitStyle') }">
+                  <input type="text"
+                    class="btnColorPicker"
+                    v-model="settingModuleData.unitStyle[set.key]"
+                    @click="colorPicker" />
+                  <sketch-picker
+                    style="display: none"
+                    v-model="settingModuleData.unitStyle[set.key]" />
+                </div>
+                <!-- //style :: unitColor -->
+                <!-- style :: border module -->
+                <div v-if="item.option === 'border' && set.option ==='style'">
+                  <div class="checkbox radio">
+                    <input type="radio" id="borderunit_solid" name="borderunit" value="solid" v-model="settingModuleData.unitStyle[set.key]">
+                    <label for="borderunit_solid">solid</label>
+                  </div>
+                  <div class="checkbox radio">
+                    <input type="radio" id="borderunit_dashed" name="borderunit" value="dashed" v-model="settingModuleData.unitStyle[set.key]">
+                    <label for="borderunit_dashed">dashed</label>
+                  </div>
+                </div>
+                <!-- style :: border module -->
+                <!-- style :: image -->
+                <div v-if="set.option === 'image'"
+                  class="upload">
+                  <input type="text"
+                    class="input"
+                    placeholder="upload image"
+                    v-model="settingModuleData.style.backgroundImage"
+                    readonly>
+                  <input type="file" :id="`upload_${moduleInfo.id}`" @change="uploadImage($event, set)">
+                  <label :for="`upload_${moduleInfo.id}`"></label>
+                  <button type="button" class="btnRemove" @click="removeImage($event, set)">remove option</button>
+                </div>
+                <!-- //style :: image -->
               </div>
             </div>
           </div>
@@ -284,6 +312,18 @@ export default {
   methods: {
     getSettings: function (type) {
       this.settingList = this._.cloneDeep(SETTING_DATA.filter(setting => { return setting.type === type }))
+      // 기능형 모듈 체크여부 데이터 맵핑
+      if (this.settingModuleData.style && this.settingModuleData.style.inActive.length) {
+        this.settingModuleData.style.inActive.forEach(x => {
+          this.settingList.forEach(s => s.active = s.option !== x)
+        })
+      }
+      // 특정 모듈 한정 스타일(ex.구분선) 데이터 재배열
+      if (this.settingModuleData.unitStyle === undefined) {
+        this.settingList = this.settingList.filter(x => !x.isUnit)
+      } else {
+        this.settingList = this.settingList.filter(x => !x.isUnit || x.isUnit === this.moduleInfo.name)
+      }
     },
     onTabClick: function (e) {
       let type = e.target.dataset.setting_type
@@ -291,11 +331,11 @@ export default {
     },
     activeStyle: function (item, index) {
       if (!item.active) {
-        this.settingModuleData.style.inActivate.push(item.option)
+        this.settingModuleData.style.inActive.push(item.option)
         this.settingList[index].active = false
       } else {
-        let optionIndex = this.settingModuleData.style.inActivate.indexOf(item.option)
-        this.settingModuleData.style.inActivate.splice(optionIndex, 1)
+        let optionIndex = this.settingModuleData.style.inActive.indexOf(item.option)
+        this.settingModuleData.style.inActive.splice(optionIndex, 1)
         this.settingList[index].active = true
       }
       this.settingList[index].active != this.settingList[index].active
@@ -316,10 +356,12 @@ export default {
         document.removeEventListener('click', this.hideColorPicker)
       }
     },
-    settingColor: function (c, key) {
-      let rgba = typeof (c) === 'string' ? c : `rgba(${c.rgba.r},${c.rgba.g},${c.rgba.b},${c.rgba.a})`
-      this.settingModuleData.style[key] = rgba
-      return rgba
+    settingColor: function (c, key, dataPos) {
+      if (c !== undefined) {
+        let rgba = typeof (c) === 'string' ? c : `rgba(${c.rgba.r},${c.rgba.g},${c.rgba.b},${c.rgba.a})`
+        this.settingModuleData[dataPos][key] = rgba
+        return rgba
+      }
     },
     uploadImage: function (e, dataTarget) {
       const target = e.target

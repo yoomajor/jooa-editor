@@ -73,7 +73,10 @@ body {
 		}
 		&.border {
 			border: none !important;
-		}
+    }
+    &.color {
+      color: inherit !important;
+    }
 	}
 	.module {
 		display: flex;
@@ -108,6 +111,10 @@ body {
 	}
 	[data-mods*="img"] img {
 		width: 100%;
+  }
+  .border {
+    border-top: 1px solid $f-color-default;
+    border-bottom: none !important;
   }
 }
 

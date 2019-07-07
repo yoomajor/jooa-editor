@@ -8,6 +8,7 @@ export default {
     column: [
       {
         type: 'image',
+        hasLang: false,
         value: null,
         link: null
       }

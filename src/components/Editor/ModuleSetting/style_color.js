@@ -3,6 +3,7 @@ export default {
   type: 'style',
   option: 'color',
   moduleName: 'text color',
+  active: true,
   settingInfo: [
     {
       key: 'color',

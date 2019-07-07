@@ -7,6 +7,7 @@ export default {
     column: [
       {
         type: 'text',
+        hasLang: true,
         value: {}
       }
     ]
