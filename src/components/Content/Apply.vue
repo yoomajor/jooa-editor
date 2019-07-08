@@ -43,13 +43,19 @@ export default {
       const contenteditable = article.querySelectorAll('[contenteditable]')
       const quantity = article.querySelectorAll('.inputQuantity')
       const fileUpload = article.querySelectorAll('.uploadImg')
+      const datetime = article.querySelectorAll('[data-mods="datetime"] .datetime')
       
       handles.forEach(x => x.parentNode.removeChild(x))
       contenteditable.forEach(x => x.removeAttribute('contentEditable'))
       quantity.forEach(x => x.setAttribute('value', x.dataset.min))
       fileUpload.forEach(x => x.remove())
-
-      
+      /*
+      datetime.forEach(x => {
+        const date = x.querySelector('.dateInput').value
+        const time = x.querySelector('.timeInput').value
+        console.log(date, time)
+      })
+      */
       this.renderHtml = new XMLSerializer().serializeToString(article)
     }
   }

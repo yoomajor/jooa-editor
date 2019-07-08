@@ -20,5 +20,10 @@ export default {
       }
     ]
   },
+  setting: {
+    exceptUnit: [
+      'textColor'
+    ]
+  },
   link: null
 }

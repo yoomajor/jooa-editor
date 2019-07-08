@@ -23,6 +23,11 @@ export default {
       max: {
         name: 'maximum',
         vol: 5
+      },
+      price: {
+        isPrice: false,
+        value: '10,000',
+        view: ''
       }
     }
   },

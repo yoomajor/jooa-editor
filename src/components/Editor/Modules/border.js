@@ -14,6 +14,9 @@ export default {
     ]
   },
   setting: {
+    exceptUnit: [
+      'textColor'
+    ],
     unitStyle: {
       borderColor: 'rgba(62,62,62,1)',
       borderStyle: 'solid'

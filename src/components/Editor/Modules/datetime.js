@@ -16,7 +16,8 @@ export default {
   setting: {
     function: {
       label: 'datetime',
-      date: new Date().toISOString()
+      date: new Date().toISOString(),
+      isASAP: true
     }
   },
   link: null

@@ -1,11 +1,10 @@
 <template>
   <div class="inner"
+    :data-mods="itemData.mods"
+    :data-lang="$store.state.setcontent.lang"
     :style="styles"
     :class="inActive(styles.inActive)">
-    <div
-      class="module"
-      :data-mods="itemData.mods"
-      :data-lang="$store.state.setcontent.lang">
+    <div class="module">
       <div
         class="column"
         v-for="(item, index) in itemData.column"
@@ -37,7 +36,7 @@
               @blur="updateValue($event, index, mIdx)"
               contenteditable>
             </a>
-            <button v-if="functions.typeValue === 'submit'"
+            <button v-if="functions.typeValue === 'submit' || functions.typeValue ==='cart'"
               class="btn btnFull sizeL"
               :style="buttonStyle(functions.style)"
               v-html="item.value[selectedLang]"
@@ -81,6 +80,10 @@
               <input type="text" class="inputQuantity" :data-min="functions.min.vol" :data-max="functions.max.vol" :value="functions.min.vol" :required="functions.isRequired" :placeholder="`${functions.min.vol} ~ ${functions.max.vol}`">
               <button type="button" class="btnQuantity" data-quantity="plus" disabled>+</button>
             </div>
+            <div v-if="functions.price.isPrice" class="price">
+              <i class="icoCurrency" v-html="$store.state.currency.currencyInfo.e"></i>
+              <span>{{ functions.price.value }}</span>
+            </div>
           </div>
           <!-- //quantity -->
           <!-- radio -->
@@ -92,7 +95,7 @@
               :key="index"
               class="listItem checkbox radio">
               <input type="radio" :name="`option_${mIdx}`" :id="`option_${mIdx}_${index}`" :value="option.itemValue" v-model="functions.optionValue" :required="functions.isRequired">
-              <label :for="`option_${mIdx}_${index}`">{{ option.label[selectedLang] }}</label>
+              <label :for="`option_${mIdx}_${index}`">{{ option.label[selectedLang] }} <span v-if="$store.state.content.isPrice" class="optionPrice">{{ optionPrice(option.itemPrice) }}</span></label>
             </div>
           </div>
           <!-- //radio -->
@@ -105,7 +108,7 @@
               :key="index"
               class="listItem checkbox">
               <input type="checkbox" :name="`option_${mIdx}`" :id="`option_${mIdx}_${index}`" :value="option.itemValue" v-model="functions.optionValue" :required="functions.isRequired">
-              <label :for="`option_${mIdx}_${index}`">{{ option.label[selectedLang] }}</label>
+              <label :for="`option_${mIdx}_${index}`">{{ option.label[selectedLang] }} <span v-if="$store.state.content.isPrice" class="optionPrice">{{ optionPrice(option.itemPrice) }}</span></label>
             </div>
           </div>
           <!-- //checkbox -->
@@ -130,18 +133,24 @@
           <!-- //select -->
           <!-- datetime -->
           <div v-if="itemData.mods === 'datetime'"
-            :class="{ isRequired: functions.isRequired, formGroup: true, datetime: true }">
+            :class="{ isRequired: functions.isRequired, formGroup: true }">
             <div class="label">{{ item.value[selectedLang] }}</div>
-            <datetime type="date"
-              v-model="functions.date"
-              input-class="input"
-              format="yyyy-LL-dd">
-            </datetime>
-            <datetime type="time"
-              input-class="input"
-              :minute-step="10"
-              v-model="functions.date">
-            </datetime>
+            <div class="multiBtn">
+              <button type="button" class="btn btnColumn">ASAP</button>
+              <button type="button" class="btn btnColumn">SET TIME</button>
+            </div>
+            <div class="datetime">
+              <datetime type="date"
+                v-model="functions.date"
+                input-class="input dateInput"
+                format="yyyy-LL-dd">
+              </datetime>
+              <datetime type="time"
+                v-model="functions.date"
+                input-class="input timeInput"
+                :minute-step="30">
+              </datetime>
+            </div>
           </div>
           <!-- //datetime -->
         </div>
@@ -152,7 +161,7 @@
 </template>
 
 <script>
-import config from "./ckeditor_config"
+import config from './ckeditor_config'
 import Datetime from 'vue-datetime/src/Datetime.vue'
 export default {
   props: [
@@ -172,7 +181,7 @@ export default {
       itemData: {},
       editColumn: {},
       editorValue: {},
-      config: config,
+      config: config
     }
   },
   computed: {
@@ -243,6 +252,10 @@ export default {
         reader.readAsDataURL(target.files[0])
       }
     },
+    optionPrice: function (price) {
+      const uncommaPrice = Number(String(price).replace(/[^-+.\d]/g, ''))
+      return uncommaPrice === 0 ? '' : `(${price})`
+    }
   }
 }
 </script>

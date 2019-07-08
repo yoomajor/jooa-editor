@@ -1,5 +1,5 @@
 export default {
-  name: 'styleColor',
+  name: 'textColor',
   type: 'style',
   option: 'color',
   moduleName: 'text color',

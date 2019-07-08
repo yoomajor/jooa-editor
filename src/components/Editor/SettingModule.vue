@@ -24,11 +24,6 @@
               <label :for="`${item.option}_${moduleInfo.id}`">{{ item.moduleName }}</label>
             </div>
             <div v-else class="label">{{ item.moduleName }}</div>
-
-            <div style="font-size:20px;font-weight:bold">
-            {{ `${item.moduleName} / ${index} / ${item.active}` }}
-            </div>
-
             <!-- //사용 여부 -->
             <div v-if="item.settingInfo">
               <div v-for="(set, idx) in item.settingInfo"
@@ -122,18 +117,28 @@
             </div>
             <!-- //common :: data label -->
             <!-- function :: quantity -->
-            <div v-if="settingModuleInfo.mods === 'quantity'"
-              class="item">
-              <div class="unit hasColumn">
-                <div class="unitColumn">
-                  <div class="label">{{ settingModuleData.function.min.name }}</div>
-                  <input type="text" v-model="settingModuleData.function.min.vol" class="input" data-quantity='min' @input="setQuantity" @focusout="validateQuantity" />
+            <div v-if="settingModuleInfo.mods === 'quantity'">
+              <div class="item">
+                <div class="unit hasColumn">
+                  <div class="unitColumn">
+                    <div class="label">{{ settingModuleData.function.min.name }}</div>
+                    <input type="text" v-model="settingModuleData.function.min.vol" class="input" data-quantity='min' @input="setQuantity" @focusout="validateQuantity" />
+                  </div>
+                  <div class="unitColumn">
+                    <div class="label">{{ settingModuleData.function.max.name }}</div>
+                    <input type="text" v-model="settingModuleData.function.max.vol" class="input" data-quantity='max' @input="setQuantity" @focusout="validateQuantity" />
+                  </div>
+                  <p class="message">{{ validateQuantity() }}</p>
                 </div>
-                <div class="unitColumn">
-                  <div class="label">{{ settingModuleData.function.max.name }}</div>
-                  <input type="text" v-model="settingModuleData.function.max.vol" class="input" data-quantity='max' @input="setQuantity" @focusout="validateQuantity" />
+              </div>
+              <div class="item">
+                <div class="unit">
+                  <div class="checkbox label">
+                    <input type="checkbox" :id="`price_${moduleInfo.id}`" @change="isPrice(settingModuleData.function.price.isPrice)" v-model="settingModuleData.function.price.isPrice">
+                    <label :for="`price_${moduleInfo.id}`">price</label>
+                  </div>
+                  <input v-if="settingModuleData.function.price.isPrice" type="text" class="input" @input="setPrice" v-model="settingModuleData.function.price.value">
                 </div>
-                <p class="message">{{ validateQuantity() }}</p>
               </div>
             </div>
             <!-- //function :: quantity -->
@@ -142,16 +147,18 @@
               class="item">
               <div class="unit itemList">
                 <div class="label">{{ settingModuleData.function.label }}</div>
-                <div v-for="(item, index) in settingModuleData.function.item"
+                <div v-for="(item, idx) in settingModuleData.function.item"
                   class="listItem checkbox radio"
-                  :key="index">
+                  :key="idx">
 
                   <!-- label로 들어가는 값 -->
-                  <input type="text" class="input" :data-id="`option_${moduleInfo.id}_${index}`" v-model="item.label[selectedLang]">
+                  <input type="text" class="input" :data-id="`option_${moduleInfo.id}_${idx}`" v-model="item.label[selectedLang]">
                   <!-- 실제 폼으로 전달받을 값 -->
                   <input type="text" class="input input2" v-model="item.itemValue">
+                  <!-- 가격이 있으면 증감될 값 -->
+                  <input v-if="$store.state.content.isPrice" type="text" class="input" @input="itemPrice($event, idx)" v-model="item.itemPrice">
 
-                  <button type="button" class="btnRemove" @click="removeOption(index)">remove option</button>
+                  <button type="button" class="btnRemove" @click="removeOption(idx)">remove option</button>
                 </div>
                 <button type="button" class="btn btnFull" @click="addOption(settingModuleData.function.item.length)">Add option</button>
               </div>
@@ -161,16 +168,18 @@
             <div v-if="settingModuleInfo.mods === 'checkbox'"  class="item">
               <div class="unit itemList">
                 <div class="label">{{ settingModuleData.function.label }}</div>
-                <div v-for="(item, index) in settingModuleData.function.item"
-                  :key="index"
+                <div v-for="(item, idx) in settingModuleData.function.item"
+                  :key="idx"
                   class="listItem checkbox">
 
                   <!-- label로 들어가는 값 -->
-                  <input type="text" class="input" :data-id="`option_${moduleInfo.id}_${index}`" v-model="item.label[selectedLang]">
+                  <input type="text" class="input" :data-id="`option_${moduleInfo.id}_${idx}`" v-model="item.label[selectedLang]">
                   <!-- 실제 폼으로 전달받을 값 -->
                   <input type="text" class="input input2" v-model="item.itemValue">
+                  <!-- 가격이 있으면 증감될 값 -->
+                  <input v-if="$store.state.content.isPrice" type="text" class="input" @input="itemPrice($event, idx)" v-model="item.itemPrice">
 
-                  <button type="button" class="btnRemove" @click="removeOption(index)">remove option</button>
+                  <button type="button" class="btnRemove" @click="removeOption(idx)">remove option</button>
                 </div>
                 <button type="button" class="btn btnFull" @click="addOption(settingModuleData.function.item.length)">Add option</button>
               </div>
@@ -180,16 +189,16 @@
             <div v-if="settingModuleInfo.mods === 'select'" class="item">
               <div  class="unit itemList">
                 <div class="label">{{ settingModuleData.function.label }}</div>
-                <div v-for="(item, index) in settingModuleData.function.item"
-                  :key="index"
+                <div v-for="(item, idx) in settingModuleData.function.item"
+                  :key="idx"
                   class="listItem checkbox radio">
 
                   <!-- option으로 들어가는값 -->
-                  <input type="text" class="input" :data-id="`option_${moduleInfo.id}_${index}`" v-model="item.label[selectedLang]">
+                  <input type="text" class="input" :data-id="`option_${moduleInfo.id}_${idx}`" v-model="item.label[selectedLang]">
                   <!-- 실제 폼으로 전달받을값 -->
                   <input type="text" class="input input2" v-model="item.itemValue">
 
-                  <button type="button" class="btnRemove" @click="removeOption(index)">remove option</button>
+                  <button type="button" class="btnRemove" @click="removeOption(idx)">remove option</button>
                 </div>
                 <button type="button" class="btn btnFull" @click="addOption(settingModuleData.function.item.length)">Add option</button>
               </div>
@@ -201,10 +210,10 @@
                 <div class="listItem">
                   <div
                     class="checkbox radio"
-                    v-for="(item, index) in settingModuleData.function.type"
-                    :key="index">
-                    <input type="radio" :name="`option_${moduleInfo.id}`" :id="`option_${moduleInfo.id}_${index}`" :value="item.action" v-model="settingModuleData.function.typeValue">
-                    <label :for="`option_${moduleInfo.id}_${index}`">{{ item.name }}</label>
+                    v-for="(item, idx) in settingModuleData.function.type"
+                    :key="idx">
+                    <input type="radio" :name="`option_${moduleInfo.id}`" :id="`option_${moduleInfo.id}_${idx}`" :value="item.action" v-model="settingModuleData.function.typeValue">
+                    <label :for="`option_${moduleInfo.id}_${idx}`">{{ item.name }}</label>
                   </div>
                 </div>
                 <!-- link url input -->
@@ -216,19 +225,19 @@
               <div class="unit itemList">
                 <div
                   class="listItem"
-                  v-for="(itemStyle, index) in settingModuleData.function.style"
-                  :key="index">
+                  v-for="(itemStyle, idx) in settingModuleData.function.style"
+                  :key="idx">
                   <div class="label">{{ itemStyle.label }}</div>
                   <div
                     class="colorPreset"
-                    :style="{ backgroundColor: settingBtnColor(itemStyle.value, index) }">
+                    :style="{ backgroundColor: settingBtnColor(itemStyle.value, idx) }">
                     <input type="text"
                       class="btnColorPicker"
-                      v-model="settingModuleData.function.style[index].value"
+                      v-model="settingModuleData.function.style[idx].value"
                       @click="colorPicker" />
                     <sketch-picker
                       style="display: none"
-                      v-model="settingModuleData.function.style[index].value" />
+                      v-model="settingModuleData.function.style[idx].value" />
                   </div>
                 </div>
               </div>
@@ -252,9 +261,9 @@
 </template>
 
 <script>
-import settings from "./ModuleSetting"
+import settings from './ModuleSetting'
 import sketch from 'vue-color/src/components/Sketch.vue'
-import regExp from "@/common/regExp"
+import regExp from '@/common/regExp'
 
 const SETTING_DATA = Object.values(settings)
 
@@ -266,10 +275,10 @@ export default {
   data () {
     return {
       settingTab: [
-        {type: "style", label: "스타일"},
-        {type: "function", label: "기능"}
+        { type: 'style', label: '스타일' },
+        { type: 'function', label: '기능' }
       ],
-      settingType: "style",
+      settingType: 'style',
       settingList: [],
       settingModuleInfo: {},
       settingModuleData: {}
@@ -302,10 +311,8 @@ export default {
       deep: true,
       handler: function (data) {
         this.$store.commit('content/settingModuleData', data)
-        if (this._.isEmpty(data.function)) {
-          this.getSettings('style')
-          this.settingType = 'style'
-        }
+        this._.isEmpty(data.function) ? this.settingType = 'style' : this.settingType = this.settingType
+        this.getSettings(this.settingType)
       }
     }
   },
@@ -315,7 +322,11 @@ export default {
       // 기능형 모듈 체크여부 데이터 맵핑
       if (this.settingModuleData.style && this.settingModuleData.style.inActive.length) {
         this.settingModuleData.style.inActive.forEach(x => {
-          this.settingList.forEach(s => s.active = s.option !== x)
+          this.settingList.forEach(s => {
+            if (s.active !== undefined) {
+              s.active = s.option !== x
+            }
+          })
         })
       }
       // 특정 모듈 한정 스타일(ex.구분선) 데이터 재배열
@@ -324,21 +335,26 @@ export default {
       } else {
         this.settingList = this.settingList.filter(x => !x.isUnit || x.isUnit === this.moduleInfo.name)
       }
+      // 특정 모듈 한정 제외 스타일 데이터 삭제(ex. 구분선에 text color는 불필요)
+      if (this.settingModuleData.exceptUnit !== undefined) {
+        const exceptUnit = this.settingModuleData.exceptUnit
+        this.settingList = this.settingList.filter(x => {
+          return exceptUnit.indexOf(x.name) === -1
+        })
+      }
     },
     onTabClick: function (e) {
       let type = e.target.dataset.setting_type
       this.settingType = type
     },
     activeStyle: function (item, index) {
+      this.settingList[index].active = !this.settingList[index].active
       if (!item.active) {
         this.settingModuleData.style.inActive.push(item.option)
-        this.settingList[index].active = false
       } else {
         let optionIndex = this.settingModuleData.style.inActive.indexOf(item.option)
         this.settingModuleData.style.inActive.splice(optionIndex, 1)
-        this.settingList[index].active = true
       }
-      this.settingList[index].active != this.settingList[index].active
     },
     colorPicker: function (e) {
       e.target.closest('.colorPreset').classList.add('active')
@@ -346,7 +362,7 @@ export default {
       document.addEventListener('click', this.hideColorPicker)
     },
     hideColorPicker: function (e) {
-      if ( e.target.closest('.colorPreset') === null ) {
+      if (e.target.closest('.colorPreset') === null) {
         document.querySelectorAll('.colorPreset').forEach(x => {
           x.classList.remove('active')
         })
@@ -375,7 +391,6 @@ export default {
       }
     },
     removeImage: function (e, dataTarget) {
-      const target = e.target
       this.$store.commit('content/uploadImg', '')
     },
     updateLabel: function () {
@@ -384,14 +399,22 @@ export default {
     },
     setQuantity: function (e) {
       const role = e.target.dataset.quantity
-      let vol = this.settingModuleData.function[role].vol
       this.settingModuleData.function[role].vol = Number(regExp.numberOnly(e.target.value))
+    },
+    setPrice: function (e) {
+      this.settingModuleData.function.price.value = regExp.comma(e.target.value)
+    },
+    itemPrice: function (e, idx) {
+      this.settingModuleData.function.item[idx].itemPrice = regExp.comma(e.target.value)
     },
     validateQuantity: function (e) {
       const min = this.settingModuleData.function.min.vol
       const max = this.settingModuleData.function.max.vol
       let message = min > max ? '최대값보다 최소값이 높습니다' : ''
       return message
+    },
+    isPrice: function (isPrice) {
+      this.$store.commit('content/isPrice', isPrice)
     },
     addOption: function (length) {
       length++
@@ -403,7 +426,11 @@ export default {
     },
     removeOption: function (index) {
       let isLast = this.settingModuleData.function.item.length <= 1
-      isLast ? alert ('옵션을 모두 삭제할 수 없습니다.') : this.settingModuleData.function.item.splice(index, 1)
+      if (isLast) {
+        alert ('옵션을 모두 삭제할 수 없습니다.')
+      } else {
+        this.settingModuleData.function.item.splice(index, 1)
+      }
     },
     settingBtnColor: function (c, index) {
       let rgba = typeof (c) === 'string' ? c : `rgba(${c.rgba.r},${c.rgba.g},${c.rgba.b},${c.rgba.a})`

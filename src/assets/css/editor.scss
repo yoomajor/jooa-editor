@@ -216,16 +216,13 @@
     text-align: center;
   }
   .list {
-    padding: 15px;
+    padding: 0 15px 15px;
   }
   .item {
     margin-top: 15px;
     padding: 15px;
     border: 1px solid $color-lgrey2;
     background-color: $bg-default;
-    &:first-of-type {
-      margin-top: 0;
-    }
     .label {
       margin-bottom: 0.3em;
     }

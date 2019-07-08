@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import LANG from '@/common/lang'
+import CURRENCY from '@/common/currency'
 
 // 모든모듈 modules로 임포트
 import * as modules from './modules/'
@@ -18,12 +19,22 @@ const store = new Vuex.Store({
       default: LANG.default,
       defaultText: LANG.defaultText,
       defaultLabel: LANG.defaultLabel,
+      defaultButton: LANG.defaultButton,
       langObj: LANG.langObj()
+    },
+    currency: {
+      info: CURRENCY.currs,
+      default: CURRENCY.default,
+      currencyInfo: CURRENCY.currencyInfo(CURRENCY.default)
     }
   },
   mutations: {
     setLang: function (state, data) {
       state.langData.usable = data
+    },
+    setCurrency: function (state, data) {
+      state.currency.default = data
+      state.currency.currencyInfo = CURRENCY.currencyInfo(data)
     }
   },
   actions: {

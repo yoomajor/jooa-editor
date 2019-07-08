@@ -15,6 +15,9 @@ export default {
     ]
   },
   setting: {
+    exceptUnit: [
+      'textColor'
+    ],
     function: {
       type: [
         {
@@ -24,6 +27,10 @@ export default {
         {
           name: 'submit',
           action: 'submit'
+        },
+        {
+          name: 'cart',
+          action: 'cart'
         }
       ],
       url: '',

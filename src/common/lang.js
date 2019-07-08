@@ -3,6 +3,7 @@ const LANG = {
   // defaultText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin non diam facilisis, consectetur nulla nec, semper diam.',
   defaultText: 'text here',
   defaultLabel: 'Information to be input',
+  defaultButton: 'BUTTON',
   langs: [
     { c: 'en', n: 'English', u: true },
     { c: 'ko', n: 'Korean', u: true },

@@ -21,11 +21,13 @@ export default {
       item: [
         {
           label: {},
-          itemValue: ''
+          itemValue: '',
+          itemPrice: 0
         },
         {
           label: {},
-          itemValue: ''
+          itemValue: '',
+          itemPrice: 0
         }
       ]
     }

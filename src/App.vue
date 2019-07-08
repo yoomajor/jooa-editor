@@ -3,18 +3,21 @@
     <div id="nav">
       <router-link to="/editor">Editor</router-link>
     </div>
-    <!-- GLOBAL SETTING :: lang -->
+    <!-- GLOBAL SETTING  -->
     <SetLang />
-    <!-- // GLOBAL SETTING :: lang -->
+    <SetCurrency />
+    <!-- // GLOBAL SETTING -->
     <router-view/>
   </div>
 </template>
 
 <script>
 import SetLang from './views/SetLang.vue'
+import SetCurrency from './views/SetCurrency.vue'
 export default {
   components: {
-    SetLang
+    SetLang,
+    SetCurrency
   }
 }
 </script>

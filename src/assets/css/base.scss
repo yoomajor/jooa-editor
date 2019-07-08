@@ -67,6 +67,10 @@ body {
 		background-position: 50% 50%;
 		&.padding {
 			padding: 0;
+			&[data-mods="border"] {
+				padding-top: 8px;
+				padding-bottom: 8px;
+			}
 		}
 		&.background {
 			background: none !important;
@@ -127,7 +131,18 @@ body {
     content: "*";
     margin-right: 0.3em;
     color: $color-red;
-  }
+	}
+	.multiBtn {
+		display: flex;
+		margin: 0 -4px 5px;
+		.btnColumn {
+			flex: 1;
+			margin: 0 4px;
+			&+.btnColumn {
+				flex: none;
+			}
+		}
+	}
 	.input {
 		padding: 8px 10px;
 		@include input;
@@ -142,6 +157,7 @@ body {
 		.btnQuantity {
 			width: 40px;
 			height: 40px;
+			color: $f-color-default;
 			border: 1px solid $color-lgrey;
 		}
 		.inputQuantity {
@@ -151,6 +167,18 @@ body {
 			border-right: none;
 			border-left: none;
 			background-color: transparent;
+		}
+		&+.price {
+			margin-top: 5px;
+			text-align: right;
+			font-size: 1.5em;
+			.input {
+				width: auto;
+				padding: 0;
+				color: inherit;
+				border: none;
+				background-color: transparent;
+			}
 		}
 	}
 	.listItem {
@@ -221,6 +249,10 @@ body {
 	}
 	&.active {
 		color: $color-red;
+	}
+	.optionPrice {
+		font-size: 0.85em;
+		opacity: 0.5;
 	}
 }
 
