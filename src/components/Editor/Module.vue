@@ -136,8 +136,8 @@
             :class="{ isRequired: functions.isRequired, formGroup: true }">
             <div class="label">{{ item.value[selectedLang] }}</div>
             <div class="multiBtn">
-              <button type="button" class="btn btnColumn">ASAP</button>
-              <button type="button" class="btn btnColumn">SET TIME</button>
+              <button type="button" class="btn sizeM btnColumn">ASAP</button>
+              <button type="button" class="btn sizeM btnColumn">SET TIME</button>
             </div>
             <div class="datetime">
               <datetime type="date"

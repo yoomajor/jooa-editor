@@ -1,7 +1,7 @@
 <template>
   <div class="settingCurrency">
     <div class="currencyList">
-      <p>기본 통화</p>
+      <p class="innerTitle">기본 통화</p>
       <span
         class="item checkbox radio"
         v-for="(item, index) in currencyInfos"
@@ -50,10 +50,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.small {
-  font-size: 0.8em;
-  opacity: 0.6;
-}
-</style>

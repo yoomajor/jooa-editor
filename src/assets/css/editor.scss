@@ -6,6 +6,10 @@
 @mixin mods-active {
   border: 1px solid $color-primary;
 }
+html,
+body {
+  overflow: hidden;
+}
 [contenteditable] {
   cursor: text;
 }
@@ -29,13 +33,48 @@
     }
   }
 }
+/* common */
+.innerBox {
+  padding: 30px;
+  margin-top: 30px;
+  border: 1px solid $color-lgrey;
+  background-color: $color-white;
+  &:first-of-type {
+    margin-top: 0;
+  }
+}
+.innerItem {
+  margin-top: 15px;
+  &:first-of-type {
+    margin-top: 0;
+  }
+}
+.innerTitle {
+  margin-bottom: 0.2em;
+  font-size: 1.1em;
+  font-weight: $f-w-bold;
+  &:before {
+    content: "\00B7";
+    margin-right: 0.1em;
+    color: $color-primary;
+  }
+}
+
+/* editor */
 .moduleList {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 360px;
+  height: 100%;
   border: 1px solid $color-lgrey;
   background-color: $color-white;
 	.list {
 		display: flex;
-		flex-wrap: wrap;
-		width: 360px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+    height: 100%;
+    overflow: auto;
     padding: 8px;
     font-size: 14px;
 		border-top: none;
@@ -65,7 +104,9 @@
 }
 .preview {
   flex: 1;
-  padding: 0 30px;
+  height: 100%;
+  overflow: auto;
+  padding: 1px 30px;
   .article {
     max-width: 375px;
     margin: 0 auto;
@@ -208,7 +249,10 @@
   
 }
 .moduleSetting {
-  width: 300px;
+  display: flex;
+  flex-direction: column;
+  flex-basis: 300px;
+  height: 100%;
   border: 1px solid $color-lgrey;
   background-color: $color-white;
   .requireMessage {
@@ -216,6 +260,12 @@
     text-align: center;
   }
   .list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+    height: 100%;
+    overflow: auto;
     padding: 0 15px 15px;
   }
   .item {

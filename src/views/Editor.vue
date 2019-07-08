@@ -1,8 +1,10 @@
 <template>
   <div class="container">
-    <SetContent />
-    <EditContent />
-    <ApplyContent />
+    <div class="innerBox settingBar">
+      <SetContent />
+      <ApplyContent />
+    </div>
+    <EditContent class="contentEditor" />
   </div>
 </template>
 
@@ -20,3 +22,13 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.settingBar {
+  margin-bottom: 15px;
+}
+.contentEditor {
+  height: 100%;
+}
+</style>
+

@@ -1,7 +1,7 @@
 <template>
-  <div class="settingLang">
-    <div class="langList">
-      <p>사용 언어</p>
+  <div>
+    <div class="innerItem">
+      <p class="innerTitle">사용 언어</p>
       <span
         class="item checkbox"
         v-for="(item, index) in langInfos"
@@ -19,8 +19,8 @@
         </label>
       </span>
     </div>
-    <div class="setDefault">
-      <p>기본 언어</p>
+    <div class="innerItem">
+      <p class="innerTitle">기본 언어</p>
       <select
         v-model="defaultLang">
         <option
@@ -90,11 +90,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.settingLang {
-  position: relative;
-  padding: 15px 150px 15px 15px;
-  background-color: $color-white;
-}
-</style>

@@ -70,10 +70,7 @@
     </div>
     <!-- //content -->
     <!-- setting module -->
-    <div class="setting">
-      <SettingModule>
-      </SettingModule>
-    </div>
+    <SettingModule />
     <!-- //setting module -->
   </div>
 </template>
@@ -181,9 +178,7 @@ export default {
             x.value = { ...this.$store.state.langData.langObj }
           }
           if (x.type === 'button') {
-            console.log('asdf')
             let key = Object.keys(x.value)
-            console.log(key)
             key.forEach(k => x.value[k] = this.$store.state.langData.defaultButton)
           }
         })
