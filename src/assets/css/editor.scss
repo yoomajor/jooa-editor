@@ -109,7 +109,9 @@ body {
   padding: 1px 30px;
   .article {
     max-width: 375px;
+    min-height: 100%;
     margin: 0 auto;
+    border: 1px solid $color-lgrey;
     background-color: $color-white;
     &.isEmpty {
       position: relative;

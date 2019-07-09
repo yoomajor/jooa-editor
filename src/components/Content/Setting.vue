@@ -37,7 +37,6 @@ export default {
       this.langList = data
     },
     selectLang (data) {
-      
     }
   },
   created: function () {

@@ -84,7 +84,7 @@ export default {
     checkLang: function (e) {
       if (!e.target.checked && e.target.value === this.defaultLang) {
         e.preventDefault()
-        alert ("기본 언어는 해제할 수 없습니다")
+        alert ('기본 언어는 해제할 수 없습니다')
       }
     }
   }

@@ -348,13 +348,14 @@ export default {
       this.settingType = type
     },
     activeStyle: function (item, index) {
-      this.settingList[index].active = !this.settingList[index].active
       if (!item.active) {
         this.settingModuleData.style.inActive.push(item.option)
       } else {
         let optionIndex = this.settingModuleData.style.inActive.indexOf(item.option)
         this.settingModuleData.style.inActive.splice(optionIndex, 1)
       }
+      this.settingList[index].active = !this.settingList[index].active
+      console.log(this.settingList[index].active, this.settingModuleData.style.inActive)
     },
     colorPicker: function (e) {
       e.target.closest('.colorPreset').classList.add('active')
@@ -422,6 +423,7 @@ export default {
       Object.keys(newOption.label).forEach(x => {
         newOption.label[x] = `list option ${length}`
       })
+      newOption.itemValue = `value ${length}`
       this.settingModuleData.function.item.push(newOption)
     },
     removeOption: function (index) {
