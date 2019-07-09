@@ -1,0 +1,304 @@
+[
+  {
+    "id": "new0",
+    "name": "embed",
+    "type": "standard",
+    "moduleName": "embed",
+    "isFunction": false,
+    "dataSet": {
+      "mods": "embed",
+      "column": [
+        {
+          "type": "embed",
+          "value": "<iframe width='560' height='315' src='https://www.youtube.com/embed/BHAyX9hejTc' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>"
+        }
+      ]
+    },
+    "link": null,
+    "setting": {
+      "style": {
+        "inActive": [
+          "padding"
+        ],
+        "color": "rgba(62,62,62,1)",
+        "backgroundColor": "rgba(255,255,255,1)",
+        "backgroundImage": ""
+      },
+      "function": {},
+      "unitStyle": {}
+    }
+  },
+  {
+    "id": "new1",
+    "name": "text1",
+    "type": "standard",
+    "moduleName": "1단 텍스트",
+    "isFunction": false,
+    "dataSet": {
+      "mods": "text1",
+      "column": [
+        {
+          "type": "text",
+          "hasLang": true,
+          "value": {
+            "en": "<h2 data-placeholder=\"Type the content here\">수요이벤트｜앰배서더 IoT 스마트룸</h2>",
+            "ko": "",
+            "zh": "",
+            "fr": ""
+          }
+        }
+      ]
+    },
+    "link": null,
+    "setting": {
+      "style": {
+        "inActive": [],
+        "color": "rgba(62,62,62,1)",
+        "backgroundColor": "rgba(255,255,255,1)",
+        "backgroundImage": ""
+      },
+      "function": {},
+      "unitStyle": {}
+    }
+  },
+  {
+    "id": "new2",
+    "name": "border",
+    "type": "standard",
+    "moduleName": "구분선",
+    "isFunction": false,
+    "dataSet": {
+      "mods": "border",
+      "column": [
+        {
+          "type": "border",
+          "hasLang": false,
+          "value": {}
+        }
+      ]
+    },
+    "setting": {
+      "exceptUnit": [
+        "textColor"
+      ],
+      "unitStyle": {
+        "borderColor": "rgba(62,62,62,1)",
+        "borderStyle": "solid"
+      },
+      "style": {
+        "inActive": [
+          "padding"
+        ],
+        "color": "rgba(62,62,62,1)",
+        "backgroundColor": "rgba(255,255,255,1)",
+        "backgroundImage": ""
+      },
+      "function": {}
+    },
+    "link": null
+  },
+  {
+    "id": "new4",
+    "name": "text1",
+    "type": "standard",
+    "moduleName": "1단 텍스트",
+    "isFunction": false,
+    "dataSet": {
+      "mods": "text1",
+      "column": [
+        {
+          "type": "text",
+          "hasLang": true,
+          "value": {
+            "en": "<p data-placeholder=\"Type the content here\">앰배서더 호텔 그룹은 사물인터넷(IoT) 전문 기업인 인터코어와 함께 호텔 특화 IoT 기술을 개발하였습니다.&amp;nbsp;<br>　<br>그릭고 혁신적인 편안함을 경험할 수 있는 '앰배서더 IoT 스마트룸을 선보입니다. 그랜드 앰배서더 서울 풀만 16층 전 객실에 마련된 혁신적인 '앰배서더 IoT 스마트룸'을 만나보세요!</p>",
+            "ko": "",
+            "zh": "",
+            "fr": ""
+          }
+        }
+      ]
+    },
+    "link": null,
+    "setting": {
+      "style": {
+        "inActive": [],
+        "color": "rgba(62,62,62,1)",
+        "backgroundColor": "rgba(255,255,255,1)",
+        "backgroundImage": ""
+      },
+      "function": {},
+      "unitStyle": {}
+    }
+  },
+  {
+    "id": "new9",
+    "name": "border",
+    "type": "standard",
+    "moduleName": "구분선",
+    "isFunction": false,
+    "dataSet": {
+      "mods": "border",
+      "column": [
+        {
+          "type": "border",
+          "hasLang": false,
+          "value": {}
+        }
+      ]
+    },
+    "setting": {
+      "exceptUnit": [
+        "textColor"
+      ],
+      "unitStyle": {
+        "borderColor": "rgba(155,155,155,1)",
+        "borderStyle": "solid"
+      },
+      "style": {
+        "inActive": [],
+        "color": "rgba(62,62,62,1)",
+        "backgroundColor": "rgba(255,255,255,1)",
+        "backgroundImage": ""
+      },
+      "function": {}
+    },
+    "link": null
+  },
+  {
+    "id": "new5",
+    "name": "image1",
+    "type": "standard",
+    "moduleName": "1단 이미지",
+    "isFunction": false,
+    "dataSet": {
+      "mods": "image1",
+      "column": [
+        {
+          "type": "image",
+          "hasLang": false,
+          "value": "https://scontent-gmp1-1.xx.fbcdn.net/v/t1.0-9/21557985_1508867695872524_6414402109356291998_n.jpg?_nc_cat=110&_nc_oc=AQmqROVKpyyzCQxOTIBKlk2qioSU9EvvqGPYEyqvjTDdcfrGJlFpErKr-kf5PsvSniE&_nc_ht=scontent-gmp1-1.xx&oh=39b3642224edca87832e3b4f70f98f88&oe=5DA51015",
+          "link": null
+        }
+      ]
+    },
+    "setting": {
+      "exceptUnit": [
+        "textColor"
+      ],
+      "style": {
+        "inActive": [],
+        "color": "rgba(62,62,62,1)",
+        "backgroundColor": "rgba(255,255,255,1)",
+        "backgroundImage": ""
+      },
+      "function": {},
+      "unitStyle": {}
+    },
+    "link": null
+  },
+  {
+    "id": "new6",
+    "name": "image2",
+    "type": "standard",
+    "moduleName": "2단 이미지",
+    "isFunction": false,
+    "dataSet": {
+      "mods": "image1",
+      "column": [
+        {
+          "type": "image",
+          "hasLang": false,
+          "value": "https://scontent-gmp1-1.xx.fbcdn.net/v/t1.0-9/21557882_1508867662539194_303420111304667320_n.jpg?_nc_cat=103&_nc_oc=AQkJUGXLlS96297k6JIxTp-Jw0b3akfu4KyHTfuhglQ45JJZF7sewoVUrrEAE_1Ul00&_nc_ht=scontent-gmp1-1.xx&oh=322b298223cfcb57264199915caecc12&oe=5DC61792",
+          "link": null
+        },
+        {
+          "type": "image",
+          "hasLang": false,
+          "value": "https://scontent-gmp1-1.xx.fbcdn.net/v/t31.0-8/21762262_1508867759205851_4287040028851529341_o.jpg?_nc_cat=103&_nc_oc=AQkywxs3T9XwgbEoSfgeE5VwIGjxwnkPfaXHX84OBc7NnOCuuzlU0o9otz2iWPT59ao&_nc_ht=scontent-gmp1-1.xx&oh=e02bcde4d5a642315ee0a56bea73810f&oe=5DA5B64B",
+          "link": null
+        }
+      ]
+    },
+    "setting": {
+      "exceptUnit": [
+        "textColor"
+      ],
+      "style": {
+        "inActive": [],
+        "color": "rgba(62,62,62,1)",
+        "backgroundColor": "rgba(255,255,255,1)",
+        "backgroundImage": ""
+      },
+      "function": {},
+      "unitStyle": {}
+    },
+    "link": null
+  },
+  {
+    "id": "new7",
+    "name": "border",
+    "type": "standard",
+    "moduleName": "구분선",
+    "isFunction": false,
+    "dataSet": {
+      "mods": "border",
+      "column": [
+        {
+          "type": "border",
+          "hasLang": false,
+          "value": {}
+        }
+      ]
+    },
+    "setting": {
+      "exceptUnit": [
+        "textColor"
+      ],
+      "unitStyle": {
+        "borderColor": "rgba(155,155,155,1)",
+        "borderStyle": "solid"
+      },
+      "style": {
+        "inActive": [],
+        "color": "rgba(62,62,62,1)",
+        "backgroundColor": "rgba(255,255,255,1)",
+        "backgroundImage": ""
+      },
+      "function": {}
+    },
+    "link": null
+  },
+  {
+    "id": "new8",
+    "name": "text1",
+    "type": "standard",
+    "moduleName": "1단 텍스트",
+    "isFunction": false,
+    "dataSet": {
+      "mods": "text1",
+      "column": [
+        {
+          "type": "text",
+          "hasLang": true,
+          "value": {
+            "en": "<p data-placeholder=\"Type the content here\"><a href=\"https://www.facebook.com/hashtag/%EC%95%B0%EB%B0%B0%EC%84%9C%EB%8D%94%ED%98%B8%ED%85%94%EA%B7%B8%EB%A3%B9?source=feed_text&amp;amp;epa=HASHTAG&amp;amp;__xts__%5B0%5D=68.ARCUxHUWp1wUV-aA-A1Wty5EtJnJCJ2WQL89qOqk1Pe0xpp6K3-_v_ifEImulNdwqZqL4VZP2bWrSyOuWFtr8kvYCgKNS5g8OcZVZbvVmziu9vWF0AlSD3qBLW2ptfopurXFk-OXJdmvxsywjNK2kmqsG9iK2iAvbN0ZbHPP7s0RRmBJH6vuI90FoPd0ARWsP0LcSpXRXOXnEVYmf_GFcajVtSg8pKfZmsoL3neXrb9jx62apd-0yWVsQfestSwVPOHtvIiqx9ErROQkU6A5aCdCsL2QtIzgJZJ4uwB2kGfMbPjwphgI2N7NNr3iZrm9ZsPXHG5UGx0wJTnGhiwMiVXG2g&amp;amp;__tn__=%2ANK-R\">#앰배서더호텔그룹</a> <a href=\"https://www.facebook.com/hashtag/%EC%88%98%EC%9A%94%EC%9D%B4%EB%B2%A4%ED%8A%B8?source=feed_text&amp;amp;epa=HASHTAG&amp;amp;__xts__%5B0%5D=68.ARCUxHUWp1wUV-aA-A1Wty5EtJnJCJ2WQL89qOqk1Pe0xpp6K3-_v_ifEImulNdwqZqL4VZP2bWrSyOuWFtr8kvYCgKNS5g8OcZVZbvVmziu9vWF0AlSD3qBLW2ptfopurXFk-OXJdmvxsywjNK2kmqsG9iK2iAvbN0ZbHPP7s0RRmBJH6vuI90FoPd0ARWsP0LcSpXRXOXnEVYmf_GFcajVtSg8pKfZmsoL3neXrb9jx62apd-0yWVsQfestSwVPOHtvIiqx9ErROQkU6A5aCdCsL2QtIzgJZJ4uwB2kGfMbPjwphgI2N7NNr3iZrm9ZsPXHG5UGx0wJTnGhiwMiVXG2g&amp;amp;__tn__=%2ANK-R\">#수요이벤트</a> <a href=\"https://www.facebook.com/hashtag/%EC%82%AC%EB%AC%BC%EC%9D%B8%ED%84%B0%EB%84%B7?source=feed_text&amp;amp;epa=HASHTAG&amp;amp;__xts__%5B0%5D=68.ARCUxHUWp1wUV-aA-A1Wty5EtJnJCJ2WQL89qOqk1Pe0xpp6K3-_v_ifEImulNdwqZqL4VZP2bWrSyOuWFtr8kvYCgKNS5g8OcZVZbvVmziu9vWF0AlSD3qBLW2ptfopurXFk-OXJdmvxsywjNK2kmqsG9iK2iAvbN0ZbHPP7s0RRmBJH6vuI90FoPd0ARWsP0LcSpXRXOXnEVYmf_GFcajVtSg8pKfZmsoL3neXrb9jx62apd-0yWVsQfestSwVPOHtvIiqx9ErROQkU6A5aCdCsL2QtIzgJZJ4uwB2kGfMbPjwphgI2N7NNr3iZrm9ZsPXHG5UGx0wJTnGhiwMiVXG2g&amp;amp;__tn__=%2ANK-R\" class=\"ck-link_selected\">#사물인터넷</a></p>",
+            "ko": "",
+            "zh": "",
+            "fr": ""
+          }
+        }
+      ]
+    },
+    "link": null,
+    "setting": {
+      "style": {
+        "inActive": [],
+        "color": "rgba(62,62,62,1)",
+        "backgroundColor": "rgba(255,255,255,1)",
+        "backgroundImage": ""
+      },
+      "function": {},
+      "unitStyle": {}
+    }
+  }
+]

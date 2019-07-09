@@ -1,0 +1,156 @@
+[
+   {
+      "id":"new0",
+      "name":"image1",
+      "type":"standard",
+      "moduleName":"1단 이미지",
+      "isFunction":false,
+      "dataSet":{
+         "mods":"image1",
+         "column":[
+            {
+               "type":"image",
+               "hasLang":false,
+               "value":"https://www.ambatel.com/RES/PRODUCT/201709/%EA%B7%B8%EB%9E%9C%EB%93%9C_20170907105655.png",
+               "link":null
+            }
+         ]
+      },
+      "setting":{
+         "exceptUnit":[
+            "textColor"
+         ],
+         "style":{
+            "inActive":[
+
+            ],
+            "color":"rgba(62,62,62,1)",
+            "backgroundColor":"rgba(255,255,255,1)",
+            "backgroundImage":""
+         },
+         "function":{
+
+         },
+         "unitStyle":{
+
+         }
+      },
+      "link":null
+   },
+   {
+      "id":"new1",
+      "name":"image1",
+      "type":"standard",
+      "moduleName":"1단 이미지",
+      "isFunction":false,
+      "dataSet":{
+         "mods":"image1",
+         "column":[
+            {
+               "type":"image",
+               "hasLang":false,
+               "value":"https://www.ambatel.com/RES/PRODUCT/201709/%EA%B7%B8%EB%9E%9C%EB%93%9C_01_1216x608_20170908102908.jpg",
+               "link":null
+            }
+         ]
+      },
+      "setting":{
+         "exceptUnit":[
+            "textColor"
+         ],
+         "style":{
+            "inActive":[
+               "padding"
+            ],
+            "color":"rgba(62,62,62,1)",
+            "backgroundColor":"rgba(255,255,255,1)",
+            "backgroundImage":""
+         },
+         "function":{
+
+         },
+         "unitStyle":{
+
+         }
+      },
+      "link":null
+   },
+   {
+      "id":"new2",
+      "name":"text1",
+      "type":"standard",
+      "moduleName":"1단 텍스트",
+      "isFunction":false,
+      "dataSet":{
+         "mods":"text1",
+         "column":[
+            {
+               "type":"text",
+               "hasLang":true,
+               "value":{
+                  "en":"<h3 data-placeholder=\"Type the content here\">Cosmopolitan luxury hotel for business traveler and leisure</h3>",
+                  "ko":"<h3 data-placeholder=\"Type the content here\">비즈니스, 레저 여행을 위한 감각적인 디자인의 코스모폴리탄 럭셔리 호텔</h3>",
+                  "zh":"",
+                  "fr":""
+               }
+            }
+         ]
+      },
+      "link":null,
+      "setting":{
+         "style":{
+            "inActive":[
+
+            ],
+            "color":"rgba(255,255,255,1)",
+            "backgroundColor":"rgba(41,41,41,1)",
+            "backgroundImage":""
+         },
+         "function":{
+
+         },
+         "unitStyle":{
+
+         }
+      }
+   },
+   {
+      "id":"new3",
+      "name":"text1",
+      "type":"standard",
+      "moduleName":"1단 텍스트",
+      "isFunction":false,
+      "dataSet":{
+         "mods":"text1",
+         "column":[
+            {
+               "type":"text",
+               "hasLang":true,
+               "value":{
+                  "en":"<p data-placeholder=\"Type the content here\">Grand Ambassador Seoul associated with Pullman is centrally located in Seoul and has easy access to major shopping, entertainment, and business center such as City Hall, Gwanghwamun, Dongdaemun, Myeongdong and Namsan. The 5-star cosmopolitan luxury hotel offers comfort stay with 413 rooms, 6 restaurants and bar including Michelin recommended Chinese restaurant and indoor swimming pool. The large scale Grand Ballroom and versatile meeting rooms will be the deal choice for successful business events. Free shuttle bus touring around the city\"s attractions and the nearest subway station make the hotel even more perfect for business and leisure travelers.</p>",
+                  "ko":"<p data-placeholder=\"Type the content here\">그랜드 앰배서더 서울 어소시에이티드 위드 풀만 호텔 (Grand Ambassador Seoul associated with Pullman)은 서울 중심에 위치하고 있어 서울시청, 광화문, 동대문, 명동, 남산 등 주요 쇼핑, 엔터테인먼트, 비즈니스 중심지와 가까이에 있습니다. 코스모폴리탄 럭셔리 브랜드 풀만과 서울의 매력을 동시에 느낄 수 있는 호텔은 413개의 객실과 6개의 레스토랑과 바, 실내 수영장, 스파 등을 갖추고 있습니다. 특히, 미쉐린 가이드 추천 레스토랑인 중식당 홍보각과 트립어드바이저 으뜸시설 상에 빛나는 뷔페 레스토랑 더 킹스에서는 최고의 맛을 즐기실 수 있습니다. 대규모 그랜드 볼룸과 다양한 활용이 가능한 미팅룸은 성공적인 비즈니스 미팅을 위한 최적의 장소입니다. 서울의 주요 관광 명소를 운영하는 무료 셔틀버스와 가까이에 위치한 지하철역은 여행과 출장을 위해 방문한 모든 분들께 편리함을 선사합니다.</p>",
+                  "zh":"",
+                  "fr":""
+               }
+            }
+         ]
+      },
+      "link":null,
+      "setting":{
+         "style":{
+            "inActive":[
+
+            ],
+            "color":"rgba(62,62,62,1)",
+            "backgroundColor":"rgba(255,255,255,1)",
+            "backgroundImage":""
+         },
+         "function":{
+
+         },
+         "unitStyle":{
+
+         }
+      }
+   }
+]
