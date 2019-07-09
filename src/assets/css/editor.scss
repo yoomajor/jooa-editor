@@ -248,7 +248,29 @@ body {
       z-index: 1;
     }
   }
-  
+  .standardEmbed {
+    .input {
+      font-size: 0.85em;
+    }
+    &.isEmbed .input {
+      margin-top: 5px;
+    }
+    .btn {
+      margin-top: 5px;
+    }
+  }
+  .isEmbed {
+    .input,
+    .btn {
+      display: none;
+    }
+  }
+  .active .isEmbed {
+    .input,
+    .btn {
+      display: initial;
+    }
+  }
 }
 .moduleSetting {
   display: flex;

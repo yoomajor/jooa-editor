@@ -25,6 +25,14 @@
             <label :class="{uploadImg: true, hasImg: item.value}"><span>Upload image</span><input type="file" @change="uploadImage($event, item)"></label>
           </div>
           <!-- //image -->
+          <!-- embed -->
+          <div v-if="item.type === 'embed'"
+            :class="{standardEmbed: true, formGroup: true, isEmbed: item.value}">
+            <div v-if="item.value" v-html="item.value" class="embed"></div>
+            <textarea name="" class="input" placeholder="iframe code here" rows="4" :value="item.value"></textarea>
+            <button type="button" class="btn btnFull" @click="btnEmbed($event, item)">{{ `${item.value ? '수정' : '적용'}` }}</button>
+          </div>
+          <!-- //embed -->
           <!-- button -->
           <div v-if="item.type === 'button'" class="buttonModule">
             <a v-if="functions.typeValue === 'link'"
@@ -255,6 +263,11 @@ export default {
     optionPrice: function (price) {
       const uncommaPrice = Number(String(price).replace(/[^-+.\d]/g, ''))
       return uncommaPrice === 0 ? '' : `(${price})`
+    },
+    btnEmbed: function (e, item) {
+      e.stopPropagation()
+      const value = e.target.closest('.standardEmbed').querySelector('.input').value
+      item.value = value
     }
   }
 }
