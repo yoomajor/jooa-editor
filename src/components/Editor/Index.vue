@@ -45,7 +45,7 @@
         <div
           class="mods"
           v-for="(module, index) in content"
-          :key="module.id"
+          :key="`mods_${module.id}`"
           @mouseenter="onMouseEnter"
           @mouseleave="onMouseLeave"
           @click="onModuleClick($event, index, module)">
@@ -60,8 +60,9 @@
             :type="module.type">
           </Module>
           <div class="handleMods">
-            <button type="button" class="handle handleMove" title="이동"></button>
-            <button type="button" class="handle handleDel" @click="onRemove($event, index)" title="삭제"></button>
+            <button type="button" class="handle handleMove" title="move"></button>
+            <button type="button" class="handle handleCopy" @click="onCopy($event, index)" title="copy"></button>
+            <button type="button" class="handle handleDel" @click="onRemove($event, index)" title="remove"></button>
           </div>
         </div>
       </draggable>
@@ -82,7 +83,6 @@ import Module from './Module.vue'
 import SettingModule from './SettingModule.vue'
 
 const MODULE_DATA = Object.values(modules)
-let moduleId = 0
 
 export default {
   components: {
@@ -210,9 +210,8 @@ export default {
         method: 'GET',
         url: '/article'
       }).then((res) => { // data to store
-        this.content = res.data.module.map(data => {
-          return { id: moduleId++, ...data }
-        })
+        console.log(res.data)
+        this.content = this._.cloneDeep(res.data.module)
       }).catch((ex) => {
         console.error('error:', ex)
       })
@@ -225,14 +224,19 @@ export default {
     },
     onClone: function (data) {
       const cloneData = this._.cloneDeep(data)
-      return {
-        id: `new${moduleId++}`,
-        ...cloneData
-      }
+      let newId = !this.content.length ? 0 : (this._.cloneDeep(this._.maxBy(this.content, o => o.id))).id + 1
+      return { id: newId, ...data }
     },
     onRemove: function (e, index) {
       e.stopPropagation()
       this.content.splice(index, 1)
+    },
+    onCopy: function (e, index) {
+      e.stopPropagation()
+      const data = this.content[index]
+      const cloneData = this._.cloneDeep(data)
+      cloneData.id = (this._.cloneDeep(this._.maxBy(this.content, o => o.id))).id + 1
+      this.content.splice(index+1, 0, cloneData)
     },
     /**
      * 특정 엘리먼트에 클래스명을 추가하고 인접 엘리먼트들에 클래스명을 삭제

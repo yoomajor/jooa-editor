@@ -12,12 +12,13 @@
         <!-- standard module case -->
         <div v-if="type === 'standard'" class="standardModule">
           <!-- text -->
-          <ckeditor v-if="item.type === 'text'" class="standardText" contenteditable="true" type="inline"
-            v-model="item.value[selectedLang]"
-            :config="config"
-            @blur="updateValue($event, index, mIdx)"
-            @drop="onDrop">
-          </ckeditor>
+          <div v-if="item.type === 'text'" @focusout="updateValue($event, index, mIdx)" class="standardText">
+            <ckeditor
+              :editor="editor"
+              v-model="item.value[selectedLang]"
+              :config="config">
+            </ckeditor>
+          </div>
           <!-- //text -->
           <!-- image -->
           <div v-if="item.type === 'image'" class="standardImage">
@@ -144,8 +145,8 @@
             :class="{ isRequired: functions.isRequired, formGroup: true }">
             <div class="label">{{ item.value[selectedLang] }}</div>
             <div class="multiBtn">
-              <button type="button" class="btn sizeM btnColumn">ASAP</button>
-              <button type="button" class="btn sizeM btnColumn">SET TIME</button>
+              <button :style="buttonStyle(functions.style)" type="button" class="btn sizeM btnColumn" contenteditable>ASAP</button>
+              <button :style="buttonStyle(functions.style)" type="button" class="btn sizeM btnColumn" contenteditable>SET TIME</button>
             </div>
             <div class="datetime">
               <datetime type="date"
@@ -169,8 +170,10 @@
 </template>
 
 <script>
+import InlineEditor from '@ckeditor/ckeditor5-build-inline'
 import config from './ckeditor_config'
 import Datetime from 'vue-datetime/src/Datetime.vue'
+
 export default {
   props: [
     'data',
@@ -186,10 +189,12 @@ export default {
   },
   data () {
     return {
+      editor: InlineEditor,
       itemData: {},
       editColumn: {},
       editorValue: {},
-      config: config
+      config: config,
+      currentValue: ''
     }
   },
   computed: {
@@ -215,18 +220,14 @@ export default {
     renderModule: function () {
       this.itemData = this._.cloneDeep(this.data)
     },
+    updateEditorValue: function (data) {
+      console.log(data)
+      this.currentValue = data
+    },
     updateValue: function (e, cIdx, mIdx) {
-      let value = function () {
-        if (e.target === undefined) { // is Editor?
-          e.sourceElement.querySelectorAll("br[data-cke-filler='true']").forEach(x => x.remove())
-          const isEmpty = e.sourceElement.innerText.length === 1 && e.sourceElement.childNodes.length
-          return isEmpty ? '' : e.sourceElement.innerHTML
-        } else {
-          return e.target.innerHTML
-        }
-      }
+      let value = e.target.innerHTML
       let updateData = {
-        value: value(),
+        value: value,
         mIdx: mIdx,
         cIdx: cIdx
       }

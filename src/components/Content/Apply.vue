@@ -1,7 +1,7 @@
 <template>
   <div class="contentApply">
     <button type="button" class="btn"
-      @click="applyContent">
+      @click="onSave">
       SAVE
     </button>
     <div>
@@ -57,6 +57,24 @@ export default {
       })
       */
       this.renderHtml = new XMLSerializer().serializeToString(article)
+    },
+    onSave: function () {
+      const article = {
+        module: this._.cloneDeep(this.moduleData)
+      }
+      this.putData(article)
+    },
+    putData: function (data) { // POST api
+      this.$http({
+        method: 'POST',
+        url: '/article',
+        data: data
+      }).then((res) => {
+        alert("처리 완료")
+        console.log(res)
+      }).catch((ex) => {
+        console.error('error:', ex)
+      })
     }
   }
 }

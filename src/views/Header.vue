@@ -1,6 +1,6 @@
 <template>
   <div>
-    로고랑 로그인 계정관련 들어감
+    logo, account utils
   </div>
 </template>
 

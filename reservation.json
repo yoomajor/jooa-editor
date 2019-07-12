@@ -1,6 +1,61 @@
-[
+{
+  "article":{
+    "id":"0",
+    "type":"order",
+    "state":"open",
+    "updateat":"2019-03-24T09:07:22.964Z",
+    "title":"orange juice",
+    "description":"make fresh orange juice every morning",
+    "thumbnail":"http://imgurl.jpg",
+    "category":{
+      "code":"fnd",
+      "child":{
+        "code":"breakfast",
+        "child":{
+          "code":"juice"
+        }
+      }
+    },
+    "availableInfo":{
+      "monday":{
+        "available":true,
+        "availableFrom":"06:00",
+        "availableTo":"10:00"
+      },
+      "tuesday":{
+        "available":true,
+        "availableFrom":"06:00",
+        "availableTo":"10:00"
+      },
+      "wednesday":{
+        "available":true,
+        "availableFrom":"06:00",
+        "availableTo":"10:00"
+      },
+      "thursday":{
+        "available":true,
+        "availableFrom":"06:00",
+        "availableTo":"10:00"
+      },
+      "friday":{
+        "available":true,
+        "availableFrom":"06:00",
+        "availableTo":"10:00"
+      },
+      "saturday":{
+        "available":false,
+        "availableFrom":null,
+        "availableTo":null
+      },
+      "sun":{
+        "available":false,
+        "availableFrom":null,
+        "availableTo":null
+      }
+    },
+    "module":[
       {
-        "id": "new1",
+        "id": 0,
         "name": "image1",
         "type": "standard",
         "moduleName": "1단 이미지",
@@ -34,7 +89,7 @@
         "link": null
       },
       {
-        "id": "new0",
+        "id": 1,
         "name": "text1",
         "type": "standard",
         "moduleName": "1단 텍스트",
@@ -67,7 +122,7 @@
         }
       },
       {
-        "id": "new3",
+        "id": 3,
         "name": "text1",
         "type": "standard",
         "moduleName": "1단 텍스트",
@@ -100,43 +155,7 @@
         }
       },
       {
-        "id": "new9",
-        "name": "border",
-        "type": "standard",
-        "moduleName": "구분선",
-        "isFunction": false,
-        "dataSet": {
-          "mods": "border",
-          "column": [
-            {
-              "type": "border",
-              "hasLang": false,
-              "value": {}
-            }
-          ]
-        },
-        "setting": {
-          "exceptUnit": [
-            "textColor"
-          ],
-          "unitStyle": {
-            "borderColor": "rgba(255,255,255,1)",
-            "borderStyle": "dashed"
-          },
-          "style": {
-            "inActive": [
-              "padding"
-            ],
-            "color": "rgba(62,62,62,1)",
-            "backgroundColor": "rgba(255,255,255,1)",
-            "backgroundImage": ""
-          },
-          "function": {}
-        },
-        "link": null
-      },
-      {
-        "id": "new13",
+        "id": 13,
         "name": "image2",
         "type": "standard",
         "moduleName": "2단 이미지",
@@ -174,7 +193,7 @@
         "link": null
       },
       {
-        "id": "new6",
+        "id": 6,
         "name": "text1",
         "type": "standard",
         "moduleName": "1단 텍스트",
@@ -207,7 +226,7 @@
         }
       },
       {
-        "id": "new9",
+        "id": 9,
         "name": "border",
         "type": "standard",
         "moduleName": "구분선",
@@ -243,7 +262,7 @@
         "link": null
       },
       {
-        "id": "new7",
+        "id": 7,
         "name": "radio",
         "type": "function",
         "moduleName": "radio",
@@ -303,7 +322,7 @@
         "link": null
       },
       {
-        "id": "new12",
+        "id": 12,
         "name": "border",
         "type": "standard",
         "moduleName": "구분선",
@@ -337,7 +356,7 @@
         "link": null
       },
       {
-        "id": "new11",
+        "id": 11,
         "name": "datetime",
         "type": "function",
         "moduleName": "date time",
@@ -375,7 +394,7 @@
         "link": null
       },
       {
-        "id": "new8",
+        "id": 8,
         "name": "quantity",
         "type": "function",
         "moduleName": "수량",
@@ -424,7 +443,7 @@
         "link": null
       },
       {
-        "id": "new10",
+        "id": 10,
         "name": "button",
         "type": "standard",
         "moduleName": "1단 버튼",
@@ -499,4 +518,7 @@
         },
         "link": null
       }
-    ]
+    ],
+    "render":"<article class='article'><h1>Orange Juice</h1><div>Orange juice</div> ... </article>"
+  }
+}

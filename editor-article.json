@@ -1,59 +1,283 @@
 {
-  "article":{
-    "id":"0",
-    "type":"order",
-    "state":"open",
-    "updateat":"2019-03-24T09:07:22.964Z",
-    "title":"orange juice",
-    "description":"make fresh orange juice every morning",
-    "thumbnail":"http://imgurl.jpg",
-    "category":{
-      "code":"fnd",
-      "child":{
-        "code":"breakfast",
-        "child":{
-          "code":"juice"
+  "article": {
+    "id": 0,
+    "module": [
+      {
+        "id": 0,
+        "name": "text1",
+        "type": "standard",
+        "moduleName": "1단 텍스트",
+        "isFunction": false,
+        "dataSet": {
+          "mods": "text1",
+          "column": [
+            {
+              "type": "text",
+              "hasLang": true,
+              "value": {
+                "en": "<p data-placeholder=\"Type the content here\">orange juice</p>",
+                "ko": "<p data-placeholder=\"Type the content here\">오렌지쥬스</p>",
+                "zh": "",
+                "fr": ""
+              }
+            }
+          ]
+        },
+        "link": null,
+        "setting": {
+          "style": {
+            "inActive": [],
+            "color": "rgba(62,62,62,1)",
+            "backgroundColor": "rgba(255,255,255,1)",
+            "backgroundImage": ""
+          },
+          "function": {},
+          "unitStyle": {}
         }
+      },
+      {
+        "id": 1,
+        "name": "checkbox",
+        "type": "function",
+        "moduleName": "checkbox",
+        "isFunction": true,
+        "dataSet": {
+          "mods": "checkbox",
+          "column": [
+            {
+              "type": "text",
+              "hasLang": true,
+              "value": {
+                "en": "cup",
+                "ko": "컵",
+                "zh": "Information to be input",
+                "fr": "Information to be input"
+              }
+            }
+          ]
+        },
+        "setting": {
+          "function": {
+            "label": "options",
+            "hasLang": true,
+            "optionValue": [],
+            "item": [
+              {
+                "label": {
+                  "en": "rounded",
+                  "ko": "컵1",
+                  "zh": "list option 1",
+                  "fr": "list option 1"
+                },
+                "itemValue": "둥근",
+                "itemPrice": 0
+              },
+              {
+                "label": {
+                  "en": "square",
+                  "ko": "컵2",
+                  "zh": "list option 2",
+                  "fr": "list option 2"
+                },
+                "itemValue": "네모난",
+                "itemPrice": 0
+              }
+            ],
+            "isRequired": true
+          },
+          "style": {
+            "inActive": [],
+            "color": "rgba(62,62,62,1)",
+            "backgroundColor": "rgba(255,255,255,1)",
+            "backgroundImage": ""
+          },
+          "unitStyle": {}
+        },
+        "link": null
+      },
+      {
+        "id": 2,
+        "name": "quantity",
+        "type": "function",
+        "moduleName": "수량",
+        "isFunction": true,
+        "dataSet": {
+          "mods": "quantity",
+          "column": [
+            {
+              "type": "text",
+              "hasLang": true,
+              "value": {
+                "en": "quantity",
+                "ko": "수량",
+                "zh": "Information to be input",
+                "fr": "Information to be input"
+              }
+            }
+          ]
+        },
+        "setting": {
+          "function": {
+            "optionValue": "",
+            "min": {
+              "name": "minimum",
+              "vol": 2
+            },
+            "max": {
+              "name": "maximum",
+              "vol": 5
+            },
+            "price": {
+              "isPrice": false,
+              "value": "10,000",
+              "view": ""
+            },
+            "isRequired": true
+          },
+          "style": {
+            "inActive": [],
+            "color": "rgba(62,62,62,1)",
+            "backgroundColor": "rgba(255,255,255,1)",
+            "backgroundImage": ""
+          },
+          "unitStyle": {}
+        },
+        "link": null
+      },
+      {
+        "id": 4,
+        "name": "datetime",
+        "type": "function",
+        "moduleName": "date time",
+        "isFunction": true,
+        "dataSet": {
+          "mods": "datetime",
+          "column": [
+            {
+              "type": "text",
+              "hasLang": true,
+              "value": {
+                "en": "set time",
+                "ko": "시간대",
+                "zh": "Information to be input",
+                "fr": "Information to be input"
+              }
+            }
+          ]
+        },
+        "setting": {
+          "function": {
+            "label": "datetime",
+            "date": "2019-07-12T04:27:40.651Z",
+            "isASAP": true,
+            "style": [
+              {
+                "key": "color",
+                "label": "text color",
+                "value": "rgba(255,255,255,1)",
+                "option": "color"
+              },
+              {
+                "key": "backgroundColor",
+                "label": "background color",
+                "value": "rgba(190,196,213,1)",
+                "option": "color"
+              },
+              {
+                "key": "borderColor",
+                "label": "border color",
+                "value": "rgba(77,86,109,1)",
+                "option": "color"
+              }
+            ],
+            "isRequired": true
+          },
+          "style": {
+            "inActive": [],
+            "color": "rgba(253,253,253,1)",
+            "backgroundColor": "rgba(125,52,52,1)",
+            "backgroundImage": ""
+          },
+          "unitStyle": {}
+        },
+        "link": null
+      },
+      {
+        "id": 3,
+        "name": "button",
+        "type": "standard",
+        "moduleName": "1단 버튼",
+        "isFunction": true,
+        "unCommon": true,
+        "dataSet": {
+          "mods": "button",
+          "column": [
+            {
+              "type": "button",
+              "hasLang": true,
+              "value": {
+                "en": "order",
+                "ko": "주문",
+                "zh": "BUTTON",
+                "fr": "BUTTON"
+              }
+            }
+          ]
+        },
+        "setting": {
+          "exceptUnit": [
+            "textColor"
+          ],
+          "function": {
+            "type": [
+              {
+                "name": "link url",
+                "action": "link"
+              },
+              {
+                "name": "submit",
+                "action": "submit"
+              },
+              {
+                "name": "cart",
+                "action": "cart"
+              }
+            ],
+            "url": "",
+            "typeValue": "link",
+            "style": [
+              {
+                "key": "color",
+                "label": "text color",
+                "value": "rgba(232,187,187,1)",
+                "option": "color"
+              },
+              {
+                "key": "backgroundColor",
+                "label": "background color",
+                "value": "rgba(20,57,153,1)",
+                "option": "color"
+              },
+              {
+                "key": "borderColor",
+                "label": "border color",
+                "value": "rgba(231,6,146,1)",
+                "option": "color"
+              }
+            ]
+          },
+          "style": {
+            "inActive": [
+              "padding"
+            ],
+            "color": "rgba(62,62,62,1)",
+            "backgroundColor": "rgba(255,255,255,1)",
+            "backgroundImage": ""
+          },
+          "unitStyle": {}
+        },
+        "link": null
       }
-    },
-    "availableInfo":{
-      "monday":{
-        "available":true,
-        "availableFrom":"06:00",
-        "availableTo":"10:00"
-      },
-      "tuesday":{
-        "available":true,
-        "availableFrom":"06:00",
-        "availableTo":"10:00"
-      },
-      "wednesday":{
-        "available":true,
-        "availableFrom":"06:00",
-        "availableTo":"10:00"
-      },
-      "thursday":{
-        "available":true,
-        "availableFrom":"06:00",
-        "availableTo":"10:00"
-      },
-      "friday":{
-        "available":true,
-        "availableFrom":"06:00",
-        "availableTo":"10:00"
-      },
-      "saturday":{
-        "available":false,
-        "availableFrom":null,
-        "availableTo":null
-      },
-      "sun":{
-        "available":false,
-        "availableFrom":null,
-        "availableTo":null
-      }
-    },
-    "module":[],
-    "render":"<article class='article'><h1>Orange Juice</h1><div>Orange juice</div> ... </article>"
+    ]
   }
 }

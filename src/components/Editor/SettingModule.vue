@@ -19,6 +19,9 @@
           :key="index">
           <div class="unit">
             <!-- 사용 여부 -->
+            <div style="font-size:20px;">
+            {{item.active}}
+            </div>
             <div v-if="item.active !== undefined" class="checkbox">
               <input type="checkbox" :id="`${item.option}_${moduleInfo.id}`" :value="item.active" v-model="item.active" @change="activeStyle(item, index)">
               <label :for="`${item.option}_${moduleInfo.id}`">{{ item.moduleName }}</label>
@@ -89,7 +92,7 @@
       </div>
       <!-- //setting style -->
       <!-- setting function -->
-      <div v-else-if="settingType === 'function'">
+      <div v-else-if="settingType === 'function'" class="listBox">
         <div v-if="$store.state.content.isFunction">
           <div v-for="(item, index) in settingList"
             :key="index">
@@ -205,23 +208,50 @@
             </div>
             <!-- //function :: select -->
             <!-- function :: button -->
-            <div v-if="settingModuleInfo.mods === 'button'" class="item">
-              <div class="unit itemList">
-                <div class="listItem">
-                  <div
-                    class="checkbox radio"
-                    v-for="(item, idx) in settingModuleData.function.type"
-                    :key="idx">
-                    <input type="radio" :name="`option_${moduleInfo.id}`" :id="`option_${moduleInfo.id}_${idx}`" :value="item.action" v-model="settingModuleData.function.typeValue">
-                    <label :for="`option_${moduleInfo.id}_${idx}`">{{ item.name }}</label>
+            <div v-if="settingModuleInfo.mods === 'button'">
+              <div class="item">
+                <div class="unit itemList">
+                  <div class="listItem">
+                    <div
+                      class="checkbox radio"
+                      v-for="(item, idx) in settingModuleData.function.type"
+                      :key="idx">
+                      <input type="radio" :name="`option_${moduleInfo.id}`" :id="`option_${moduleInfo.id}_${idx}`" :value="item.action" v-model="settingModuleData.function.typeValue">
+                      <label :for="`option_${moduleInfo.id}_${idx}`">{{ item.name }}</label>
+                    </div>
+                  </div>
+                  <!-- link url input -->
+                  <div class="listItem">
+                    <input type="url" class="input" placeholder="url link" v-model="settingModuleData.function.url" :disabled="settingModuleData.function.typeValue !== 'link'" />
                   </div>
                 </div>
-                <!-- link url input -->
-                <div class="listItem">
-                  <input type="url" class="input" placeholder="url link" v-model="settingModuleData.function.url" :disabled="settingModuleData.function.typeValue !== 'link'" />
+              </div>
+              <div class="item">
+                <!-- button color -->
+                <div class="unit itemList">
+                  <div
+                    class="listItem"
+                    v-for="(itemStyle, idx) in settingModuleData.function.style"
+                    :key="idx">
+                    <div class="label">{{ itemStyle.label }}</div>
+                    <div
+                      class="colorPreset"
+                      :style="{ backgroundColor: settingBtnColor(itemStyle.value, idx) }">
+                      <input type="text"
+                        class="btnColorPicker"
+                        v-model="settingModuleData.function.style[idx].value"
+                        @click="colorPicker" />
+                      <sketch-picker
+                        style="display: none"
+                        v-model="settingModuleData.function.style[idx].value" />
+                    </div>
+                  </div>
                 </div>
               </div>
-              <!-- button color -->
+            </div>
+            <!-- //function :: button -->
+            <!-- function :: date time -->
+            <div v-if="settingModuleInfo.mods === 'datetime'" class="item">
               <div class="unit itemList">
                 <div
                   class="listItem"
@@ -240,13 +270,6 @@
                       v-model="settingModuleData.function.style[idx].value" />
                   </div>
                 </div>
-              </div>
-            </div>
-            <!-- //function :: button -->
-            <!-- function :: date time -->
-            <div v-if="settingModuleInfo.mods === 'datetime'" class="item">
-              <div class="unit itemList">
-                <div class="label">{{ settingModuleData.function.label }}</div>
               </div>
             </div>
             <!-- //function :: date time -->
