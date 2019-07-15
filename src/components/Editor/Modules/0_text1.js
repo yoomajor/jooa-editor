@@ -1,4 +1,5 @@
 export default {
+  id: 'text1',
   name: 'text1',
   type: 'standard',
   moduleName: '1단 텍스트',

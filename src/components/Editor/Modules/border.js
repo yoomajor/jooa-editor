@@ -1,4 +1,5 @@
 export default {
+  id: 'border',
   name: 'border',
   type: 'standard',
   moduleName: '구분선',

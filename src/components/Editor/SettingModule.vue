@@ -19,9 +19,6 @@
           :key="index">
           <div class="unit">
             <!-- 사용 여부 -->
-            <div style="font-size:20px;">
-            {{item.active}}
-            </div>
             <div v-if="item.active !== undefined" class="checkbox">
               <input type="checkbox" :id="`${item.option}_${moduleInfo.id}`" :value="item.active" v-model="item.active" @change="activeStyle(item, index)">
               <label :for="`${item.option}_${moduleInfo.id}`">{{ item.moduleName }}</label>

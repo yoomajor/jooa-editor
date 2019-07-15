@@ -1,4 +1,5 @@
 export default {
+  id: 'button',
   name: 'button',
   type: 'standard',
   moduleName: '1단 버튼',

@@ -1,5 +1,192 @@
 {
   "article": {
-    "module": []
+    "module": [
+      {
+        "id": 0,
+        "name": "text1",
+        "type": "standard",
+        "moduleName": "1단 텍스트",
+        "isFunction": false,
+        "dataSet": {
+          "mods": "text1",
+          "column": [
+            {
+              "type": "text",
+              "hasLang": true,
+              "value": {
+                "en": "<p data-placeholder=\"Type the content here\"><u>112345</u></p>",
+                "ko": "",
+                "zh": "",
+                "fr": ""
+              }
+            }
+          ]
+        },
+        "link": null,
+        "setting": {
+          "style": {
+            "inActive": [],
+            "color": "rgba(62,62,62,1)",
+            "backgroundColor": "rgba(255,255,255,1)",
+            "backgroundImage": ""
+          },
+          "function": {},
+          "unitStyle": {}
+        }
+      },
+      {
+        "id": 1,
+        "name": "text1",
+        "type": "standard",
+        "moduleName": "1단 텍스트",
+        "isFunction": false,
+        "dataSet": {
+          "mods": "text1",
+          "column": [
+            {
+              "type": "text",
+              "hasLang": true,
+              "value": {
+                "en": "<p data-placeholder=\"Type the content here\">w<s>kfemdjrk?</s></p>",
+                "ko": "",
+                "zh": "",
+                "fr": ""
+              }
+            }
+          ]
+        },
+        "link": null,
+        "setting": {
+          "style": {
+            "inActive": [],
+            "color": "rgba(62,62,62,1)",
+            "backgroundColor": "rgba(255,255,255,1)",
+            "backgroundImage": ""
+          },
+          "function": {},
+          "unitStyle": {}
+        }
+      },
+      {
+        "id": 2,
+        "name": "radio",
+        "type": "function",
+        "moduleName": "radio",
+        "isFunction": true,
+        "dataSet": {
+          "mods": "radio",
+          "column": [
+            {
+              "type": "text",
+              "hasLang": true,
+              "value": {
+                "en": "radio 1",
+                "ko": "Information to be input",
+                "zh": "Information to be input",
+                "fr": "Information to be input"
+              }
+            }
+          ]
+        },
+        "setting": {
+          "function": {
+            "label": "options",
+            "hasLang": true,
+            "optionValue": "radio value 2",
+            "item": [
+              {
+                "label": {
+                  "en": "radio option 1",
+                  "ko": "list option 1",
+                  "zh": "list option 1",
+                  "fr": "list option 1"
+                },
+                "itemValue": "radio value 1",
+                "itemPrice": 0
+              },
+              {
+                "label": {
+                  "en": "radio option 2",
+                  "ko": "list option 2",
+                  "zh": "list option 2",
+                  "fr": "list option 2"
+                },
+                "itemValue": "radio value 2",
+                "itemPrice": 0
+              }
+            ],
+            "isRequired": true
+          },
+          "style": {
+            "inActive": [],
+            "color": "rgba(62,62,62,1)",
+            "backgroundColor": "rgba(255,255,255,1)",
+            "backgroundImage": ""
+          },
+          "unitStyle": {}
+        },
+        "link": null
+      },
+      {
+        "id": 3,
+        "name": "radio",
+        "type": "function",
+        "moduleName": "radio",
+        "isFunction": true,
+        "dataSet": {
+          "mods": "radio",
+          "column": [
+            {
+              "type": "text",
+              "hasLang": true,
+              "value": {
+                "en": "radio 2",
+                "ko": "Information to be input",
+                "zh": "Information to be input",
+                "fr": "Information to be input"
+              }
+            }
+          ]
+        },
+        "setting": {
+          "function": {
+            "label": "options",
+            "hasLang": true,
+            "optionValue": "radi2o value 1",
+            "item": [
+              {
+                "label": {
+                  "en": "radio2 option 1",
+                  "ko": "list option 1",
+                  "zh": "list option 1",
+                  "fr": "list option 1"
+                },
+                "itemValue": "radi2o value 1",
+                "itemPrice": 0
+              },
+              {
+                "label": {
+                  "en": "radio2 option 2",
+                  "ko": "list option 2",
+                  "zh": "list option 2",
+                  "fr": "list option 2"
+                },
+                "itemValue": "radio2 value 2",
+                "itemPrice": 0
+              }
+            ],
+            "isRequired": true
+          },
+          "style": {
+            "inActive": [],
+            "color": "rgba(62,62,62,1)",
+            "backgroundColor": "rgba(255,255,255,1)",
+            "backgroundImage": ""
+          },
+          "unitStyle": {}
+        },
+        "link": null
+      }
+    ]
   }
 }

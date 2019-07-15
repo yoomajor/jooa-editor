@@ -1,4 +1,5 @@
 export default {
+  id: 'datetime',
   name: 'datetime',
   type: 'function',
   moduleName: 'date time',

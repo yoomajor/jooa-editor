@@ -1,4 +1,5 @@
 export default {
+  id: 'radio',
   name: 'radio',
   type: 'function',
   moduleName: 'radio',

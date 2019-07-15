@@ -32,7 +32,6 @@ export default {
   watch: {
   },
   created: function () {
-    console.log()
   },
   methods: {
     applyContent: function () {
@@ -62,6 +61,7 @@ export default {
       const article = {
         module: this._.cloneDeep(this.moduleData)
       }
+      console.log(this.$store.state.content.modules)
       this.putData(article)
     },
     putData: function (data) { // POST api

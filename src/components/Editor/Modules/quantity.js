@@ -1,4 +1,5 @@
 export default {
+  id: 'quantity',
   name: 'quantity',
   type: 'function',
   moduleName: '수량',

@@ -135,7 +135,7 @@
                 :key="index"
                 :name="`option_${mIdx}`"
                 :id="`option_${mIdx}_${index}`"
-                :value="option.itemValue" readonly>
+                :value="option.itemValue">
                 {{ option.label[selectedLang] }}
               </option>
             </select>
@@ -226,7 +226,13 @@ export default {
       this.currentValue = data
     },
     updateValue: function (e, cIdx, mIdx) {
-      let value = e.target.className.indexOf('ck-editor') !== -1 ? this.currentValue : e.target.innerHTML
+      let value =''
+      if (e.target.className.indexOf('ck-editor') !== -1) { // is ckeditor?
+        e.target.querySelectorAll('br[data-cke-filler="true"]').forEach(e => e.parentNode.removeChild(e))
+      }
+      value = e.target.innerHTML
+      // let value = e.target.className.indexOf('ck-editor') !== -1 ? this.currentValue : e.target.innerHTML
+      // let value = e.target.innerHTML
       let updateData = {
         value: value,
         mIdx: mIdx,

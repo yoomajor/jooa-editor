@@ -1,4 +1,5 @@
 export default {
+  id: 'select',
   name: 'select',
   type: 'function',
   moduleName: 'select',

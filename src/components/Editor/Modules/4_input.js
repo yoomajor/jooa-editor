@@ -1,4 +1,5 @@
 export default {
+  id: 'input',
   name: 'input',
   type: 'function',
   moduleName: 'input',

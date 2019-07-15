@@ -1,4 +1,5 @@
 export default {
+  id: 'textarea',
   name: 'textarea',
   type: 'function',
   moduleName: '긴 입력필드',

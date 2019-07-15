@@ -1,4 +1,5 @@
 export default {
+  id: 'image2',
   name: 'image2',
   type: 'standard',
   moduleName: '2단 이미지',

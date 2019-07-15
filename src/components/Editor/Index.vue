@@ -154,7 +154,7 @@ export default {
     content: {
       deep: true,
       handler: function (data) {
-        // this.$store.commit('content/modules', data)
+        this.$store.commit('content/modules', data)
       }
     }
   },
@@ -224,10 +224,10 @@ export default {
       this.editMode.state = 'default'
     },
     onClone: function (data) {
-      console.log(data)
       const cloneData = this._.cloneDeep(data)
       let newId = !this.content.length ? 0 : (this._.cloneDeep(this._.maxBy(this.content, o => o.id))).id + 1
-      return { id: newId, ...data }
+      cloneData.id = newId
+      return cloneData
     },
     onRemove: function (e, index) {
       e.stopPropagation()

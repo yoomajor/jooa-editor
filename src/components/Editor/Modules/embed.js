@@ -1,4 +1,5 @@
 export default {
+  id: 'embed',
   name: 'embed',
   type: 'standard',
   moduleName: 'embed',

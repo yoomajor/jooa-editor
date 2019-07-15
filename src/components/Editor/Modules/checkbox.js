@@ -1,4 +1,5 @@
 export default {
+  id: 'checkbox',
   name: 'checkbox',
   type: 'function',
   moduleName: 'checkbox',
