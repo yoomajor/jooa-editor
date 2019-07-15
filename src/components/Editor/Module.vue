@@ -8,14 +8,15 @@
       <div
         class="column"
         v-for="(item, index) in itemData.column"
-        :key="index">
+        :key="`${mId}_${index}`">
         <!-- standard module case -->
         <div v-if="type === 'standard'" class="standardModule">
           <!-- text -->
-          <div v-if="item.type === 'text'" @focusout="updateValue($event, index, mIdx)" class="standardText">
+          <div v-if="item.type === 'text'" class="standardText" @focusout="updateValue($event, index, mIdx)">
             <ckeditor
               :editor="editor"
-              v-model="item.value[selectedLang]"
+              :value="item.value[selectedLang]"
+              @input="updateEditorValue"
               :config="config">
             </ckeditor>
           </div>
@@ -180,6 +181,7 @@ export default {
     'styles',
     'unitStyles',
     'functions',
+    'mId',
     'mIdx',
     'type',
     'state'
@@ -221,11 +223,10 @@ export default {
       this.itemData = this._.cloneDeep(this.data)
     },
     updateEditorValue: function (data) {
-      console.log(data)
       this.currentValue = data
     },
     updateValue: function (e, cIdx, mIdx) {
-      let value = e.target.innerHTML
+      let value = e.target.className.indexOf('ck-editor') !== -1 ? this.currentValue : e.target.innerHTML
       let updateData = {
         value: value,
         mIdx: mIdx,

@@ -12,7 +12,7 @@ export default {
   },
   mutations: {
     modules: function (state, data) {
-      state.modules = data.map(x => x)
+      state.modules = data
     },
     moduleInfo: function (state, data) {
       state.activeModule = data
